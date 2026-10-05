@@ -1,0 +1,34 @@
+{
+  "document_id": "07cc0895-3970-4eac-8ebe-5da5ebddb56a",
+  "filename": "day7_spec.md",
+  "file_type": "md",
+  "total_chunks": 2,
+  "chunks": [
+    {
+      "chunk_id": "edc3eeee-baea-4f8f-9770-76325572d971",
+      "project_id": "p_day7_isolated",
+      "document_id": "07cc0895-3970-4eac-8ebe-5da5ebddb56a",
+      "chunk_type": "requirement_doc",
+      "source_section": "1. Candidate Eligibility and Scoring",
+      "source_page": null,
+      "source_line_start": null,
+      "source_line_end": null,
+      "text_length": 171,
+      "text": "Candidates must score at least 33% (66 marks) in CSAT Paper 2 to qualify for Mains evaluation.\nThe system shall calculate total scores within 2 seconds of test submission.",
+      "embedding_status": false
+    },
+    {
+      "chunk_id": "b60ed3cc-4656-4155-aec1-2bdc33abf7c2",
+      "project_id": "p_day7_isolated",
+      "document_id": "07cc0895-3970-4eac-8ebe-5da5ebddb56a",
+      "chunk_type": "requirement_doc",
+      "source_section": "2. Security and Performance",
+      "source_page": null,
+      "source_line_start": null,
+      "source_line_end": null,
+      "text_length": 169,
+      "text": "The application must be completely secure and provide fast response times for all users.\nPass-fail results will be emailed to registered candidates upon exam completion.",
+      "embedding_status": false
+    }
+  ]
+}

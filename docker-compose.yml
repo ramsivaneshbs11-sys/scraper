@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  # 1. Open-Source AI QA Engineer Platform (FastAPI + Playwright Runner)
+  qa-platform:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: open_ai_qa_engineer
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - QDRANT_URL=http://qdrant:6333
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - HOST=0.0.0.0
+      - PORT=8000
+    volumes:
+      # Mount storage directory to persist uploaded documents, chunks, and captured screenshot evidence
+      - ./storage:/workspace/storage
+      # Mount SQLite DB file to persist projects, requirements, and test cases
+      - ./test_case_generator.db:/workspace/test_case_generator.db
+    depends_on:
+      - qdrant
+    extra_hosts:
+      # Allows Playwright running inside container to access web apps running on the host OS (e.g. http://host.docker.internal:3000)
+      - "host.docker.internal:host-gateway"
+
+  # 2. Qdrant Vector Database (Vector storage for RAG Semantic Retrieval)
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: qa_qdrant_db
+    restart: unless-stopped
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_data:/qdrant/storage
+
+volumes:
+  qdrant_data:
+    driver: local

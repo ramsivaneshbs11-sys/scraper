@@ -1,0 +1,54 @@
+{
+  "document_id": "dd499bfb-9f66-4c4c-92d6-b73c9f83dbbd",
+  "project_id": "p_copilot",
+  "filename": "payment_specs.md",
+  "total_chunks_analyzed": 2,
+  "requirements_count": 4,
+  "ambiguities_count": 1,
+  "requirements": [
+    {
+      "id": "223ce71c-2179-4e39-b58a-1c07ba111c78",
+      "text": "The wallet top-up amount must be between 100 and 10000 rupees.",
+      "confidence": 0.95,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "53468812-b4bd-462c-ae40-3e39d849c2f9"
+      ]
+    },
+    {
+      "id": "1dbcf177-9b75-4164-9021-6d4a4da5c650",
+      "text": "Transactions below 100 or above 10000 must be rejected with an invalid amount error.",
+      "confidence": 0.95,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "53468812-b4bd-462c-ae40-3e39d849c2f9"
+      ]
+    },
+    {
+      "id": "7cc71ad8-99d1-4737-b497-8831f5727b28",
+      "text": "If the bank server is unresponsive, the system must retry 3 times before failing the transaction.",
+      "confidence": 0.95,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "669939dd-33df-4e0f-a2d8-fa4a499af167"
+      ]
+    },
+    {
+      "id": "9ebe8ef7-36fc-4885-9f41-56d6963c7c7d",
+      "text": "The system response should be fast and secure.",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "669939dd-33df-4e0f-a2d8-fa4a499af167"
+      ]
+    }
+  ],
+  "ambiguities": [
+    {
+      "id": "45ad28cd-3aef-44d4-9470-9783b00be97f",
+      "description": "Vague or subjective term 'fast' used in statement: 'The system response should be fast and secure....'",
+      "suggested_clarification": "Please specify precise numerical metrics or verifiable criteria for 'fast'.",
+      "status": "open"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "document_id": "cc54b80d-1475-439c-92a0-8fb3a47896c9",
+  "filename": "upsc_mock_test.md",
+  "file_type": "md",
+  "total_chunks": 2,
+  "chunks": [
+    {
+      "chunk_id": "de773077-2819-4d42-bdfa-02ec03261655",
+      "project_id": "p1",
+      "document_id": "cc54b80d-1475-439c-92a0-8fb3a47896c9",
+      "chunk_type": "requirement_doc",
+      "source_section": "1. Exam Structure",
+      "source_page": null,
+      "source_line_start": null,
+      "source_line_end": null,
+      "text_length": 118,
+      "text": "| Stage | Questions | Duration | Marks |\n| Prelims | 100 | 120 Mins | 200 |\n| Mains | 9 Papers | 3 Hours Each | 1750 |",
+      "embedding_status": false
+    },
+    {
+      "chunk_id": "bd64f44b-0c2c-456d-b654-378f8238eaff",
+      "project_id": "p1",
+      "document_id": "cc54b80d-1475-439c-92a0-8fb3a47896c9",
+      "chunk_type": "requirement_doc",
+      "source_section": "2. Evaluation Policy",
+      "source_page": null,
+      "source_line_start": null,
+      "source_line_end": null,
+      "text_length": 78,
+      "text": "System performs automatic scoring and answers must cite official UPSC sources.",
+      "embedding_status": false
+    }
+  ]
+}

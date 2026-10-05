@@ -1,0 +1,27 @@
+{
+  "document_id": "2c6785de-25ea-4093-a940-a52098af6e68",
+  "filename": "day7_spec.md",
+  "file_type": "md",
+  "total_characters": 340,
+  "units_count": 2,
+  "metadata": {
+    "sections_count": 3,
+    "preprocessed": true
+  },
+  "units": [
+    {
+      "section_title": "1. Candidate Eligibility and Scoring",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "Candidates must score at least 33% (66 marks) in CSAT Paper 2 to qualify for Mains evaluation.\nThe system shall calculate total scores within 2 seconds of test submission."
+    },
+    {
+      "section_title": "2. Security and Performance",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "The application must be completely secure and provide fast response times for all users.\nPass-fail results will be emailed to registered candidates upon exam completion."
+    }
+  ]
+}

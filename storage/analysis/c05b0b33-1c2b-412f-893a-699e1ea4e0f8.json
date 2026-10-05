@@ -1,0 +1,47 @@
+{
+  "document_id": "c05b0b33-1c2b-412f-893a-699e1ea4e0f8",
+  "project_id": "p1",
+  "filename": "upsc_mock_test.md",
+  "total_chunks_analyzed": 2,
+  "requirements_count": 4,
+  "ambiguities_count": 0,
+  "requirements": [
+    {
+      "id": "b9ac71f5-704b-411d-838c-7ef6ec014aa0",
+      "text": "Specification row: Stage, Questions, Duration, Marks",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "26d82a36-e736-4786-b922-6184319007ee"
+      ]
+    },
+    {
+      "id": "4b08d120-acd4-4a95-8243-57318b90c41d",
+      "text": "Specification row: Prelims, 100, 120 Mins, 200",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "26d82a36-e736-4786-b922-6184319007ee"
+      ]
+    },
+    {
+      "id": "6e863aa4-cbb7-41c0-b90f-26023fb1aa12",
+      "text": "Specification row: Mains, 9 Papers, 3 Hours Each, 1750",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "26d82a36-e736-4786-b922-6184319007ee"
+      ]
+    },
+    {
+      "id": "7a9a43cc-53ca-451d-9b67-e07777d6646b",
+      "text": "System performs automatic scoring and answers must cite official UPSC sources.",
+      "confidence": 0.95,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "0c1722b0-9f91-46df-b6b7-da0ea5de2702"
+      ]
+    }
+  ],
+  "ambiguities": []
+}

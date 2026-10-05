@@ -1,0 +1,62 @@
+{
+  "document_id": "8139c9d3-218c-4a71-b418-231ce74c649f",
+  "filename": "current_affairs_unified_architecture.md",
+  "file_type": "md",
+  "total_characters": 3761,
+  "units_count": 7,
+  "metadata": {
+    "sections_count": 8,
+    "preprocessed": true
+  },
+  "units": [
+    {
+      "section_title": "📰 Unified Current Affairs & Daily News Architecture Proposal",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "This document outlines the architectural comparison between the **Daily News Feed** and **Current Affairs RAG Pipeline**, and proposes a **Unified Current Affairs Engine** that combines automated daily news scraping, live source verification, and interactive AI deep-dives.\n\n---"
+    },
+    {
+      "section_title": "1. 🔍 Comparison: Current State",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "| Feature | 📰 Daily News Feed (`ram_chatbot-main`) | 🔍 Current Affairs Mode (`RAG-main`) |\n|---|---|---|\n| **Core Nature** | **Passive News Digest** (Curated daily reading feed) | **Active Research Engine** (On-demand question answering) |\n| **Trigger Mechanism** | Automated cron job (06:00 AM daily) | User submits a question |\n| **Data Scope** | Top ~10-16 pre-selected articles from *The Hindu* & *PIB* | Live web search across 15+ verified Indian portals |\n| **Output Format** | Structured 3-bullet points with GS category tag | In-depth analytical examination answer with source citations |\n| **Storage & Cache** | Stored in MongoDB / `daily_news.json` (5-day rolling window) | Cached in SQLite `article_cache.db` (6-hour TTL) |\n| **Student Usage** | Browsing the morning news summary | Asking specific analytical questions for Mains / Prelims |\n\n---"
+    },
+    {
+      "section_title": "2. 🚀 The Unified Architecture Vision",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "Instead of maintaining two separate, disconnected systems, the **Unified Current Affairs Hub** merges daily news browsing with interactive RAG capabilities into a single seamless experience.\n\n```mermaid\nflowchart TD\nA[\"⏰ Daily Scraper (06:00 AM)\\n(The Hindu, PIB, PRS India)\"] --> B[\"📄 Central Article Cache & Vector Store\"]\n\nB --> C[\"📰 Daily News Feed Cards\"]\nC --> C1[\"🏷️ Headline & GS Tag\"]\nC --> C2[\"📝 3-Bullet Takeaway\"]\nC --> C3[\"🔗 'Read More' (Original Source Link)\"]\nC --> C4[\"🤖 'Deep Dive with AI' Button\"]\n\nB --> D[\"💬 Interactive RAG Assistant\"]\nD --> D1[\"❓ On-Demand User Questions\"]\nD --> D2[\"✍️ Generate 250-Word Mains Answers\"]\nD --> D3[\"🎯 Generate 3-5 Prelims MCQs\"]\nD --> D4[\"📌 Inline Clickable Citations\"]\n```\n\n---"
+    },
+    {
+      "section_title": "A. Dynamic News Cards with \"Read More\" Links",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "Every morning, the system scrapes and formats news articles. Each card on the user dashboard contains:\n1. **Headline & Paper Category:** (e.g., `GS-3: Science & Technology`)\n2. **Key Takeaways:** 3 concise bullet points explaining the core event.\n3. **Exam Relevance Box:** Why this news matters for Prelims / Mains.\n4. **🔗 \"Read Full Article\" Button:** A direct external link leading to the original source (`pib.gov.in`, `thehindu.com`, etc.) for student verification."
+    },
+    {
+      "section_title": "B. One-Click \"Ask AI About This News\" Integration",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "Right on the news card, students can click an **\"Analyze with AI\"** action button, which opens the chatbot with that specific article pre-loaded into context. Students can immediately trigger actions such as:\n- **\"Generate a 250-word Mains Answer\":** Creates an introduction, body (pros/cons/challenges), and forward-looking conclusion with GS paper alignment.\n- **\"Create 3 Practice MCQs\":** Instantly creates multiple-choice questions with statement-based questions matching the latest UPSC Prelims pattern.\n- **\"Explain Policy Impact\":** Breaks down complex legislative acts or government schemes into simple points."
+    },
+    {
+      "section_title": "C. Unified Smart Caching (Zero Redundancy)",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "- Articles fetched during the morning scraper are automatically placed in the **shared Article Cache and Vector Store**.\n- When a student asks a question about today's breaking news in the chatbot, the system **skips live web searching** and answers instantly from the pre-warmed cache (0ms search latency).\n\n---"
+    },
+    {
+      "section_title": "4. 🌟 Why This Model is Best for UPSC Aspirants",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "1. **100% Primary Source Trust:**\nAspirants demand authenticity. Providing direct **\"Read More\"** links to official government gazettes, PIB releases, and reputable editorial pages eliminates skepticism.\n2. **From Passive Reading to Active Mastery:**\nStudents don't just read news passively; they test their understanding immediately via AI-generated MCQs and answer-writing practice.\n3. **Time Efficiency:**\nReduces newspaper reading and note-making time from **2 hours to 20 minutes** per day."
+    }
+  ]
+}

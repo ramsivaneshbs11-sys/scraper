@@ -1,0 +1,3 @@
+# UPSC Chatbot Requirements
+1. User must be able to ask syllabus questions.
+2. Answers must cite official UPSC sources.

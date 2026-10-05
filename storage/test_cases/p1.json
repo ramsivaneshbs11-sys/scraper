@@ -1,0 +1,1078 @@
+{
+  "project_id": "p1",
+  "generated_at": "2026-10-01T17:53:11.683609",
+  "total_test_cases": 46,
+  "breakdown": {
+    "PERFORMANCE": 6,
+    "SECURITY": 0,
+    "POSITIVE": 17,
+    "NEGATIVE": 17,
+    "BOUNDARY": 6
+  },
+  "test_cases": [
+    {
+      "id": "174f569c-ed9d-47cb-9132-4fa023ae28ce",
+      "title": "[POSITIVE] Verify: User must be able to ask syllabus questions.",
+      "test_type": "POSITIVE",
+      "priority": "P0",
+      "preconditions": "System is initialized with valid configuration and test data.",
+      "steps": [
+        "1. Set up prerequisite conditions for: User must be able to ask syllabus questions..",
+        "2. Submit valid inputs matching the specification.",
+        "3. Execute the operation and observe system response.",
+        "[ACCEPTANCE CRITERIA] Operation completes without errors within expected response time.",
+        "[RAG SOURCES] 2f5378ee-9e12-4e27-904c-49ca2b0e3c93"
+      ],
+      "expected_result": "System processes the request successfully as per: 'User must be able to ask syllabus questions.'.",
+      "acceptance_criteria": "Operation completes without errors within expected response time.",
+      "linked_requirement_ids": [
+        "574e75e9-a032-41d5-a6e9-170ee38a7ee7"
+      ],
+      "rag_chunk_ids": [
+        "2f5378ee-9e12-4e27-904c-49ca2b0e3c93"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "c3037b2d-fda4-4def-bf08-5de0cfb4453d",
+      "title": "[NEGATIVE] Verify error handling: User must be able to ask syllabus questions.",
+      "test_type": "NEGATIVE",
+      "priority": "P1",
+      "preconditions": "Application server and error monitoring are active.",
+      "steps": [
+        "1. Provide malformed, empty, or out-of-range input parameters.",
+        "2. Omit one or more required fields.",
+        "3. Submit the request and check system response and logs.",
+        "[ACCEPTANCE CRITERIA] Error response returned within 200ms with correct HTTP status code.",
+        "[RAG SOURCES] 2f5378ee-9e12-4e27-904c-49ca2b0e3c93"
+      ],
+      "expected_result": "System rejects invalid inputs with a clear error message and does not crash or leak sensitive data.",
+      "acceptance_criteria": "Error response returned within 200ms with correct HTTP status code.",
+      "linked_requirement_ids": [
+        "574e75e9-a032-41d5-a6e9-170ee38a7ee7"
+      ],
+      "rag_chunk_ids": [
+        "2f5378ee-9e12-4e27-904c-49ca2b0e3c93"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "edb81f61-5a1a-4eff-9213-dbeead80ffa7",
+      "title": "[POSITIVE] Verify: Answers must cite official UPSC sources.",
+      "test_type": "POSITIVE",
+      "priority": "P0",
+      "preconditions": "System is initialized with valid configuration and test data.",
+      "steps": [
+        "1. Set up prerequisite conditions for: Answers must cite official UPSC sources..",
+        "2. Submit valid inputs matching the specification.",
+        "3. Execute the operation and observe system response.",
+        "[ACCEPTANCE CRITERIA] Operation completes without errors within expected response time.",
+        "[RAG SOURCES] 2f5378ee-9e12-4e27-904c-49ca2b0e3c93"
+      ],
+      "expected_result": "System processes the request successfully as per: 'Answers must cite official UPSC sources.'.",
+      "acceptance_criteria": "Operation completes without errors within expected response time.",
+      "linked_requirement_ids": [
+        "a5072b10-4bb0-4249-bd59-1ab71ff7fbfb"
+      ],
+      "rag_chunk_ids": [
+        "2f5378ee-9e12-4e27-904c-49ca2b0e3c93"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "97a325d5-aed9-47aa-9943-d2e5a2a93358",
+      "title": "[NEGATIVE] Verify error handling: Answers must cite official UPSC sources.",
+      "test_type": "NEGATIVE",
+      "priority": "P1",
+      "preconditions": "Application server and error monitoring are active.",
+      "steps": [
+        "1. Provide malformed, empty, or out-of-range input parameters.",
+        "2. Omit one or more required fields.",
+        "3. Submit the request and check system response and logs.",
+        "[ACCEPTANCE CRITERIA] Error response returned within 200ms with correct HTTP status code.",
+        "[RAG SOURCES] 2f5378ee-9e12-4e27-904c-49ca2b0e3c93"
+      ],
+      "expected_result": "System rejects invalid inputs with a clear error message and does not crash or leak sensitive data.",
+      "acceptance_criteria": "Error response returned within 200ms with correct HTTP status code.",
+      "linked_requirement_ids": [
+        "a5072b10-4bb0-4249-bd59-1ab71ff7fbfb"
+      ],
+      "rag_chunk_ids": [
+        "2f5378ee-9e12-4e27-904c-49ca2b0e3c93"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "a9b96763-3495-4db1-aabb-900ca6e6ce42",
+      "title": "[POSITIVE] Verify: Specification row: Stage, Questions, Duration, Marks",
+      "test_type": "POSITIVE",
+      "priority": "P1",
+      "preconditions": "System is initialized with valid configuration and test data.",
+      "steps": [
+        "1. Set up prerequisite conditions for: Specification row: Stage, Questions, Duration, Marks.",
+        "2. Submit valid inputs matching the specification.",
+        "3. Execute the operation and observe system response.",
+        "[ACCEPTANCE CRITERIA] Operation completes without errors within expected response time.",
+        "[RAG SOURCES] 26d82a36-e736-4786-b922-6184319007ee"
+      ],
+      "expected_result": "System processes the request successfully as per: 'Specification row: Stage, Questions, Duration, Marks'.",
+      "acceptance_criteria": "Operation completes without errors within expected response time.",
+      "linked_requirement_ids": [
+        "b9ac71f5-704b-411d-838c-7ef6ec014aa0"
+      ],
+      "rag_chunk_ids": [
+        "26d82a36-e736-4786-b922-6184319007ee"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "74731ecd-e906-4f8d-8bf2-537a76d8be03",
+      "title": "[NEGATIVE] Verify error handling: Specification row: Stage, Questions, Duration, Marks",
+      "test_type": "NEGATIVE",
+      "priority": "P1",
+      "preconditions": "Application server and error monitoring are active.",
+      "steps": [
+        "1. Provide malformed, empty, or out-of-range input parameters.",
+        "2. Omit one or more required fields.",
+        "3. Submit the request and check system response and logs.",
+        "[ACCEPTANCE CRITERIA] Error response returned within 200ms with correct HTTP status code.",
+        "[RAG SOURCES] 26d82a36-e736-4786-b922-6184319007ee"
+      ],
+      "expected_result": "System rejects invalid inputs with a clear error message and does not crash or leak sensitive data.",
+      "acceptance_criteria": "Error response returned within 200ms with correct HTTP status code.",
+      "linked_requirement_ids": [
+        "b9ac71f5-704b-411d-838c-7ef6ec014aa0"
+      ],
+      "rag_chunk_ids": [
+        "26d82a36-e736-4786-b922-6184319007ee"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "affbadd9-bfda-4a93-b635-cba9757bbc93",
+      "title": "[POSITIVE] Verify: Specification row: Prelims, 100, 120 Mins, 200",
+      "test_type": "POSITIVE",
+      "priority": "P1",
+      "preconditions": "System is initialized with valid configuration and test data.",
+      "steps": [
+        "1. Set up prerequisite conditions for: Specification row: Prelims, 100, 120 Mins, 200.",
+        "2. Submit valid inputs matching the specification.",
+        "3. Execute the operation and observe system response.",
+        "[ACCEPTANCE CRITERIA] Operation completes without errors within expected response time.",
+        "[RAG SOURCES] 26d82a36-e736-4786-b922-6184319007ee"
+      ],
+      "expected_result": "System processes the request successfully as per: 'Specification row: Prelims, 100, 120 Mins, 200'.",
+      "acceptance_criteria": "Operation completes without errors within expected response time.",
+      "linked_requirement_ids": [
+        "4b08d120-acd4-4a95-8243-57318b90c41d"
+      ],
+      "rag_chunk_ids": [
+        "26d82a36-e736-4786-b922-6184319007ee"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "37aa347e-07d3-44cc-a083-20e51824d34b",
+      "title": "[NEGATIVE] Verify error handling: Specification row: Prelims, 100, 120 Mins, 200",
+      "test_type": "NEGATIVE",
+      "priority": "P1",
+      "preconditions": "Application server and error monitoring are active.",
+      "steps": [
+        "1. Provide malformed, empty, or out-of-range input parameters.",
+        "2. Omit one or more required fields.",
+        "3. Submit the request and check system response and logs.",
+        "[ACCEPTANCE CRITERIA] Error response returned within 200ms with correct HTTP status code.",
+        "[RAG SOURCES] 26d82a36-e736-4786-b922-6184319007ee"
+      ],
+      "expected_result": "System rejects invalid inputs with a clear error message and does not crash or leak sensitive data.",
+      "acceptance_criteria": "Error response returned within 200ms with correct HTTP status code.",
+      "linked_requirement_ids": [
+        "4b08d120-acd4-4a95-8243-57318b90c41d"
+      ],
+      "rag_chunk_ids": [
+        "26d82a36-e736-4786-b922-6184319007ee"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "2a593637-e040-4c07-ae0c-4d2bc7562409",
+      "title": "[BOUNDARY] Verify threshold limits: Specification row: Prelims, 100, 120 Mins, 200",
+      "test_type": "BOUNDARY",
+      "priority": "P1",
+      "preconditions": "Test harness prepared with boundary edge-case datasets.",
+      "steps": [
+        "1. Submit input at the exact minimum valid threshold value.",
+        "2. Submit input at the exact maximum valid threshold value.",
+        "3. Submit input immediately below the minimum (min - 1).",
+        "4. Submit input immediately above the maximum (max + 1).",
+        "[ACCEPTANCE CRITERIA] All boundary values handled correctly without system error or data corruption.",
+        "[RAG SOURCES] 26d82a36-e736-4786-b922-6184319007ee"
+      ],
+      "expected_result": "Values at exact boundaries are accepted. Values outside the boundary are rejected with a precise validation error.",
+      "acceptance_criteria": "All boundary values handled correctly without system error or data corruption.",
+      "linked_requirement_ids": [
+        "4b08d120-acd4-4a95-8243-57318b90c41d"
+      ],
+      "rag_chunk_ids": [
+        "26d82a36-e736-4786-b922-6184319007ee"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "dfbdb780-0608-4dc1-97bd-e1cb085bbc9c",
+      "title": "[PERFORMANCE] Verify response time/throughput: Specification row: Prelims, 100, 120 Mins, 200",
+      "test_type": "PERFORMANCE",
+      "priority": "P1",
+      "preconditions": "Load testing environment configured. Monitoring and metrics collection active.",
+      "steps": [
+        "1. Configure load testing tool (e.g. k6, JMeter) for the target endpoint.",
+        "2. Execute requests at specified load (concurrent users / requests per second).",
+        "3. Record P50, P95, P99 response times and error rate.",
+        "4. Compare against the performance requirement thresholds.",
+        "[ACCEPTANCE CRITERIA] P95 response time within stated SLA. Error rate < 0.1% under normal load.",
+        "[RAG SOURCES] 26d82a36-e736-4786-b922-6184319007ee"
+      ],
+      "expected_result": "All performance metrics meet or exceed the stated requirement thresholds under specified load conditions.",
+      "acceptance_criteria": "P95 response time within stated SLA. Error rate < 0.1% under normal load.",
+      "linked_requirement_ids": [
+        "4b08d120-acd4-4a95-8243-57318b90c41d"
+      ],
+      "rag_chunk_ids": [
+        "26d82a36-e736-4786-b922-6184319007ee"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "00961324-7675-4c0e-9786-f6b01b7e190c",
+      "title": "[POSITIVE] Verify: Specification row: Mains, 9 Papers, 3 Hours Each, 1750",
+      "test_type": "POSITIVE",
+      "priority": "P1",
+      "preconditions": "System is initialized with valid configuration and test data.",
+      "steps": [
+        "1. Set up prerequisite conditions for: Specification row: Mains, 9 Papers, 3 Hours Each, 1750.",
+        "2. Submit valid inputs matching the specification.",
+        "3. Execute the operation and observe system response.",
+        "[ACCEPTANCE CRITERIA] Operation completes without errors within expected response time.",
+        "[RAG SOURCES] 26d82a36-e736-4786-b922-6184319007ee"
+      ],
+      "expected_result": "System processes the request successfully as per: 'Specification row: Mains, 9 Papers, 3 Hours Each, 1750'.",
+      "acceptance_criteria": "Operation completes without errors within expected response time.",
+      "linked_requirement_ids": [
+        "6e863aa4-cbb7-41c0-b90f-26023fb1aa12"
+      ],
+      "rag_chunk_ids": [
+        "26d82a36-e736-4786-b922-6184319007ee"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "016a4c42-d3b1-4e9b-b5a4-4f49b958cd3f",
+      "title": "[NEGATIVE] Verify error handling: Specification row: Mains, 9 Papers, 3 Hours Each, 1750",
+      "test_type": "NEGATIVE",
+      "priority": "P1",
+      "preconditions": "Application server and error monitoring are active.",
+      "steps": [
+        "1. Provide malformed, empty, or out-of-range input parameters.",
+        "2. Omit one or more required fields.",
+        "3. Submit the request and check system response and logs.",
+        "[ACCEPTANCE CRITERIA] Error response returned within 200ms with correct HTTP status code.",
+        "[RAG SOURCES] 26d82a36-e736-4786-b922-6184319007ee"
+      ],
+      "expected_result": "System rejects invalid inputs with a clear error message and does not crash or leak sensitive data.",
+      "acceptance_criteria": "Error response returned within 200ms with correct HTTP status code.",
+      "linked_requirement_ids": [
+        "6e863aa4-cbb7-41c0-b90f-26023fb1aa12"
+      ],
+      "rag_chunk_ids": [
+        "26d82a36-e736-4786-b922-6184319007ee"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "240d1ace-5c8e-43cf-83ca-34a59e03da47",
+      "title": "[BOUNDARY] Verify threshold limits: Specification row: Mains, 9 Papers, 3 Hours Each, 1750",
+      "test_type": "BOUNDARY",
+      "priority": "P1",
+      "preconditions": "Test harness prepared with boundary edge-case datasets.",
+      "steps": [
+        "1. Submit input at the exact minimum valid threshold value.",
+        "2. Submit input at the exact maximum valid threshold value.",
+        "3. Submit input immediately below the minimum (min - 1).",
+        "4. Submit input immediately above the maximum (max + 1).",
+        "[ACCEPTANCE CRITERIA] All boundary values handled correctly without system error or data corruption.",
+        "[RAG SOURCES] 26d82a36-e736-4786-b922-6184319007ee"
+      ],
+      "expected_result": "Values at exact boundaries are accepted. Values outside the boundary are rejected with a precise validation error.",
+      "acceptance_criteria": "All boundary values handled correctly without system error or data corruption.",
+      "linked_requirement_ids": [
+        "6e863aa4-cbb7-41c0-b90f-26023fb1aa12"
+      ],
+      "rag_chunk_ids": [
+        "26d82a36-e736-4786-b922-6184319007ee"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "5e7c9b3b-b883-4a7b-bb41-5f9203fa5dda",
+      "title": "[POSITIVE] Verify: System performs automatic scoring and answers must cite official UPSC sources.",
+      "test_type": "POSITIVE",
+      "priority": "P0",
+      "preconditions": "System is initialized with valid configuration and test data.",
+      "steps": [
+        "1. Set up prerequisite conditions for: System performs automatic scoring and answers must cite offi.",
+        "2. Submit valid inputs matching the specification.",
+        "3. Execute the operation and observe system response.",
+        "[ACCEPTANCE CRITERIA] Operation completes without errors within expected response time.",
+        "[RAG SOURCES] 0c1722b0-9f91-46df-b6b7-da0ea5de2702"
+      ],
+      "expected_result": "System processes the request successfully as per: 'System performs automatic scoring and answers must cite official UPSC sources.'.",
+      "acceptance_criteria": "Operation completes without errors within expected response time.",
+      "linked_requirement_ids": [
+        "7a9a43cc-53ca-451d-9b67-e07777d6646b"
+      ],
+      "rag_chunk_ids": [
+        "0c1722b0-9f91-46df-b6b7-da0ea5de2702"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "2aba1c38-1163-419a-bb47-94acf6433af1",
+      "title": "[NEGATIVE] Verify error handling: System performs automatic scoring and answers must cite official UPSC sources.",
+      "test_type": "NEGATIVE",
+      "priority": "P1",
+      "preconditions": "Application server and error monitoring are active.",
+      "steps": [
+        "1. Provide malformed, empty, or out-of-range input parameters.",
+        "2. Omit one or more required fields.",
+        "3. Submit the request and check system response and logs.",
+        "[ACCEPTANCE CRITERIA] Error response returned within 200ms with correct HTTP status code.",
+        "[RAG SOURCES] 0c1722b0-9f91-46df-b6b7-da0ea5de2702"
+      ],
+      "expected_result": "System rejects invalid inputs with a clear error message and does not crash or leak sensitive data.",
+      "acceptance_criteria": "Error response returned within 200ms with correct HTTP status code.",
+      "linked_requirement_ids": [
+        "7a9a43cc-53ca-451d-9b67-e07777d6646b"
+      ],
+      "rag_chunk_ids": [
+        "0c1722b0-9f91-46df-b6b7-da0ea5de2702"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "6e513694-f08b-47d7-b5dd-895d9f17805f",
+      "title": "[PERFORMANCE] Verify response time/throughput: System performs automatic scoring and answers must cite official UPSC sources.",
+      "test_type": "PERFORMANCE",
+      "priority": "P1",
+      "preconditions": "Load testing environment configured. Monitoring and metrics collection active.",
+      "steps": [
+        "1. Configure load testing tool (e.g. k6, JMeter) for the target endpoint.",
+        "2. Execute requests at specified load (concurrent users / requests per second).",
+        "3. Record P50, P95, P99 response times and error rate.",
+        "4. Compare against the performance requirement thresholds.",
+        "[ACCEPTANCE CRITERIA] P95 response time within stated SLA. Error rate < 0.1% under normal load.",
+        "[RAG SOURCES] 0c1722b0-9f91-46df-b6b7-da0ea5de2702"
+      ],
+      "expected_result": "All performance metrics meet or exceed the stated requirement thresholds under specified load conditions.",
+      "acceptance_criteria": "P95 response time within stated SLA. Error rate < 0.1% under normal load.",
+      "linked_requirement_ids": [
+        "7a9a43cc-53ca-451d-9b67-e07777d6646b"
+      ],
+      "rag_chunk_ids": [
+        "0c1722b0-9f91-46df-b6b7-da0ea5de2702"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "a1b31513-6b23-4c88-860f-13cd7e2981f3",
+      "title": "[POSITIVE] Verify: Candidates must submit application before deadline.",
+      "test_type": "POSITIVE",
+      "priority": "P0",
+      "preconditions": "System is initialized with valid configuration and test data.",
+      "steps": [
+        "1. Set up prerequisite conditions for: Candidates must submit application before deadline..",
+        "2. Submit valid inputs matching the specification.",
+        "3. Execute the operation and observe system response.",
+        "[ACCEPTANCE CRITERIA] Operation completes without errors within expected response time."
+      ],
+      "expected_result": "System processes the request successfully as per: 'Candidates must submit application before deadline.'.",
+      "acceptance_criteria": "Operation completes without errors within expected response time.",
+      "linked_requirement_ids": [
+        "test-req-approve"
+      ],
+      "rag_chunk_ids": [],
+      "status": "draft"
+    },
+    {
+      "id": "b4fb2d85-95ef-49b5-bd69-ed7c823a8d06",
+      "title": "[NEGATIVE] Verify error handling: Candidates must submit application before deadline.",
+      "test_type": "NEGATIVE",
+      "priority": "P1",
+      "preconditions": "Application server and error monitoring are active.",
+      "steps": [
+        "1. Provide malformed, empty, or out-of-range input parameters.",
+        "2. Omit one or more required fields.",
+        "3. Submit the request and check system response and logs.",
+        "[ACCEPTANCE CRITERIA] Error response returned within 200ms with correct HTTP status code."
+      ],
+      "expected_result": "System rejects invalid inputs with a clear error message and does not crash or leak sensitive data.",
+      "acceptance_criteria": "Error response returned within 200ms with correct HTTP status code.",
+      "linked_requirement_ids": [
+        "test-req-approve"
+      ],
+      "rag_chunk_ids": [],
+      "status": "draft"
+    },
+    {
+      "id": "034d6674-3aef-46f1-b310-6eb61ce36fda",
+      "title": "[POSITIVE] Verify: Specification row: Stage, Questions, Duration, Marks",
+      "test_type": "POSITIVE",
+      "priority": "P1",
+      "preconditions": "System is initialized with valid configuration and test data.",
+      "steps": [
+        "1. Set up prerequisite conditions for: Specification row: Stage, Questions, Duration, Marks.",
+        "2. Submit valid inputs matching the specification.",
+        "3. Execute the operation and observe system response.",
+        "[ACCEPTANCE CRITERIA] Operation completes without errors within expected response time.",
+        "[RAG SOURCES] 7f38bc04-c13d-4431-88c1-af31b34c4d05"
+      ],
+      "expected_result": "System processes the request successfully as per: 'Specification row: Stage, Questions, Duration, Marks'.",
+      "acceptance_criteria": "Operation completes without errors within expected response time.",
+      "linked_requirement_ids": [
+        "1b0911c7-b9f3-4adc-be64-fa188a65a975"
+      ],
+      "rag_chunk_ids": [
+        "7f38bc04-c13d-4431-88c1-af31b34c4d05"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "bc7a6da6-852d-468f-b2bb-beb0e85ee8f4",
+      "title": "[NEGATIVE] Verify error handling: Specification row: Stage, Questions, Duration, Marks",
+      "test_type": "NEGATIVE",
+      "priority": "P1",
+      "preconditions": "Application server and error monitoring are active.",
+      "steps": [
+        "1. Provide malformed, empty, or out-of-range input parameters.",
+        "2. Omit one or more required fields.",
+        "3. Submit the request and check system response and logs.",
+        "[ACCEPTANCE CRITERIA] Error response returned within 200ms with correct HTTP status code.",
+        "[RAG SOURCES] 7f38bc04-c13d-4431-88c1-af31b34c4d05"
+      ],
+      "expected_result": "System rejects invalid inputs with a clear error message and does not crash or leak sensitive data.",
+      "acceptance_criteria": "Error response returned within 200ms with correct HTTP status code.",
+      "linked_requirement_ids": [
+        "1b0911c7-b9f3-4adc-be64-fa188a65a975"
+      ],
+      "rag_chunk_ids": [
+        "7f38bc04-c13d-4431-88c1-af31b34c4d05"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "d2f042b4-5772-45ee-ae38-0fe87bf74e2b",
+      "title": "[POSITIVE] Verify: Specification row: Prelims, 100, 120 Mins, 200",
+      "test_type": "POSITIVE",
+      "priority": "P1",
+      "preconditions": "System is initialized with valid configuration and test data.",
+      "steps": [
+        "1. Set up prerequisite conditions for: Specification row: Prelims, 100, 120 Mins, 200.",
+        "2. Submit valid inputs matching the specification.",
+        "3. Execute the operation and observe system response.",
+        "[ACCEPTANCE CRITERIA] Operation completes without errors within expected response time.",
+        "[RAG SOURCES] 7f38bc04-c13d-4431-88c1-af31b34c4d05"
+      ],
+      "expected_result": "System processes the request successfully as per: 'Specification row: Prelims, 100, 120 Mins, 200'.",
+      "acceptance_criteria": "Operation completes without errors within expected response time.",
+      "linked_requirement_ids": [
+        "2c207e36-18f1-4e8b-aa3f-0038be251462"
+      ],
+      "rag_chunk_ids": [
+        "7f38bc04-c13d-4431-88c1-af31b34c4d05"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "0189166f-338f-45f2-989b-ac42f8631556",
+      "title": "[NEGATIVE] Verify error handling: Specification row: Prelims, 100, 120 Mins, 200",
+      "test_type": "NEGATIVE",
+      "priority": "P1",
+      "preconditions": "Application server and error monitoring are active.",
+      "steps": [
+        "1. Provide malformed, empty, or out-of-range input parameters.",
+        "2. Omit one or more required fields.",
+        "3. Submit the request and check system response and logs.",
+        "[ACCEPTANCE CRITERIA] Error response returned within 200ms with correct HTTP status code.",
+        "[RAG SOURCES] 7f38bc04-c13d-4431-88c1-af31b34c4d05"
+      ],
+      "expected_result": "System rejects invalid inputs with a clear error message and does not crash or leak sensitive data.",
+      "acceptance_criteria": "Error response returned within 200ms with correct HTTP status code.",
+      "linked_requirement_ids": [
+        "2c207e36-18f1-4e8b-aa3f-0038be251462"
+      ],
+      "rag_chunk_ids": [
+        "7f38bc04-c13d-4431-88c1-af31b34c4d05"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "ebaec81f-ef55-4d32-b0d2-d399a7de5836",
+      "title": "[BOUNDARY] Verify threshold limits: Specification row: Prelims, 100, 120 Mins, 200",
+      "test_type": "BOUNDARY",
+      "priority": "P1",
+      "preconditions": "Test harness prepared with boundary edge-case datasets.",
+      "steps": [
+        "1. Submit input at the exact minimum valid threshold value.",
+        "2. Submit input at the exact maximum valid threshold value.",
+        "3. Submit input immediately below the minimum (min - 1).",
+        "4. Submit input immediately above the maximum (max + 1).",
+        "[ACCEPTANCE CRITERIA] All boundary values handled correctly without system error or data corruption.",
+        "[RAG SOURCES] 7f38bc04-c13d-4431-88c1-af31b34c4d05"
+      ],
+      "expected_result": "Values at exact boundaries are accepted. Values outside the boundary are rejected with a precise validation error.",
+      "acceptance_criteria": "All boundary values handled correctly without system error or data corruption.",
+      "linked_requirement_ids": [
+        "2c207e36-18f1-4e8b-aa3f-0038be251462"
+      ],
+      "rag_chunk_ids": [
+        "7f38bc04-c13d-4431-88c1-af31b34c4d05"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "ef97a0cc-d188-488b-ac64-6b7b2a96cc2f",
+      "title": "[PERFORMANCE] Verify response time/throughput: Specification row: Prelims, 100, 120 Mins, 200",
+      "test_type": "PERFORMANCE",
+      "priority": "P1",
+      "preconditions": "Load testing environment configured. Monitoring and metrics collection active.",
+      "steps": [
+        "1. Configure load testing tool (e.g. k6, JMeter) for the target endpoint.",
+        "2. Execute requests at specified load (concurrent users / requests per second).",
+        "3. Record P50, P95, P99 response times and error rate.",
+        "4. Compare against the performance requirement thresholds.",
+        "[ACCEPTANCE CRITERIA] P95 response time within stated SLA. Error rate < 0.1% under normal load.",
+        "[RAG SOURCES] 7f38bc04-c13d-4431-88c1-af31b34c4d05"
+      ],
+      "expected_result": "All performance metrics meet or exceed the stated requirement thresholds under specified load conditions.",
+      "acceptance_criteria": "P95 response time within stated SLA. Error rate < 0.1% under normal load.",
+      "linked_requirement_ids": [
+        "2c207e36-18f1-4e8b-aa3f-0038be251462"
+      ],
+      "rag_chunk_ids": [
+        "7f38bc04-c13d-4431-88c1-af31b34c4d05"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "2eb46829-d216-437a-8137-682531e40467",
+      "title": "[POSITIVE] Verify: Specification row: Mains, 9 Papers, 3 Hours Each, 1750",
+      "test_type": "POSITIVE",
+      "priority": "P1",
+      "preconditions": "System is initialized with valid configuration and test data.",
+      "steps": [
+        "1. Set up prerequisite conditions for: Specification row: Mains, 9 Papers, 3 Hours Each, 1750.",
+        "2. Submit valid inputs matching the specification.",
+        "3. Execute the operation and observe system response.",
+        "[ACCEPTANCE CRITERIA] Operation completes without errors within expected response time.",
+        "[RAG SOURCES] 7f38bc04-c13d-4431-88c1-af31b34c4d05"
+      ],
+      "expected_result": "System processes the request successfully as per: 'Specification row: Mains, 9 Papers, 3 Hours Each, 1750'.",
+      "acceptance_criteria": "Operation completes without errors within expected response time.",
+      "linked_requirement_ids": [
+        "7d155df0-7007-4b1c-9b70-f7eb46173293"
+      ],
+      "rag_chunk_ids": [
+        "7f38bc04-c13d-4431-88c1-af31b34c4d05"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "84c9ef7e-3cfb-41c6-bfab-837bbe8bb52d",
+      "title": "[NEGATIVE] Verify error handling: Specification row: Mains, 9 Papers, 3 Hours Each, 1750",
+      "test_type": "NEGATIVE",
+      "priority": "P1",
+      "preconditions": "Application server and error monitoring are active.",
+      "steps": [
+        "1. Provide malformed, empty, or out-of-range input parameters.",
+        "2. Omit one or more required fields.",
+        "3. Submit the request and check system response and logs.",
+        "[ACCEPTANCE CRITERIA] Error response returned within 200ms with correct HTTP status code.",
+        "[RAG SOURCES] 7f38bc04-c13d-4431-88c1-af31b34c4d05"
+      ],
+      "expected_result": "System rejects invalid inputs with a clear error message and does not crash or leak sensitive data.",
+      "acceptance_criteria": "Error response returned within 200ms with correct HTTP status code.",
+      "linked_requirement_ids": [
+        "7d155df0-7007-4b1c-9b70-f7eb46173293"
+      ],
+      "rag_chunk_ids": [
+        "7f38bc04-c13d-4431-88c1-af31b34c4d05"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "57de9240-d78d-4c2e-a58b-21fe588453ff",
+      "title": "[BOUNDARY] Verify threshold limits: Specification row: Mains, 9 Papers, 3 Hours Each, 1750",
+      "test_type": "BOUNDARY",
+      "priority": "P1",
+      "preconditions": "Test harness prepared with boundary edge-case datasets.",
+      "steps": [
+        "1. Submit input at the exact minimum valid threshold value.",
+        "2. Submit input at the exact maximum valid threshold value.",
+        "3. Submit input immediately below the minimum (min - 1).",
+        "4. Submit input immediately above the maximum (max + 1).",
+        "[ACCEPTANCE CRITERIA] All boundary values handled correctly without system error or data corruption.",
+        "[RAG SOURCES] 7f38bc04-c13d-4431-88c1-af31b34c4d05"
+      ],
+      "expected_result": "Values at exact boundaries are accepted. Values outside the boundary are rejected with a precise validation error.",
+      "acceptance_criteria": "All boundary values handled correctly without system error or data corruption.",
+      "linked_requirement_ids": [
+        "7d155df0-7007-4b1c-9b70-f7eb46173293"
+      ],
+      "rag_chunk_ids": [
+        "7f38bc04-c13d-4431-88c1-af31b34c4d05"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "9279c521-c668-45bb-92d1-d4acd4705fea",
+      "title": "[POSITIVE] Verify: System performs automatic scoring and answers must cite official UPSC sources.",
+      "test_type": "POSITIVE",
+      "priority": "P0",
+      "preconditions": "System is initialized with valid configuration and test data.",
+      "steps": [
+        "1. Set up prerequisite conditions for: System performs automatic scoring and answers must cite offi.",
+        "2. Submit valid inputs matching the specification.",
+        "3. Execute the operation and observe system response.",
+        "[ACCEPTANCE CRITERIA] Operation completes without errors within expected response time.",
+        "[RAG SOURCES] 918d7238-c0f6-4a26-a6ca-6f7bcb7e5536"
+      ],
+      "expected_result": "System processes the request successfully as per: 'System performs automatic scoring and answers must cite official UPSC sources.'.",
+      "acceptance_criteria": "Operation completes without errors within expected response time.",
+      "linked_requirement_ids": [
+        "6b236d51-6115-436d-a744-d1e229678970"
+      ],
+      "rag_chunk_ids": [
+        "918d7238-c0f6-4a26-a6ca-6f7bcb7e5536"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "dc5f686a-79dd-4941-9777-0fbc01073bea",
+      "title": "[NEGATIVE] Verify error handling: System performs automatic scoring and answers must cite official UPSC sources.",
+      "test_type": "NEGATIVE",
+      "priority": "P1",
+      "preconditions": "Application server and error monitoring are active.",
+      "steps": [
+        "1. Provide malformed, empty, or out-of-range input parameters.",
+        "2. Omit one or more required fields.",
+        "3. Submit the request and check system response and logs.",
+        "[ACCEPTANCE CRITERIA] Error response returned within 200ms with correct HTTP status code.",
+        "[RAG SOURCES] 918d7238-c0f6-4a26-a6ca-6f7bcb7e5536"
+      ],
+      "expected_result": "System rejects invalid inputs with a clear error message and does not crash or leak sensitive data.",
+      "acceptance_criteria": "Error response returned within 200ms with correct HTTP status code.",
+      "linked_requirement_ids": [
+        "6b236d51-6115-436d-a744-d1e229678970"
+      ],
+      "rag_chunk_ids": [
+        "918d7238-c0f6-4a26-a6ca-6f7bcb7e5536"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "01fc24bf-8e98-477e-aa4d-ae3c436eda5c",
+      "title": "[PERFORMANCE] Verify response time/throughput: System performs automatic scoring and answers must cite official UPSC sources.",
+      "test_type": "PERFORMANCE",
+      "priority": "P1",
+      "preconditions": "Load testing environment configured. Monitoring and metrics collection active.",
+      "steps": [
+        "1. Configure load testing tool (e.g. k6, JMeter) for the target endpoint.",
+        "2. Execute requests at specified load (concurrent users / requests per second).",
+        "3. Record P50, P95, P99 response times and error rate.",
+        "4. Compare against the performance requirement thresholds.",
+        "[ACCEPTANCE CRITERIA] P95 response time within stated SLA. Error rate < 0.1% under normal load.",
+        "[RAG SOURCES] 918d7238-c0f6-4a26-a6ca-6f7bcb7e5536"
+      ],
+      "expected_result": "All performance metrics meet or exceed the stated requirement thresholds under specified load conditions.",
+      "acceptance_criteria": "P95 response time within stated SLA. Error rate < 0.1% under normal load.",
+      "linked_requirement_ids": [
+        "6b236d51-6115-436d-a744-d1e229678970"
+      ],
+      "rag_chunk_ids": [
+        "918d7238-c0f6-4a26-a6ca-6f7bcb7e5536"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "7c65e727-3aa4-4920-9bb8-0989b6137947",
+      "title": "[POSITIVE] Verify: User must be able to ask syllabus questions.",
+      "test_type": "POSITIVE",
+      "priority": "P0",
+      "preconditions": "System is initialized with valid configuration and test data.",
+      "steps": [
+        "1. Set up prerequisite conditions for: User must be able to ask syllabus questions..",
+        "2. Submit valid inputs matching the specification.",
+        "3. Execute the operation and observe system response.",
+        "[ACCEPTANCE CRITERIA] Operation completes without errors within expected response time.",
+        "[RAG SOURCES] 15b88cb5-cc3e-44a4-842a-db0117f7a148"
+      ],
+      "expected_result": "System processes the request successfully as per: 'User must be able to ask syllabus questions.'.",
+      "acceptance_criteria": "Operation completes without errors within expected response time.",
+      "linked_requirement_ids": [
+        "495c44fa-b95c-4f1f-9d38-5a0e450b0406"
+      ],
+      "rag_chunk_ids": [
+        "15b88cb5-cc3e-44a4-842a-db0117f7a148"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "21fce5c8-4268-407a-bc91-afd81c681952",
+      "title": "[NEGATIVE] Verify error handling: User must be able to ask syllabus questions.",
+      "test_type": "NEGATIVE",
+      "priority": "P1",
+      "preconditions": "Application server and error monitoring are active.",
+      "steps": [
+        "1. Provide malformed, empty, or out-of-range input parameters.",
+        "2. Omit one or more required fields.",
+        "3. Submit the request and check system response and logs.",
+        "[ACCEPTANCE CRITERIA] Error response returned within 200ms with correct HTTP status code.",
+        "[RAG SOURCES] 15b88cb5-cc3e-44a4-842a-db0117f7a148"
+      ],
+      "expected_result": "System rejects invalid inputs with a clear error message and does not crash or leak sensitive data.",
+      "acceptance_criteria": "Error response returned within 200ms with correct HTTP status code.",
+      "linked_requirement_ids": [
+        "495c44fa-b95c-4f1f-9d38-5a0e450b0406"
+      ],
+      "rag_chunk_ids": [
+        "15b88cb5-cc3e-44a4-842a-db0117f7a148"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "95078442-9eee-4e15-9751-0e0945f5223c",
+      "title": "[POSITIVE] Verify: Answers must cite official UPSC sources.",
+      "test_type": "POSITIVE",
+      "priority": "P0",
+      "preconditions": "System is initialized with valid configuration and test data.",
+      "steps": [
+        "1. Set up prerequisite conditions for: Answers must cite official UPSC sources..",
+        "2. Submit valid inputs matching the specification.",
+        "3. Execute the operation and observe system response.",
+        "[ACCEPTANCE CRITERIA] Operation completes without errors within expected response time.",
+        "[RAG SOURCES] 15b88cb5-cc3e-44a4-842a-db0117f7a148"
+      ],
+      "expected_result": "System processes the request successfully as per: 'Answers must cite official UPSC sources.'.",
+      "acceptance_criteria": "Operation completes without errors within expected response time.",
+      "linked_requirement_ids": [
+        "78c3ecb1-b720-4345-9ee4-906c1b8d0123"
+      ],
+      "rag_chunk_ids": [
+        "15b88cb5-cc3e-44a4-842a-db0117f7a148"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "d28eee69-d137-4f61-935a-62dcde6e47d5",
+      "title": "[NEGATIVE] Verify error handling: Answers must cite official UPSC sources.",
+      "test_type": "NEGATIVE",
+      "priority": "P1",
+      "preconditions": "Application server and error monitoring are active.",
+      "steps": [
+        "1. Provide malformed, empty, or out-of-range input parameters.",
+        "2. Omit one or more required fields.",
+        "3. Submit the request and check system response and logs.",
+        "[ACCEPTANCE CRITERIA] Error response returned within 200ms with correct HTTP status code.",
+        "[RAG SOURCES] 15b88cb5-cc3e-44a4-842a-db0117f7a148"
+      ],
+      "expected_result": "System rejects invalid inputs with a clear error message and does not crash or leak sensitive data.",
+      "acceptance_criteria": "Error response returned within 200ms with correct HTTP status code.",
+      "linked_requirement_ids": [
+        "78c3ecb1-b720-4345-9ee4-906c1b8d0123"
+      ],
+      "rag_chunk_ids": [
+        "15b88cb5-cc3e-44a4-842a-db0117f7a148"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "1e02ded9-9a7f-47b2-9f1e-46cbcf771759",
+      "title": "[POSITIVE] Verify: Specification row: Stage, Questions, Duration, Marks",
+      "test_type": "POSITIVE",
+      "priority": "P1",
+      "preconditions": "System is initialized with valid configuration and test data.",
+      "steps": [
+        "1. Set up prerequisite conditions for: Specification row: Stage, Questions, Duration, Marks.",
+        "2. Submit valid inputs matching the specification.",
+        "3. Execute the operation and observe system response.",
+        "[ACCEPTANCE CRITERIA] Operation completes without errors within expected response time.",
+        "[RAG SOURCES] de773077-2819-4d42-bdfa-02ec03261655"
+      ],
+      "expected_result": "System processes the request successfully as per: 'Specification row: Stage, Questions, Duration, Marks'.",
+      "acceptance_criteria": "Operation completes without errors within expected response time.",
+      "linked_requirement_ids": [
+        "fae503a8-eb27-4ebe-9f4b-c62b3c1fd2e0"
+      ],
+      "rag_chunk_ids": [
+        "de773077-2819-4d42-bdfa-02ec03261655"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "39c49938-56e3-4d29-8a80-79ce80cf5510",
+      "title": "[NEGATIVE] Verify error handling: Specification row: Stage, Questions, Duration, Marks",
+      "test_type": "NEGATIVE",
+      "priority": "P1",
+      "preconditions": "Application server and error monitoring are active.",
+      "steps": [
+        "1. Provide malformed, empty, or out-of-range input parameters.",
+        "2. Omit one or more required fields.",
+        "3. Submit the request and check system response and logs.",
+        "[ACCEPTANCE CRITERIA] Error response returned within 200ms with correct HTTP status code.",
+        "[RAG SOURCES] de773077-2819-4d42-bdfa-02ec03261655"
+      ],
+      "expected_result": "System rejects invalid inputs with a clear error message and does not crash or leak sensitive data.",
+      "acceptance_criteria": "Error response returned within 200ms with correct HTTP status code.",
+      "linked_requirement_ids": [
+        "fae503a8-eb27-4ebe-9f4b-c62b3c1fd2e0"
+      ],
+      "rag_chunk_ids": [
+        "de773077-2819-4d42-bdfa-02ec03261655"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "bc9c963b-4758-4c68-896d-9d4577cba1ef",
+      "title": "[POSITIVE] Verify: Specification row: Prelims, 100, 120 Mins, 200",
+      "test_type": "POSITIVE",
+      "priority": "P1",
+      "preconditions": "System is initialized with valid configuration and test data.",
+      "steps": [
+        "1. Set up prerequisite conditions for: Specification row: Prelims, 100, 120 Mins, 200.",
+        "2. Submit valid inputs matching the specification.",
+        "3. Execute the operation and observe system response.",
+        "[ACCEPTANCE CRITERIA] Operation completes without errors within expected response time.",
+        "[RAG SOURCES] de773077-2819-4d42-bdfa-02ec03261655"
+      ],
+      "expected_result": "System processes the request successfully as per: 'Specification row: Prelims, 100, 120 Mins, 200'.",
+      "acceptance_criteria": "Operation completes without errors within expected response time.",
+      "linked_requirement_ids": [
+        "e65b2535-5af3-422e-894b-8d24b1210bfe"
+      ],
+      "rag_chunk_ids": [
+        "de773077-2819-4d42-bdfa-02ec03261655"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "d07673d9-7f72-4438-8837-d30684e9e26d",
+      "title": "[NEGATIVE] Verify error handling: Specification row: Prelims, 100, 120 Mins, 200",
+      "test_type": "NEGATIVE",
+      "priority": "P1",
+      "preconditions": "Application server and error monitoring are active.",
+      "steps": [
+        "1. Provide malformed, empty, or out-of-range input parameters.",
+        "2. Omit one or more required fields.",
+        "3. Submit the request and check system response and logs.",
+        "[ACCEPTANCE CRITERIA] Error response returned within 200ms with correct HTTP status code.",
+        "[RAG SOURCES] de773077-2819-4d42-bdfa-02ec03261655"
+      ],
+      "expected_result": "System rejects invalid inputs with a clear error message and does not crash or leak sensitive data.",
+      "acceptance_criteria": "Error response returned within 200ms with correct HTTP status code.",
+      "linked_requirement_ids": [
+        "e65b2535-5af3-422e-894b-8d24b1210bfe"
+      ],
+      "rag_chunk_ids": [
+        "de773077-2819-4d42-bdfa-02ec03261655"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "b6a9c3b0-8a24-4152-96be-4138fc241a52",
+      "title": "[BOUNDARY] Verify threshold limits: Specification row: Prelims, 100, 120 Mins, 200",
+      "test_type": "BOUNDARY",
+      "priority": "P1",
+      "preconditions": "Test harness prepared with boundary edge-case datasets.",
+      "steps": [
+        "1. Submit input at the exact minimum valid threshold value.",
+        "2. Submit input at the exact maximum valid threshold value.",
+        "3. Submit input immediately below the minimum (min - 1).",
+        "4. Submit input immediately above the maximum (max + 1).",
+        "[ACCEPTANCE CRITERIA] All boundary values handled correctly without system error or data corruption.",
+        "[RAG SOURCES] de773077-2819-4d42-bdfa-02ec03261655"
+      ],
+      "expected_result": "Values at exact boundaries are accepted. Values outside the boundary are rejected with a precise validation error.",
+      "acceptance_criteria": "All boundary values handled correctly without system error or data corruption.",
+      "linked_requirement_ids": [
+        "e65b2535-5af3-422e-894b-8d24b1210bfe"
+      ],
+      "rag_chunk_ids": [
+        "de773077-2819-4d42-bdfa-02ec03261655"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "9e4ce940-b1e8-4f67-98af-4ed0b7c64317",
+      "title": "[PERFORMANCE] Verify response time/throughput: Specification row: Prelims, 100, 120 Mins, 200",
+      "test_type": "PERFORMANCE",
+      "priority": "P1",
+      "preconditions": "Load testing environment configured. Monitoring and metrics collection active.",
+      "steps": [
+        "1. Configure load testing tool (e.g. k6, JMeter) for the target endpoint.",
+        "2. Execute requests at specified load (concurrent users / requests per second).",
+        "3. Record P50, P95, P99 response times and error rate.",
+        "4. Compare against the performance requirement thresholds.",
+        "[ACCEPTANCE CRITERIA] P95 response time within stated SLA. Error rate < 0.1% under normal load.",
+        "[RAG SOURCES] de773077-2819-4d42-bdfa-02ec03261655"
+      ],
+      "expected_result": "All performance metrics meet or exceed the stated requirement thresholds under specified load conditions.",
+      "acceptance_criteria": "P95 response time within stated SLA. Error rate < 0.1% under normal load.",
+      "linked_requirement_ids": [
+        "e65b2535-5af3-422e-894b-8d24b1210bfe"
+      ],
+      "rag_chunk_ids": [
+        "de773077-2819-4d42-bdfa-02ec03261655"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "32391109-0596-4cd8-95bf-aaa02aeeb776",
+      "title": "[POSITIVE] Verify: Specification row: Mains, 9 Papers, 3 Hours Each, 1750",
+      "test_type": "POSITIVE",
+      "priority": "P1",
+      "preconditions": "System is initialized with valid configuration and test data.",
+      "steps": [
+        "1. Set up prerequisite conditions for: Specification row: Mains, 9 Papers, 3 Hours Each, 1750.",
+        "2. Submit valid inputs matching the specification.",
+        "3. Execute the operation and observe system response.",
+        "[ACCEPTANCE CRITERIA] Operation completes without errors within expected response time.",
+        "[RAG SOURCES] de773077-2819-4d42-bdfa-02ec03261655"
+      ],
+      "expected_result": "System processes the request successfully as per: 'Specification row: Mains, 9 Papers, 3 Hours Each, 1750'.",
+      "acceptance_criteria": "Operation completes without errors within expected response time.",
+      "linked_requirement_ids": [
+        "f2004449-85fd-4c89-bf10-d276a8ca7989"
+      ],
+      "rag_chunk_ids": [
+        "de773077-2819-4d42-bdfa-02ec03261655"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "6e01bd43-7db8-43a7-bffc-949e4600521b",
+      "title": "[NEGATIVE] Verify error handling: Specification row: Mains, 9 Papers, 3 Hours Each, 1750",
+      "test_type": "NEGATIVE",
+      "priority": "P1",
+      "preconditions": "Application server and error monitoring are active.",
+      "steps": [
+        "1. Provide malformed, empty, or out-of-range input parameters.",
+        "2. Omit one or more required fields.",
+        "3. Submit the request and check system response and logs.",
+        "[ACCEPTANCE CRITERIA] Error response returned within 200ms with correct HTTP status code.",
+        "[RAG SOURCES] de773077-2819-4d42-bdfa-02ec03261655"
+      ],
+      "expected_result": "System rejects invalid inputs with a clear error message and does not crash or leak sensitive data.",
+      "acceptance_criteria": "Error response returned within 200ms with correct HTTP status code.",
+      "linked_requirement_ids": [
+        "f2004449-85fd-4c89-bf10-d276a8ca7989"
+      ],
+      "rag_chunk_ids": [
+        "de773077-2819-4d42-bdfa-02ec03261655"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "92557945-8490-4bdf-b3b5-5236e50e95ed",
+      "title": "[BOUNDARY] Verify threshold limits: Specification row: Mains, 9 Papers, 3 Hours Each, 1750",
+      "test_type": "BOUNDARY",
+      "priority": "P1",
+      "preconditions": "Test harness prepared with boundary edge-case datasets.",
+      "steps": [
+        "1. Submit input at the exact minimum valid threshold value.",
+        "2. Submit input at the exact maximum valid threshold value.",
+        "3. Submit input immediately below the minimum (min - 1).",
+        "4. Submit input immediately above the maximum (max + 1).",
+        "[ACCEPTANCE CRITERIA] All boundary values handled correctly without system error or data corruption.",
+        "[RAG SOURCES] de773077-2819-4d42-bdfa-02ec03261655"
+      ],
+      "expected_result": "Values at exact boundaries are accepted. Values outside the boundary are rejected with a precise validation error.",
+      "acceptance_criteria": "All boundary values handled correctly without system error or data corruption.",
+      "linked_requirement_ids": [
+        "f2004449-85fd-4c89-bf10-d276a8ca7989"
+      ],
+      "rag_chunk_ids": [
+        "de773077-2819-4d42-bdfa-02ec03261655"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "51d572b1-31fd-4097-b9d1-7219f6f3b77c",
+      "title": "[POSITIVE] Verify: System performs automatic scoring and answers must cite official UPSC sources.",
+      "test_type": "POSITIVE",
+      "priority": "P0",
+      "preconditions": "System is initialized with valid configuration and test data.",
+      "steps": [
+        "1. Set up prerequisite conditions for: System performs automatic scoring and answers must cite offi.",
+        "2. Submit valid inputs matching the specification.",
+        "3. Execute the operation and observe system response.",
+        "[ACCEPTANCE CRITERIA] Operation completes without errors within expected response time.",
+        "[RAG SOURCES] bd64f44b-0c2c-456d-b654-378f8238eaff"
+      ],
+      "expected_result": "System processes the request successfully as per: 'System performs automatic scoring and answers must cite official UPSC sources.'.",
+      "acceptance_criteria": "Operation completes without errors within expected response time.",
+      "linked_requirement_ids": [
+        "409fc180-a5ed-44c2-9b4a-8f58129b5100"
+      ],
+      "rag_chunk_ids": [
+        "bd64f44b-0c2c-456d-b654-378f8238eaff"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "95526560-432c-4ad3-897f-6bad054c7b72",
+      "title": "[NEGATIVE] Verify error handling: System performs automatic scoring and answers must cite official UPSC sources.",
+      "test_type": "NEGATIVE",
+      "priority": "P1",
+      "preconditions": "Application server and error monitoring are active.",
+      "steps": [
+        "1. Provide malformed, empty, or out-of-range input parameters.",
+        "2. Omit one or more required fields.",
+        "3. Submit the request and check system response and logs.",
+        "[ACCEPTANCE CRITERIA] Error response returned within 200ms with correct HTTP status code.",
+        "[RAG SOURCES] bd64f44b-0c2c-456d-b654-378f8238eaff"
+      ],
+      "expected_result": "System rejects invalid inputs with a clear error message and does not crash or leak sensitive data.",
+      "acceptance_criteria": "Error response returned within 200ms with correct HTTP status code.",
+      "linked_requirement_ids": [
+        "409fc180-a5ed-44c2-9b4a-8f58129b5100"
+      ],
+      "rag_chunk_ids": [
+        "bd64f44b-0c2c-456d-b654-378f8238eaff"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "708f7c97-27c4-416e-9b97-0eaa1cda022d",
+      "title": "[PERFORMANCE] Verify response time/throughput: System performs automatic scoring and answers must cite official UPSC sources.",
+      "test_type": "PERFORMANCE",
+      "priority": "P1",
+      "preconditions": "Load testing environment configured. Monitoring and metrics collection active.",
+      "steps": [
+        "1. Configure load testing tool (e.g. k6, JMeter) for the target endpoint.",
+        "2. Execute requests at specified load (concurrent users / requests per second).",
+        "3. Record P50, P95, P99 response times and error rate.",
+        "4. Compare against the performance requirement thresholds.",
+        "[ACCEPTANCE CRITERIA] P95 response time within stated SLA. Error rate < 0.1% under normal load.",
+        "[RAG SOURCES] bd64f44b-0c2c-456d-b654-378f8238eaff"
+      ],
+      "expected_result": "All performance metrics meet or exceed the stated requirement thresholds under specified load conditions.",
+      "acceptance_criteria": "P95 response time within stated SLA. Error rate < 0.1% under normal load.",
+      "linked_requirement_ids": [
+        "409fc180-a5ed-44c2-9b4a-8f58129b5100"
+      ],
+      "rag_chunk_ids": [
+        "bd64f44b-0c2c-456d-b654-378f8238eaff"
+      ],
+      "status": "draft"
+    }
+  ]
+}

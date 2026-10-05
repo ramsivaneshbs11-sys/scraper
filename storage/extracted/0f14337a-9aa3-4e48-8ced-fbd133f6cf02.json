@@ -1,0 +1,307 @@
+{
+  "document_id": "0f14337a-9aa3-4e48-8ced-fbd133f6cf02",
+  "filename": "current_affairs_workflow.md",
+  "file_type": "md",
+  "total_characters": 24561,
+  "units_count": 42,
+  "metadata": {
+    "sections_count": 47,
+    "preprocessed": true
+  },
+  "units": [
+    {
+      "section_title": "Current Affairs Extraction & RAG Pipeline Workflow",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "This document outlines the step-by-step technical architecture and sequence flow of the Current Affairs retrieval-augmented generation (RAG) pipeline, including the recent optimizations for concurrency, quality, and latency.\n\n---"
+    },
+    {
+      "section_title": "Architectural Flow Diagram",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "```mermaid\ngraph TD\nUserQuery([\"User Query\"]) --> Router{\"Mode == 'current_affairs'?\"}\n\n%% Router decision\nRouter -- Yes --> DirectSearch[\"Bypass Classifier & Vector DB\"]\nRouter -- No --> Classifier[\"Gemini Classifier (Prelims/Mains DB)\"]\n\n%% Search Pipeline\nDirectSearch --> Cleaner[\"1. clean_query_for_search() <br> (Recursive prefix strip, punctuation trim)\"]\nCleaner --> CleanQuery[\"Clean Search Query\"]\n\nsubgraph Parallel Search & Scraping\nCleanQuery --> DDG[\"2. DuckDuckGo Search\"]\nCleanQuery --> SearXNG[\"2. SearXNG Search\"]\nCleanQuery --> Bing[\"2. Bing Search\"]\n\nDDG --> Merge[\"3. Merge & Deduplicate URLs\"]\nSearXNG --> Merge\nBing --> Merge\n\nMerge --> Filter[\"4. is_trusted_url() Check <br> (Validate against 22 domains)\"]\nFilter --> Scrape[\"5. scrape_article() <br> (ThreadPool concurrent downloads, timeout: 5s)\"]\nend\n\n%% Processing and Reranking\nScrape --> CleanText[\"Clean Plain Text Content\"]\nCleanText --> Chunking[\"6. _chunk_article_text() <br> (180 words, 45 overlap)\"]\nChunking --> Reranker[\"7. MiniLM Cross-Encoder Reranker <br> (asyncio.to_thread offloaded)\"]\n\n%% Dynamic Scaling\nReranker --> Scale{\"Dynamic Mode Scale?\"}\nScale -- Current Affairs --> TopK[\"Select Top 8 Chunks\"]\n\n%% Generator\nTopK --> LLM[\"8. generate_grounded_answer() <br> (Gemini 3.5 Flash / Groq)\"]\nLLM --> Response([\"Grounded Response with Citations\"])\n```\n\n---"
+    },
+    {
+      "section_title": "Stage 1: Route & Bypass",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "* **Trigger:** The client sends a request to `/api/v1/query/stream` or `/api/v1/query` with `mode: \"current_affairs\"`.\n* **Action:** The system bypasses Qdrant vector database search (since static textbook PDFs do not contain recent events) and routes directly to the parallel web search pipeline."
+    },
+    {
+      "section_title": "Stage 2: Search Query Optimization (Query Cleaning)",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "* **Function:** `clean_query_for_search()` in [search_pipeline.py](file:///c:/Users/vishn/Downloads/RAG-main/RAG-main/app/retrieval/search_pipeline.py#L342-L387).\n* **Process:**\n1. Strip conversational fillers and prefix structures (e.g., `What is the current status of`, `Discuss the updates on`, etc.) recursively.\n2. Normalize possessives (`isro's` $\\rightarrow$ `isro`).\n3. Trim trailing punctuation (`?`, `.`, `!`).\n4. Returns clean, high-density keywords optimized for commercial search index parsers."
+    },
+    {
+      "section_title": "Stage 3: Concurrent Search Execution",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "* **Function:** `parallel_search()` in [search_pipeline.py](file:///c:/Users/vishn/Downloads/RAG-main/RAG-main/app/retrieval/search_pipeline.py#L409-L523).\n* **Process:** Launches 3 search providers concurrently inside a `ThreadPoolExecutor`:\n* **DuckDuckGo:** Scrapes search listings via its mobile fallback.\n* **SearXNG:** Queries public instances (if healthy).\n* **Bing:** Scrapes main search listing page."
+    },
+    {
+      "section_title": "Stage 4: URL Filtering & Trust Validation",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "* **Function:** `is_trusted_url()` in [search_pipeline.py](file:///c:/Users/vishn/Downloads/RAG-main/RAG-main/app/retrieval/search_pipeline.py#L318-L339).\n* **Filter:** Extracted URLs must match the `TRUSTED_SITES` registry list.\n* **Coverage:** Includes 22 trusted UPSC coaching and official news domains:\n* **Government:** `pib.gov.in`, `prsindia.org`, `gov.in`, `nic.in`.\n* **Mainstream News:** `thehindu.com`, `indianexpress.com`, `livemint.com`, `businessstandard.com`, `ndtv.com`, `timesofindia.indiatimes.com`.\n* **UPSC Reference Blogs:** `insightsias.com`, `civilsdaily.com`, `iasbaba.com`, `drishtiias.com`, `wikipedia.org`."
+    },
+    {
+      "section_title": "Stage 5: Concurrent Scrape & Parsing",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "* **Function:** `scrape_article()` in [search_pipeline.py](file:///c:/Users/vishn/Downloads/RAG-main/RAG-main/app/retrieval/search_pipeline.py#L258-L311).\n* **Action:** Downloads article HTML concurrently.\n* **Boilerplate Removal:** Decomposes code tags (`script`, `style`, `nav`, `footer`, `header`, `aside`) using BeautifulSoup.\n* **Text Extraction:** Joins all paragraph `<p>` tags with character counts $> 40$.\n* **Timeout Limit:** Reduced from 10s $\\rightarrow$ 5s to avoid slow hanging sites bottlenecking the pipeline.\n* **Persistence:** Cache hits are resolved instantly via a local SQLite cache."
+    },
+    {
+      "section_title": "Stage 6: Overlapping Text Chunking",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "* **Function:** `_chunk_article_text()` in [search_pipeline.py](file:///c:/Users/vishn/Downloads/RAG-main/RAG-main/app/retrieval/search_pipeline.py#L390-L404).\n* **Parameters:** Chunk size = `180 words` ($\\approx 240$ tokens), Overlap = `45 words`.\n* **Purpose:** Fits model context windows and preserves transitional sentences across boundaries."
+    },
+    {
+      "section_title": "Stage 7: Concurrency-Safe Reranking",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "* **Function:** `rerank()` in [reranker.py](file:///c:/Users/vishn/Downloads/RAG-main/RAG-main/app/retrieval/reranker.py#L37-L91).\n* **Safety:** Offloaded via `asyncio.to_thread` to prevent PyTorch computation from locking the FastAPI event loop.\n* **Process:** Ranks chunks based on semantic alignment to query.\n* **Dynamic Scaling:** For Current Affairs, the top **8 chunks** are selected for LLM consumption."
+    },
+    {
+      "section_title": "Stage 8: Grounded LLM Generation",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "* **Function:** `generate_grounded_answer()` in [generator.py](file:///c:/Users/vishn/Downloads/RAG-main/RAG-main/app/retrieval/generator.py#L24).\n* **Safeguards:**\n* **Score Gate:** If the highest reranker score is $< 0.0$, LLM call is aborted (returns \"insufficient info\").\n* **Strict Prompt:** Imposes a strict context-only prompt that explicitly forbids using external knowledge.\n* **Inline Citations:** Matches claims back to their exact parent chunks (`[chk_001]`).\n\n---"
+    },
+    {
+      "section_title": "Architectural Flow Diagram",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "```mermaid\ngraph TD\nUserQuery([\"User Query\"]) --> Router{\"Mode == 'current_affairs'?\"}\n\n%% Router decision\nRouter -- Yes --> DirectGrounding[\"Bypass Classifier, Vector DB, Scraping & Reranker\"]\nRouter -- No --> Classifier[\"Gemini Classifier (Prelims/Mains DB)\"]\n\n%% Gemini Grounding Path\nDirectGrounding --> GeminiGrounding[\"Gemini generate_content()\\n+ google_search Tool\\n(model=gemini-3.5-flash)\"]\nGeminiGrounding --> GoogleSearch[\"Google Search\\n(executed natively by Gemini)\"]\nGoogleSearch --> GroundedResponse[\"Grounded Answer\\n+ grounding_metadata\\n(search queries, cited sources)\"]\n\n%% Parse metadata\nGroundedResponse --> ParseMeta[\"Parse grounding_metadata\\n- web_search_queries\\n- grounding_chunks (title, uri)\"]\nParseMeta --> FormatCitations[\"Format src_001, src_002...\\nas rich_citations\"]\nFormatCitations --> APIResponse([\"API Response\\n(answer + rich_citations + search_queries)\"])\n\n%% Standard RAG path (Prelims/Mains)\nClassifier --> ConfidenceRoute{\"Confidence?\"}\nConfidenceRoute -- High --> VectorDB1[\"1 Qdrant Collection\"]\nConfidenceRoute -- Medium --> VectorDB2[\"Top-2 Qdrant Collections\"]\nConfidenceRoute -- Low --> WebSearch[\"Parallel Web Search\\n(DDG + SearXNG + Bing)\"]\nVectorDB1 --> Reranker[\"MiniLM Cross-Encoder Reranker\"]\nVectorDB2 --> Reranker\nWebSearch --> Reranker\nReranker --> LLM[\"generate_grounded_answer()\\n(Groq -> Gemini fallback)\"]\nLLM --> StandardResponse([\"Grounded Response with Citations\"])\n```\n\n---"
+    },
+    {
+      "section_title": "Stage 1: Route & Bypass",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "* **Trigger:** The client sends a request to `/api/v1/query` with `mode: \"current_affairs\"`.\n* **Action:** The system bypasses ALL of the following:\n* Qdrant vector database search (static textbook PDFs cannot contain recent events)\n* DuckDuckGo / SearXNG / Bing web scraping pipeline\n* BeautifulSoup article parsing & SQLite caching\n* MiniLM cross-encoder reranking\n* **Returns:** `routing = \"current_affairs_grounding\"`, `chunks = []`, `candidates = []`\n\n---"
+    },
+    {
+      "section_title": "Stage 2: Gemini Google Search Grounding",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "* **Function:** `_call_gemini_grounded()` in [generator.py](file:///c:/Users/vishn/Downloads/RAG-main/RAG-main/app/retrieval/generator.py)\n* **SDK:** `google-genai` (new SDK, `google.genai.Client`)\n* **API call:**\n```python\nclient.models.generate_content(\nmodel=\"gemini-3.5-flash\",\ncontents=query,\nconfig=GenerateContentConfig(\nsystem_instruction=\"<UPSC-CURRENT persona>\",\ntools=[Tool(google_search=GoogleSearch())],\ntemperature=0.0,\n),\n)\n```\n* **Key Rotation:** Iterates across all comma-separated keys in `GEMINI_API_KEY` until one succeeds (handles per-key 429 rate limits).\n* **System Instruction:** A concise UPSC-focused persona guiding Gemini to structure answers with headers:\n* `**What Happened / Recent Development**`\n* `**Background & Context**`\n* `**Government Response / Policy Measures**`\n* `**Key Implications (Prelims/Mains)**`\n* `**UPSC Keywords to Remember**`\n\n---"
+    },
+    {
+      "section_title": "Stage 3: Grounding Metadata Parsing",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "* **Source:** `response.candidates[0].grounding_metadata`\n* **Fields extracted:**\n* `web_search_queries` - list of Google Search queries Gemini auto-executed\n* `grounding_chunks[].web.title` - source article title\n* `grounding_chunks[].web.uri` - source article URL\n* **Output:** Rich citations list `[{chunk_id: \"src_001\", document: \"Title\", url: \"...\"}]`\n\n---"
+    },
+    {
+      "section_title": "Stage 4: API Response",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "The final response is compatible with the existing `QueryResponse` schema:\n\n| Field | Content |\n|---|---|\n| `answer` | Structured markdown (grounded in live Google Search results) |\n| `answered` | `true` if Gemini returned a non-empty answer |\n| `citations` | `[\"src_001\", \"src_002\", ...]` - source labels |\n| `rich_citations` | `[{chunk_id, document, url, pages, preview}]` |\n| `routing` | `\"current_affairs_grounding\"` |\n| `search_queries` | The Google Search queries Gemini executed |\n| `log_info` | Human-readable description with queries used |\n\n---"
+    },
+    {
+      "section_title": "Billing Requirement",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "> **Google Search Grounding requires a paid/billing-enabled Gemini API key.**\n> Free-tier keys return `429 RESOURCE_EXHAUSTED` for search grounding even when plain\n> text generation succeeds. Ensure your `GEMINI_API_KEY` keys are linked to a\n> Google Cloud billing account.\n\n---"
+    },
+    {
+      "section_title": "Comparison: Old vs New Architecture",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "| Aspect | Old (Web Scraping) | New (Gemini Grounding) |\n|---|---|---|\n| **Search Providers** | DDG + SearXNG + Bing | Google Search (native) |\n| **Scraping** | BeautifulSoup + requests | None (Gemini handles it) |\n| **Reranking** | MiniLM Cross-Encoder | None needed |\n| **Latency** | ~8-12 seconds | ~2-4 seconds |\n| **Result Quality** | Depends on trusted sites whitelist | Google Search (highest quality) |\n| **Citation Type** | `[chk_001]` chunk IDs | `[src_001]` web source URLs |\n| **Billing** | Free (no API key for search) | Paid Gemini API key required |\n| **Freshness** | Subject to scraping failures | Real-time via Google |\n\n---"
+    },
+    {
+      "section_title": "Architectural Flow Diagram",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "```mermaid\ngraph TD\nUserQuery([\"User Query\"]) --> Router{\"Mode == 'current_affairs'?\"}\n\n%% Router decision\nRouter -- Yes --> DirectSearch[\"Bypass Classifier & Vector DB\"]\nRouter -- No --> Classifier[\"Gemini Classifier (Prelims/Mains DB)\"]\n\n%% Search Pipeline\nDirectSearch --> Cleaner[\"1. clean_query_for_search() <br> (Recursive prefix strip, punctuation trim)\"]\nCleaner --> CleanQuery[\"Clean Search Query\"]\n\nsubgraph Parallel Search & Scraping\nCleanQuery --> DDG[\"2. DuckDuckGo Search\"]\nCleanQuery --> SearXNG[\"2. SearXNG Search\"]\nCleanQuery --> Bing[\"2. Bing Search\"]\n\nDDG --> Merge[\"3. Merge & Deduplicate URLs\"]\nSearXNG --> Merge\nBing --> Merge\n\nMerge --> Filter[\"4. is_trusted_url() Check <br> (Validate against 22 domains)\"]\nFilter --> Scrape[\"5. scrape_article() <br> (ThreadPool concurrent downloads, timeout: 5s)\"]\nend\n\n%% Processing and Reranking\nScrape --> CleanText[\"Clean Plain Text Content\"]\nCleanText --> Chunking[\"6. _chunk_article_text() <br> (180 words, 45 overlap)\"]\nChunking --> Reranker[\"7. MiniLM Cross-Encoder Reranker <br> (asyncio.to_thread offloaded)\"]\n\n%% Dynamic Scaling\nReranker --> Scale{\"Dynamic Mode Scale?\"}\nScale -- Current Affairs --> TopK[\"Select Top 8 Chunks\"]\n\n%% Generator\nTopK --> LLM[\"8. generate_grounded_answer() <br> (Gemini 3.5 Flash / Groq)\"]\nLLM --> Response([\"Grounded Response with Citations\"])\n```\n\n---"
+    },
+    {
+      "section_title": "Stage 1: Route & Bypass",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "* **Trigger:** The client sends a request to `/api/v1/query/stream` or `/api/v1/query` with `mode: \"current_affairs\"`.\n* **Action:** The system bypasses Qdrant vector database search (since static textbook PDFs do not contain recent events) and routes directly to the parallel web search pipeline."
+    },
+    {
+      "section_title": "Stage 2: Search Query Optimization (Query Cleaning)",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "* **Function:** `clean_query_for_search()` in [search_pipeline.py](file:///c:/Users/vishn/Downloads/RAG-main/RAG-main/app/retrieval/search_pipeline.py#L342-L387).\n* **Process:**\n1. Strip conversational fillers and prefix structures (e.g., `What is the current status of`, `Discuss the updates on`, etc.) recursively.\n2. Normalize possessives (`isro's` $\\rightarrow$ `isro`).\n3. Trim trailing punctuation (`?`, `.`, `!`).\n4. Returns clean, high-density keywords optimized for commercial search index parsers."
+    },
+    {
+      "section_title": "Stage 3: Concurrent Search Execution",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "* **Function:** `parallel_search()` in [search_pipeline.py](file:///c:/Users/vishn/Downloads/RAG-main/RAG-main/app/retrieval/search_pipeline.py#L409-L523).\n* **Process:** Launches 3 search providers concurrently inside a `ThreadPoolExecutor`:\n* **DuckDuckGo:** Scrapes search listings via its mobile fallback.\n* **SearXNG:** Queries public instances (if healthy).\n* **Bing:** Scrapes main search listing page."
+    },
+    {
+      "section_title": "Stage 4: URL Filtering & Trust Validation",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "* **Function:** `is_trusted_url()` in [search_pipeline.py](file:///c:/Users/vishn/Downloads/RAG-main/RAG-main/app/retrieval/search_pipeline.py#L318-L339).\n* **Filter:** Extracted URLs must match the `TRUSTED_SITES` registry list.\n* **Coverage:** Includes 22 trusted UPSC coaching and official news domains:\n* **Government:** `pib.gov.in`, `prsindia.org`, `gov.in`, `nic.in`.\n* **Mainstream News:** `thehindu.com`, `indianexpress.com`, `livemint.com`, `businessstandard.com`, `ndtv.com`, `timesofindia.indiatimes.com`.\n* **UPSC Reference Blogs:** `insightsias.com`, `civilsdaily.com`, `iasbaba.com`, `drishtiias.com`, `wikipedia.org`."
+    },
+    {
+      "section_title": "Stage 5: Concurrent Scrape & Parsing",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "* **Function:** `scrape_article()` in [search_pipeline.py](file:///c:/Users/vishn/Downloads/RAG-main/RAG-main/app/retrieval/search_pipeline.py#L258-L311).\n* **Action:** Downloads article HTML concurrently.\n* **Boilerplate Removal:** Decomposes code tags (`script`, `style`, `nav`, `footer`, `header`, `aside`) using BeautifulSoup.\n* **Text Extraction:** Joins all paragraph `<p>` tags with character counts $> 40$.\n* **Timeout Limit:** Reduced from 10s $\\rightarrow$ 5s to avoid slow hanging sites bottlenecking the pipeline.\n* **Persistence:** Cache hits are resolved instantly via a local SQLite cache."
+    },
+    {
+      "section_title": "Stage 6: Overlapping Text Chunking",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "* **Function:** `_chunk_article_text()` in [search_pipeline.py](file:///c:/Users/vishn/Downloads/RAG-main/RAG-main/app/retrieval/search_pipeline.py#L390-L404).\n* **Parameters:** Chunk size = `180 words` ($\\approx 240$ tokens), Overlap = `45 words`.\n* **Purpose:** Fits model context windows and preserves transitional sentences across boundaries."
+    },
+    {
+      "section_title": "Stage 7: Concurrency-Safe Reranking",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "* **Function:** `rerank()` in [reranker.py](file:///c:/Users/vishn/Downloads/RAG-main/RAG-main/app/retrieval/reranker.py#L37-L91).\n* **Safety:** Offloaded via `asyncio.to_thread` to prevent PyTorch computation from locking the FastAPI event loop.\n* **Process:** Ranks chunks based on semantic alignment to query.\n* **Dynamic Scaling:** For Current Affairs, the top **8 chunks** are selected for LLM consumption."
+    },
+    {
+      "section_title": "Stage 8: Grounded LLM Generation",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "* **Function:** `generate_grounded_answer()` in [generator.py](file:///c:/Users/vishn/Downloads/RAG-main/RAG-main/app/retrieval/generator.py#L24).\n* **Safeguards:**\n* **Score Gate:** If the highest reranker score is $< 0.0$, LLM call is aborted (returns \"insufficient info\").\n* **Strict Prompt:** Imposes a strict context-only prompt that explicitly forbids using external knowledge.\n* **Inline Citations:** Matches claims back to their exact parent chunks (`[chk_001]`).\n\n---"
+    },
+    {
+      "section_title": "Architectural Flow Diagram",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "```mermaid\ngraph TD\nUserQuery([\"User Query\"]) --> Router{\"Mode == 'current_affairs'?\"}\n\n%% Router decision\nRouter -- Yes --> DirectGrounding[\"Bypass Classifier, Vector DB, Scraping & Reranker\"]\nRouter -- No --> Classifier[\"Gemini Classifier (Prelims/Mains DB)\"]\n\n%% Gemini Grounding Path\nDirectGrounding --> GeminiGrounding[\"Gemini generate_content()\\n+ google_search Tool\\n(model=gemini-3.5-flash)\"]\nGeminiGrounding --> GoogleSearch[\"Google Search\\n(executed natively by Gemini)\"]\nGoogleSearch --> GroundedResponse[\"Grounded Answer\\n+ grounding_metadata\\n(search queries, cited sources)\"]\n\n%% Parse metadata\nGroundedResponse --> ParseMeta[\"Parse grounding_metadata\\n- web_search_queries\\n- grounding_chunks (title, uri)\"]\nParseMeta --> FormatCitations[\"Format src_001, src_002...\\nas rich_citations\"]\nFormatCitations --> APIResponse([\"API Response\\n(answer + rich_citations + search_queries)\"])\n\n%% Standard RAG path (Prelims/Mains)\nClassifier --> ConfidenceRoute{\"Confidence?\"}\nConfidenceRoute -- High --> VectorDB1[\"1 Qdrant Collection\"]\nConfidenceRoute -- Medium --> VectorDB2[\"Top-2 Qdrant Collections\"]\nConfidenceRoute -- Low --> WebSearch[\"Parallel Web Search\\n(DDG + SearXNG + Bing)\"]\nVectorDB1 --> Reranker[\"MiniLM Cross-Encoder Reranker\"]\nVectorDB2 --> Reranker\nWebSearch --> Reranker\nReranker --> LLM[\"generate_grounded_answer()\\n(Groq -> Gemini fallback)\"]\nLLM --> StandardResponse([\"Grounded Response with Citations\"])\n```\n\n---"
+    },
+    {
+      "section_title": "Stage 1: Route & Bypass",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "* **Trigger:** The client sends a request to `/api/v1/query` with `mode: \"current_affairs\"`.\n* **Action:** The system bypasses ALL of the following:\n* Qdrant vector database search (static textbook PDFs cannot contain recent events)\n* DuckDuckGo / SearXNG / Bing web scraping pipeline\n* BeautifulSoup article parsing & SQLite caching\n* MiniLM cross-encoder reranking\n* **Returns:** `routing = \"current_affairs_grounding\"`, `chunks = []`, `candidates = []`\n\n---"
+    },
+    {
+      "section_title": "Stage 2: Gemini Google Search Grounding",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "* **Function:** `_call_gemini_grounded()` in [generator.py](file:///c:/Users/vishn/Downloads/RAG-main/RAG-main/app/retrieval/generator.py)\n* **SDK:** `google-genai` (new SDK, `google.genai.Client`)\n* **API call:**\n```python\nclient.models.generate_content(\nmodel=\"gemini-3.5-flash\",\ncontents=query,\nconfig=GenerateContentConfig(\nsystem_instruction=\"<UPSC-CURRENT persona>\",\ntools=[Tool(google_search=GoogleSearch())],\ntemperature=0.0,\n),\n)\n```\n* **Key Rotation:** Iterates across all comma-separated keys in `GEMINI_API_KEY` until one succeeds (handles per-key 429 rate limits).\n* **System Instruction:** A concise UPSC-focused persona guiding Gemini to structure answers with headers:\n* `**What Happened / Recent Development**`\n* `**Background & Context**`\n* `**Government Response / Policy Measures**`\n* `**Key Implications (Prelims/Mains)**`\n* `**UPSC Keywords to Remember**`\n\n---"
+    },
+    {
+      "section_title": "Stage 3: Grounding Metadata Parsing",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "* **Source:** `response.candidates[0].grounding_metadata`\n* **Fields extracted:**\n* `web_search_queries` - list of Google Search queries Gemini auto-executed\n* `grounding_chunks[].web.title` - source article title\n* `grounding_chunks[].web.uri` - source article URL\n* **Output:** Rich citations list `[{chunk_id: \"src_001\", document: \"Title\", url: \"...\"}]`\n\n---"
+    },
+    {
+      "section_title": "Stage 4: API Response",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "The final response is compatible with the existing `QueryResponse` schema:\n\n| Field | Content |\n|---|---|\n| `answer` | Structured markdown (grounded in live Google Search results) |\n| `answered` | `true` if Gemini returned a non-empty answer |\n| `citations` | `[\"src_001\", \"src_002\", ...]` - source labels |\n| `rich_citations` | `[{chunk_id, document, url, pages, preview}]` |\n| `routing` | `\"current_affairs_grounding\"` |\n| `search_queries` | The Google Search queries Gemini executed |\n| `log_info` | Human-readable description with queries used |\n\n---"
+    },
+    {
+      "section_title": "Billing Requirement",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "> **Google Search Grounding requires a paid/billing-enabled Gemini API key.**\n> Free-tier keys return `429 RESOURCE_EXHAUSTED` for search grounding even when plain\n> text generation succeeds. Ensure your `GEMINI_API_KEY` keys are linked to a\n> Google Cloud billing account.\n\n---"
+    },
+    {
+      "section_title": "Comparison: Old vs New Architecture",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "| Aspect | Old (Web Scraping) | New (Gemini Grounding) |\n|---|---|---|\n| **Search Providers** | DDG + SearXNG + Bing | Google Search (native) |\n| **Scraping** | BeautifulSoup + requests | None (Gemini handles it) |\n| **Reranking** | MiniLM Cross-Encoder | None needed |\n| **Latency** | ~8-12 seconds | ~2-4 seconds |\n| **Result Quality** | Depends on trusted sites whitelist | Google Search (highest quality) |\n| **Citation Type** | `[chk_001]` chunk IDs | `[src_001]` web source URLs |\n| **Billing** | Free (no API key for search) | Paid Gemini API key required |\n| **Freshness** | Subject to scraping failures | Real-time via Google |\n\n---"
+    },
+    {
+      "section_title": "Architectural Flow Diagram",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "```mermaid\ngraph TD\nUserQuery([\"User Query\"]) --> Router{\"Mode == 'current_affairs'?\"}\n\n%% Router decision\nRouter -- Yes --> DirectSearch[\"Bypass Classifier & Vector DB\"]\nRouter -- No --> Classifier[\"Gemini Classifier (Prelims/Mains DB)\"]\n\n%% Search Pipeline\nDirectSearch --> Cleaner[\"1. clean_query_for_search() <br> (Recursive prefix strip, punctuation trim)\"]\nCleaner --> CleanQuery[\"Clean Search Query\"]\n\nsubgraph Parallel Search & Scraping\nCleanQuery --> DDG[\"2. DuckDuckGo Search\"]\nCleanQuery --> SearXNG[\"2. SearXNG Search\"]\nCleanQuery --> Bing[\"2. Bing Search\"]\n\nDDG --> Merge[\"3. Merge & Deduplicate URLs\"]\nSearXNG --> Merge\nBing --> Merge\n\nMerge --> Filter[\"4. is_trusted_url() Check <br> (Validate against 22 domains)\"]\nFilter --> Scrape[\"5. scrape_article() <br> (ThreadPool concurrent downloads, timeout: 5s)\"]\nend\n\n%% Processing and Reranking\nScrape --> CleanText[\"Clean Plain Text Content\"]\nCleanText --> Chunking[\"6. _chunk_article_text() <br> (180 words, 45 overlap)\"]\nChunking --> Reranker[\"7. MiniLM Cross-Encoder Reranker <br> (asyncio.to_thread offloaded)\"]\n\n%% Dynamic Scaling\nReranker --> Scale{\"Dynamic Mode Scale?\"}\nScale -- Current Affairs --> TopK[\"Select Top 8 Chunks\"]\n\n%% Generator\nTopK --> LLM[\"8. generate_grounded_answer() <br> (Gemini 3.5 Flash / Groq)\"]\nLLM --> Response([\"Grounded Response with Citations\"])\n```\n\n---"
+    },
+    {
+      "section_title": "Stage 1: Route & Bypass",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "* **Trigger:** The client sends a request to `/api/v1/query/stream` or `/api/v1/query` with `mode: \"current_affairs\"`.\n* **Action:** The system bypasses Qdrant vector database search (since static textbook PDFs do not contain recent events) and routes directly to the parallel web search pipeline."
+    },
+    {
+      "section_title": "Stage 2: Search Query Optimization (Query Cleaning)",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "* **Function:** `clean_query_for_search()` in [search_pipeline.py](file:///c:/Users/vishn/Downloads/RAG-main/RAG-main/app/retrieval/search_pipeline.py#L342-L387).\n* **Process:**\n1. Strip conversational fillers and prefix structures (e.g., `What is the current status of`, `Discuss the updates on`, etc.) recursively.\n2. Normalize possessives (`isro's` $\\rightarrow$ `isro`).\n3. Trim trailing punctuation (`?`, `.`, `!`).\n4. Returns clean, high-density keywords optimized for commercial search index parsers."
+    },
+    {
+      "section_title": "Stage 3: Concurrent Search Execution",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "* **Function:** `parallel_search()` in [search_pipeline.py](file:///c:/Users/vishn/Downloads/RAG-main/RAG-main/app/retrieval/search_pipeline.py#L409-L523).\n* **Process:** Launches 3 search providers concurrently inside a `ThreadPoolExecutor`:\n* **DuckDuckGo:** Scrapes search listings via its mobile fallback.\n* **SearXNG:** Queries public instances (if healthy).\n* **Bing:** Scrapes main search listing page."
+    },
+    {
+      "section_title": "Stage 4: URL Filtering & Trust Validation",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "* **Function:** `is_trusted_url()` in [search_pipeline.py](file:///c:/Users/vishn/Downloads/RAG-main/RAG-main/app/retrieval/search_pipeline.py#L318-L339).\n* **Filter:** Extracted URLs must match the `TRUSTED_SITES` registry list.\n* **Coverage:** Includes 22 trusted UPSC coaching and official news domains:\n* **Government:** `pib.gov.in`, `prsindia.org`, `gov.in`, `nic.in`.\n* **Mainstream News:** `thehindu.com`, `indianexpress.com`, `livemint.com`, `businessstandard.com`, `ndtv.com`, `timesofindia.indiatimes.com`.\n* **UPSC Reference Blogs:** `insightsias.com`, `civilsdaily.com`, `iasbaba.com`, `drishtiias.com`, `wikipedia.org`."
+    },
+    {
+      "section_title": "Stage 5: Concurrent Scrape & Parsing",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "* **Function:** `scrape_article()` in [search_pipeline.py](file:///c:/Users/vishn/Downloads/RAG-main/RAG-main/app/retrieval/search_pipeline.py#L258-L311).\n* **Action:** Downloads article HTML concurrently.\n* **Boilerplate Removal:** Decomposes code tags (`script`, `style`, `nav`, `footer`, `header`, `aside`) using BeautifulSoup.\n* **Text Extraction:** Joins all paragraph `<p>` tags with character counts $> 40$.\n* **Timeout Limit:** Reduced from 10s $\\rightarrow$ 5s to avoid slow hanging sites bottlenecking the pipeline.\n* **Persistence:** Cache hits are resolved instantly via a local SQLite cache."
+    },
+    {
+      "section_title": "Stage 6: Overlapping Text Chunking",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "* **Function:** `_chunk_article_text()` in [search_pipeline.py](file:///c:/Users/vishn/Downloads/RAG-main/RAG-main/app/retrieval/search_pipeline.py#L390-L404).\n* **Parameters:** Chunk size = `180 words` ($\\approx 240$ tokens), Overlap = `45 words`.\n* **Purpose:** Fits model context windows and preserves transitional sentences across boundaries."
+    },
+    {
+      "section_title": "Stage 7: Concurrency-Safe Reranking",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "* **Function:** `rerank()` in [reranker.py](file:///c:/Users/vishn/Downloads/RAG-main/RAG-main/app/retrieval/reranker.py#L37-L91).\n* **Safety:** Offloaded via `asyncio.to_thread` to prevent PyTorch computation from locking the FastAPI event loop.\n* **Process:** Ranks chunks based on semantic alignment to query.\n* **Dynamic Scaling:** For Current Affairs, the top **8 chunks** are selected for LLM consumption."
+    },
+    {
+      "section_title": "Stage 8: Grounded LLM Generation",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "* **Function:** `generate_grounded_answer()` in [generator.py](file:///c:/Users/vishn/Downloads/RAG-main/RAG-main/app/retrieval/generator.py#L24).\n* **Safeguards:**\n* **Score Gate:** If the highest reranker score is $< 0.0$, LLM call is aborted (returns \"insufficient info\").\n* **Strict Prompt:** Imposes a strict context-only prompt that explicitly forbids using external knowledge.\n* **Inline Citations:** Matches claims back to their exact parent chunks (`[chk_001]`)."
+    }
+  ]
+}

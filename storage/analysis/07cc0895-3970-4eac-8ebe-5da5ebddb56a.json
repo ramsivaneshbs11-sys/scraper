@@ -1,0 +1,54 @@
+{
+  "document_id": "07cc0895-3970-4eac-8ebe-5da5ebddb56a",
+  "project_id": "p_day7_isolated",
+  "filename": "day7_spec.md",
+  "total_chunks_analyzed": 2,
+  "requirements_count": 4,
+  "ambiguities_count": 1,
+  "requirements": [
+    {
+      "id": "8bb96f7a-2898-4aae-8dc5-349fc3c083f1",
+      "text": "Candidates must score at least 33% (66 marks) in CSAT Paper 2 to qualify for Mains evaluation.",
+      "confidence": 0.95,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "edc3eeee-baea-4f8f-9770-76325572d971"
+      ]
+    },
+    {
+      "id": "7e05186e-7ea9-4af6-88d9-d58b8d126789",
+      "text": "The system shall calculate total scores within 2 seconds of test submission.",
+      "confidence": 0.95,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "edc3eeee-baea-4f8f-9770-76325572d971"
+      ]
+    },
+    {
+      "id": "3c46b1bf-be0a-49c6-8188-e59431f210d7",
+      "text": "The application must be completely secure and provide fast response times for all users.",
+      "confidence": 0.95,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "b60ed3cc-4656-4155-aec1-2bdc33abf7c2"
+      ]
+    },
+    {
+      "id": "64f90c6d-2d13-4cdc-9958-57af4a2e68fc",
+      "text": "Pass-fail results will be emailed to registered candidates upon exam completion.",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "b60ed3cc-4656-4155-aec1-2bdc33abf7c2"
+      ]
+    }
+  ],
+  "ambiguities": [
+    {
+      "id": "83f00628-56da-4e69-a1c6-5388d8de6af6",
+      "description": "Vague or subjective term 'fast' used in statement: 'The application must be completely secure and provide fast response times for al...'",
+      "suggested_clarification": "Please specify precise numerical metrics or verifiable criteria for 'fast'.",
+      "status": "open"
+    }
+  ]
+}

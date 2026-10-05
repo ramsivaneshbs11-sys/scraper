@@ -1,0 +1,12 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+alembic
+python-multipart
+pymupdf
+python-docx
+python-dotenv
+httpx          # used for both Gemini LLM API and Qdrant REST API (Day 9)
+pydantic
+openpyxl       # Excel .xlsx export (Day 10)
+playwright     # Headless browser test runner & evidence capture

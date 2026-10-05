@@ -1,0 +1,178 @@
+{
+  "project_id": "p_d10",
+  "generated_at": "2026-10-01T07:12:31.705004",
+  "total_test_cases": 7,
+  "breakdown": {
+    "NEGATIVE": 2,
+    "SECURITY": 2,
+    "BOUNDARY": 1,
+    "POSITIVE": 2,
+    "PERFORMANCE": 0
+  },
+  "test_cases": [
+    {
+      "id": "583065af-f2b0-469d-8ceb-41d66d1ea9f7",
+      "title": "[POSITIVE] Verify: Users must authenticate with a valid JWT token before accessing any protected en",
+      "test_type": "POSITIVE",
+      "priority": "P0",
+      "preconditions": "System is initialized with valid configuration and test data.",
+      "steps": [
+        "1. Set up prerequisite conditions for: Users must authenticate with a valid JWT token before access.",
+        "2. Submit valid inputs matching the specification.",
+        "3. Execute the operation and observe system response.",
+        "[ACCEPTANCE CRITERIA] Operation completes without errors within expected response time.",
+        "[RAG SOURCES] ch_d10_1"
+      ],
+      "expected_result": "System processes the request successfully as per: 'Users must authenticate with a valid JWT token before accessing any protected endpoint.'.",
+      "acceptance_criteria": "Operation completes without errors within expected response time.",
+      "linked_requirement_ids": [
+        "req_d10_1"
+      ],
+      "rag_chunk_ids": [
+        "ch_d10_1"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "6f69abbb-7f39-41a2-9049-2b2511a45e2b",
+      "title": "[NEGATIVE] Verify error handling: Users must authenticate with a valid JWT token before accessing any protected en",
+      "test_type": "NEGATIVE",
+      "priority": "P1",
+      "preconditions": "Application server and error monitoring are active.",
+      "steps": [
+        "1. Provide malformed, empty, or out-of-range input parameters.",
+        "2. Omit one or more required fields.",
+        "3. Submit the request and check system response and logs.",
+        "[ACCEPTANCE CRITERIA] Error response returned within 200ms with correct HTTP status code.",
+        "[RAG SOURCES] ch_d10_1"
+      ],
+      "expected_result": "System rejects invalid inputs with a clear error message and does not crash or leak sensitive data.",
+      "acceptance_criteria": "Error response returned within 200ms with correct HTTP status code.",
+      "linked_requirement_ids": [
+        "req_d10_1"
+      ],
+      "rag_chunk_ids": [
+        "ch_d10_1"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "1a6535a3-4f80-4004-a415-1a502ff08545",
+      "title": "[SECURITY] Verify access control: Users must authenticate with a valid JWT token before accessing any protected en",
+      "test_type": "SECURITY",
+      "priority": "P0",
+      "preconditions": "Security testing tools configured. Unauthorized user account available.",
+      "steps": [
+        "1. Attempt the operation without any authentication credentials.",
+        "2. Attempt the operation with an expired or tampered token.",
+        "3. Attempt privilege escalation with a lower-privileged user account.",
+        "4. Try SQL injection / XSS payloads in input fields if applicable.",
+        "[ACCEPTANCE CRITERIA] Zero unauthorized access granted. Security headers (Content-Security-Policy, X-Frame-Options) present in responses.",
+        "[RAG SOURCES] ch_d10_1"
+      ],
+      "expected_result": "All unauthorized access attempts are rejected with 401/403. No sensitive data is leaked. Injection payloads are sanitized.",
+      "acceptance_criteria": "Zero unauthorized access granted. Security headers (Content-Security-Policy, X-Frame-Options) present in responses.",
+      "linked_requirement_ids": [
+        "req_d10_1"
+      ],
+      "rag_chunk_ids": [
+        "ch_d10_1"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "f62ae4a8-dd70-47d2-ab8e-29b6812394e3",
+      "title": "[POSITIVE] Verify: Login attempts must be limited to 5 per minute to prevent brute-force attacks.",
+      "test_type": "POSITIVE",
+      "priority": "P0",
+      "preconditions": "System is initialized with valid configuration and test data.",
+      "steps": [
+        "1. Set up prerequisite conditions for: Login attempts must be limited to 5 per minute to prevent br.",
+        "2. Submit valid inputs matching the specification.",
+        "3. Execute the operation and observe system response.",
+        "[ACCEPTANCE CRITERIA] Operation completes without errors within expected response time.",
+        "[RAG SOURCES] ch_d10_1"
+      ],
+      "expected_result": "System processes the request successfully as per: 'Login attempts must be limited to 5 per minute to prevent brute-force attacks.'.",
+      "acceptance_criteria": "Operation completes without errors within expected response time.",
+      "linked_requirement_ids": [
+        "req_d10_2"
+      ],
+      "rag_chunk_ids": [
+        "ch_d10_1"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "623d5193-4a6b-4d1a-afe2-ef6c6eae1895",
+      "title": "[NEGATIVE] Verify error handling: Login attempts must be limited to 5 per minute to prevent brute-force attacks.",
+      "test_type": "NEGATIVE",
+      "priority": "P1",
+      "preconditions": "Application server and error monitoring are active.",
+      "steps": [
+        "1. Provide malformed, empty, or out-of-range input parameters.",
+        "2. Omit one or more required fields.",
+        "3. Submit the request and check system response and logs.",
+        "[ACCEPTANCE CRITERIA] Error response returned within 200ms with correct HTTP status code.",
+        "[RAG SOURCES] ch_d10_1"
+      ],
+      "expected_result": "System rejects invalid inputs with a clear error message and does not crash or leak sensitive data.",
+      "acceptance_criteria": "Error response returned within 200ms with correct HTTP status code.",
+      "linked_requirement_ids": [
+        "req_d10_2"
+      ],
+      "rag_chunk_ids": [
+        "ch_d10_1"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "9f23f46d-782f-4ec9-8809-52e9e13ec2a2",
+      "title": "[BOUNDARY] Verify threshold limits: Login attempts must be limited to 5 per minute to prevent brute-force attacks.",
+      "test_type": "BOUNDARY",
+      "priority": "P1",
+      "preconditions": "Test harness prepared with boundary edge-case datasets.",
+      "steps": [
+        "1. Submit input at the exact minimum valid threshold value.",
+        "2. Submit input at the exact maximum valid threshold value.",
+        "3. Submit input immediately below the minimum (min - 1).",
+        "4. Submit input immediately above the maximum (max + 1).",
+        "[ACCEPTANCE CRITERIA] All boundary values handled correctly without system error or data corruption.",
+        "[RAG SOURCES] ch_d10_1"
+      ],
+      "expected_result": "Values at exact boundaries are accepted. Values outside the boundary are rejected with a precise validation error.",
+      "acceptance_criteria": "All boundary values handled correctly without system error or data corruption.",
+      "linked_requirement_ids": [
+        "req_d10_2"
+      ],
+      "rag_chunk_ids": [
+        "ch_d10_1"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "bea83b23-bd9c-4b42-a694-39009c1dfa03",
+      "title": "[SECURITY] Verify access control: Login attempts must be limited to 5 per minute to prevent brute-force attacks.",
+      "test_type": "SECURITY",
+      "priority": "P0",
+      "preconditions": "Security testing tools configured. Unauthorized user account available.",
+      "steps": [
+        "1. Attempt the operation without any authentication credentials.",
+        "2. Attempt the operation with an expired or tampered token.",
+        "3. Attempt privilege escalation with a lower-privileged user account.",
+        "4. Try SQL injection / XSS payloads in input fields if applicable.",
+        "[ACCEPTANCE CRITERIA] Zero unauthorized access granted. Security headers (Content-Security-Policy, X-Frame-Options) present in responses.",
+        "[RAG SOURCES] ch_d10_1"
+      ],
+      "expected_result": "All unauthorized access attempts are rejected with 401/403. No sensitive data is leaked. Injection payloads are sanitized.",
+      "acceptance_criteria": "Zero unauthorized access granted. Security headers (Content-Security-Policy, X-Frame-Options) present in responses.",
+      "linked_requirement_ids": [
+        "req_d10_2"
+      ],
+      "rag_chunk_ids": [
+        "ch_d10_1"
+      ],
+      "status": "draft"
+    }
+  ]
+}

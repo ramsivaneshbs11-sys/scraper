@@ -1,0 +1,105 @@
+{
+  "document_id": "8139c9d3-218c-4a71-b418-231ce74c649f",
+  "project_id": "proj_upsc_rag",
+  "filename": "current_affairs_unified_architecture.md",
+  "total_chunks_analyzed": 10,
+  "requirements_count": 9,
+  "ambiguities_count": 2,
+  "requirements": [
+    {
+      "id": "cbec2d16-69f6-4e9a-83da-a3b900542b9e",
+      "text": "Specification row: Feature, 📰 Daily News Feed (`ram_chatbot-main`), 🔍 Current Affairs Mode (`RAG-main`)",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "7ce52fac-c136-449a-9dfb-274322ddb718"
+      ]
+    },
+    {
+      "id": "a3bba632-ff17-4a8e-b166-aee4361bdcb9",
+      "text": "Specification row: **Core Nature**, **Passive News Digest** (Curated daily reading feed), **Active Research Engine** (On-demand question answering)",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "7ce52fac-c136-449a-9dfb-274322ddb718"
+      ]
+    },
+    {
+      "id": "87baa0fc-275b-48b3-8d01-42aa000c3ca3",
+      "text": "Specification row: **Trigger Mechanism**, Automated cron job (06:00 AM daily), User submits a question",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "7ce52fac-c136-449a-9dfb-274322ddb718"
+      ]
+    },
+    {
+      "id": "d7652886-c5ce-4230-8c1e-17ed38b941ed",
+      "text": "Specification row: **Data Scope**, Top ~10-16 pre-selected articles from *The Hindu* & *PIB*, Live web search across 15+ verified Indian portals",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "7ce52fac-c136-449a-9dfb-274322ddb718"
+      ]
+    },
+    {
+      "id": "e80479e1-f505-4053-8eb8-950850d53db8",
+      "text": "Specification row: **Output Format**, Structured 3-bullet points with GS category tag, In-depth analytical examination answer with source citations",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "7ce52fac-c136-449a-9dfb-274322ddb718"
+      ]
+    },
+    {
+      "id": "ba0ad32f-16d2-4a69-94b9-6634d3c803a0",
+      "text": "Specification row: **Storage & Cache**, Stored in MongoDB / `daily_news.json` (5-day rolling window), Cached in SQLite",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "7ce52fac-c136-449a-9dfb-274322ddb718"
+      ]
+    },
+    {
+      "id": "ddc2bcde-5a19-4a59-b51b-3bbaa214d1ab",
+      "text": "Specification row: **Student Usage**, Browsing the morning news summary, Asking specific analytical questions for Mains / Prelims",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "266c66ee-04cc-49e8-bdc7-5c7ad01ae124"
+      ]
+    },
+    {
+      "id": "56e62f9e-dcc6-490e-8848-8af582bda8eb",
+      "text": "Right on the news card, students can click an **\"Analyze with AI\"** action button, which opens the chatbot with that specific article pre-loaded into context.",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "0809caf6-75c9-49a2-be08-027e3d9561da"
+      ]
+    },
+    {
+      "id": "5095c716-1132-4c1c-88e5-087692bcfe00",
+      "text": "Students can immediately trigger actions such as:",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "0809caf6-75c9-49a2-be08-027e3d9561da"
+      ]
+    }
+  ],
+  "ambiguities": [
+    {
+      "id": "739bb19c-1e33-459c-abe0-711b2f75c1b7",
+      "description": "Vague or subjective term 'etc' used in statement: '🔗 \"Read Full Article\" Button:** A direct external link leading to the original s...'",
+      "suggested_clarification": "Please specify precise numerical metrics or verifiable criteria for 'etc'.",
+      "status": "open"
+    },
+    {
+      "id": "08b3ae59-b501-419c-bb95-99aadba0d033",
+      "description": "Vague or subjective term 'etc' used in statement: 'Articles fetched during the morning scraper are automatically placed in the **sh...'",
+      "suggested_clarification": "Please specify precise numerical metrics or verifiable criteria for 'etc'.",
+      "status": "open"
+    }
+  ]
+}

@@ -1,0 +1,209 @@
+{
+  "document_id": "35a611d1-2061-4a5d-a0d1-b3d9a5881c65",
+  "filename": "README.md",
+  "file_type": "md",
+  "total_characters": 12954,
+  "units_count": 28,
+  "metadata": {
+    "sections_count": 29,
+    "preprocessed": true
+  },
+  "units": [
+    {
+      "section_title": "📚 UPSC AI Platform & Advanced RAG Engine",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "A production-grade, full-stack AI ecosystem designed specifically for **UPSC Civil Services Examination (CSE)** preparation. This platform combines an advanced **Retrieval-Augmented Generation (RAG)** pipeline grounded in standard UPSC textbooks and notes with an **Automated Multi-Slot Daily Current Affairs Engine**, an **Interactive MCQ Practice Suite**, an **Admin Document & Vector Management Portal**, and a **Modern Glassmorphic React Web Application**.\n\n---"
+    },
+    {
+      "section_title": "🏛️ System Architecture",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "```\n┌──────────────────────────────────────────────────────────┐\n│ React 18 + Vite Glassmorphic UI │\n│ (Chat Mentor, Daily News, MCQ Practice, Admin) │\n│ * Tabs preserved in DOM (uninterrupted streaming) │\n└─────────────┬───────────────────────────────┬────────────┘\n│ REST API / SSE │\n▼ ▼\n┌───────────────────────────┐ ┌──────────────────────────┐\n│ FastAPI Application │ │ Static SPA Catch-All │\n│ (app/main.py) │ │ (Serves frontend/dist) │\n└─────────────┬─────────────┘ └──────────────────────────┘\n│\n┌─────────────────────────┼─────────────────────────┐\n▼ ▼ ▼\n┌─────────────────────────┐┌─────────────────────────┐┌─────────────────────────┐\n│ RAG Query Engine ││ Daily News Engine ││ MCQ Practice Engine │\n│ • Intent Classification││ • APScheduler (6 slots)││ • Subject-wise Topics │\n│ • Dense Vector Search ││ • Tavily + Serper News ││ • Daily News MCQs │\n│ • Cross-Encoder Rerank ││ • Qdrant + JSON Sync ││ • Instant Explanations │\n│ • Anti-Hallucination ││ • 3-point Summarization││ • GS 1-4 Paper Mapping │\n│ • Token Streaming (SSE)││ • Mains Issue Analysis ││ • Performance Tracking │\n└────────────┬────────────┘└───────────┬─────────────┘└───────────┬─────────────┘\n│ │ │\n└─────────────────────────┼──────────────────────────┘\n▼\n┌────────────────────────────────────────────────────┐\n│ Storage & Model Tier │\n│ • Vector DB: Qdrant (History, Anthro, News) │\n│ • Relational DB: PostgreSQL with SQLite Fallback │\n│ • Response & Scrape Caches: SQLite Caching Layer │\n│ • Embeddings: BAAI/bge-base-en-v1.5 (768-dim) │\n│ • Reranker: cross-encoder/ms-marco-MiniLM-L-6-v2 │\n│ • Primary LLM: Gemini 3.8 Flash (google-genai) │\n│ • Fallback/Alt LLM: Groq (llama-3.3-70b-specdec) │\n└────────────────────────────────────────────────────┘\n```\n\n---"
+    },
+    {
+      "section_title": "1. 🤖 AI UPSC Mentor & Advanced RAG",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "* **Upgraded to Gemini 3.8 Flash**: Powered by Google's `gemini-3.8-flash` via the official `google-genai` SDK with automatic quota fallback rotation and dynamic mentor system prompts.\n* **Alternative Groq Generation**: Zero-latency query intent classification and alternative answer synthesis via Groq (`llama-3.3-70b-specdec` / `openai/gpt-oss-120b`).\n* **Multi-Mode Routing**: Dedicated handlers for **Prelims (Static concepts)**, **Mains (Structured analytical answers)**, and **Current Affairs**.\n* **Triple-Layer Anti-Hallucination Shield**:\n1. *Score Gating*: Automatically returns \"insufficient information\" if context rerank scores fall below threshold.\n2. *Context-Only Constraints*: Strict prompts forbidding external assumptions.\n3. *Inline Citations*: Every claim is mapped to `[chk_xxx]` and traced back to source document page numbers.\n* **Pre-Loaded Fast Inference**: Both `BAAI/bge-base-en-v1.5` embeddings and `ms-marco-MiniLM-L-6-v2` cross-encoder reranker are pre-warmed during server startup to eliminate cold-start latency.\n* **Token Streaming**: Real-time Server-Sent Events (SSE) streaming at `/api/v1/query/stream`."
+    },
+    {
+      "section_title": "2. 📑 Dual PDF Ingestion Engine",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "* **v1 - Docling Layout Parser** (`POST /api/v1/documents`): Built for digital PDFs, preserving multi-column reading orders, headings, and markdown-formatted tables.\n* **v2 - Gemini 3.8 Multimodal VLM** (`POST /api/v2/documents`): End-to-end extraction for scanned PDFs, handwritten study notes, diagrams, and historical maps.\n* **Folder Batch Processing**: Ingest entire directories of books and notes using server-side batch endpoints (`/api/v1/documents/folder` & `/api/v2/documents/folder`)."
+    },
+    {
+      "section_title": "3. 📰 Automated Multi-Slot Daily News & Current Affairs",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "* **6-Slot Daily Automation**: Automated scraping scheduled at 06:00, 09:00, 12:00, 15:00, 18:00, and 21:00 with startup catch-up logic to ensure current day's news is never missed.\n* **Tavily & Serper Integration**: Real-time news discovery with dual fallback to DuckDuckGo/SearXNG.\n* **Triple Format Outputs**:\n* **3-Bullet Summaries**: High-yield executive summaries for rapid morning revision.\n* **Mains Analysis**: Comprehensive breakdowns: *Context $\\rightarrow$ Arguments For/Against $\\rightarrow$ Policy Implications $\\rightarrow$ Way Forward*.\n* **Daily Prelims MCQs**: Test knowledge directly from the day's events.\n* **Dual Indexing**: Instant sync to both Qdrant `current_affairs_collection` and local JSON storage."
+    },
+    {
+      "section_title": "4. 📝 Interactive MCQ Practice Engine",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "* Subject-wise questions across **History, Geography, Polity, Economy, Environment**, and **Current Affairs**.\n* Real-time validation with detailed pedagogical explanations and UPSC syllabus paper mapping (GS1, GS2, GS3, GS4)."
+    },
+    {
+      "section_title": "5. 🛠️ Admin Management & Ingested Documents Portal",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "* **Manage Ingested Documents**: Dedicated dashboard view listing all ingested documents, chunk counts, page ranges, and timestamps.\n* **1-Click Qdrant Vector Deletion**: Permanently delete documents and purge their vector embeddings from Qdrant, database records, and temporary storage in a single click.\n* **Cache Telemetry & Control**: Live stats for SQLite response cache and article caches, with one-click purge controls."
+    },
+    {
+      "section_title": "6. 🎨 Resilient Single-Port Glassmorphic Web App",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "* **Single-Port Serving**: FastAPI directly serves the pre-built React 18 production bundle from `frontend/dist` on port `8000`.\n* **Zero-Config SQLite Fallback**: If PostgreSQL is not running, the application automatically falls back to a local SQLite database (`data/upsc_rag.db`) without crashing.\n* **DOM Tab Preservation**: Chat and MCQ practice views remain mounted in the DOM across tab navigation, ensuring background streaming answers and long PDF ingestions never abort when viewing other tabs.\n\n---"
+    },
+    {
+      "section_title": "📁 Repository Structure",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "```\n.\n├── app/ # Core FastAPI Backend\n│ ├── api/routes/ # REST & SSE Route Handlers\n│ │ ├── admin.py # Cache stats, storage overview & flush endpoints\n│ │ ├── classifications.py # Dynamic subject classification router\n│ │ ├── documents.py # Docling digital PDF ingestion & document deletion\n│ │ ├── extract_page.py # Gemini 3.8 VLM scanned document ingestion\n│ │ ├── mcq.py # MCQ practice generation & validation\n│ │ ├── news.py # Daily news feeds, summaries & scraper trigger\n│ │ ├── query.py # Standard RAG query endpoint with citations\n│ │ └── query_stream.py # SSE token-streaming query endpoint\n│ ├── core/ # App settings, config & SQLite cache managers\n│ ├── database/ # PostgreSQL schema, SQLAlchemy models & SQLite fallback\n│ ├── retrieval/ # Vector search, reranker, query classifier & prompts\n│ └── services/ # Embeddings, Qdrant service & news scraper service\n├── frontend/ # React 18 + Vite + Tailwind Frontend\n│ ├── dist/ # Pre-compiled static assets served by FastAPI (:8000)\n│ └── src/\n│ ├── components/ # Layout, Navbar, Dashboard, Chat, MCQ, News, Admin\n│ ├── context/ # App state, notes & user auth context\n│ └── pages/ # Home (Tab-preserved views), Login, MainFlow\n├── data/ # Extracted JSON, preprocessed chunks & SQLite databases\n├── docs/ # Architectural guides & evaluation specs\n├── extraction/ # PDF layout helpers & Docling extractors\n├── metrics/ # Retrieval & current affairs evaluation logs\n├── pipeline/ # Automated news scrapers, scheduler & backfill utilities\n├── preprocessing/ # Chunking strategies & text normalizers\n├── requirements/ # Modular requirement manifests (api, extraction)\n├── scripts/ # Ingestion, batch extract & evaluation CLI tools\n├── tests/ # Automated unit and integration test suite\n├── uploads/ # Temporary uploaded PDF storage\n├── docker-compose.yml # Multi-container orchestration (App + Qdrant)\n├── Dockerfile # Multi-stage production container build\n├── HOW_TO_RUN.md # Quick execution cheat sheet\n├── requirements.txt # Consolidated root Python dependencies\n├── start_dev.bat # 1-Click Windows development launcher\n└── README.md # Master documentation\n```\n\n---"
+    },
+    {
+      "section_title": "⚡ How to Run the Application",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "You can run the application in any of the **4 modes** below depending on your workflow:"
+    },
+    {
+      "section_title": "Mode 1: The Quickest Way (Built-in Single Port :8000) ⭐",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "> **Recommended for most users.** The frontend is pre-built in `frontend/dist`. You do **not** need Node.js, `npm`, or PostgreSQL installed!\n\n1. **Start Qdrant Vector Database**:\nMake sure Docker Desktop is open and run:\n```bash\ndocker run -d --name qdrant_db -p 6333:6333 -p 6334:6334 -v qdrant_storage:/qdrant/storage qdrant/qdrant:latest\n```\n*(Or run `docker start qdrant_db` if previously created)*.\n\n2. **Install Python Dependencies**:\n```bash\npip install -r requirements.txt\n```\n\n3. **Start FastAPI**:\n```bash\npython -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload\n```\n\n4. **Open in Browser**:\n* **Full Web Application & Chat**: [http://localhost:8000](http://localhost:8000)\n* **Interactive Swagger API Docs**: [http://localhost:8000/docs](http://localhost:8000/docs)\n* **Health Check**: [http://localhost:8000/health](http://localhost:8000/health)\n\n---"
+    },
+    {
+      "section_title": "Mode 2: 1-Click Windows Dev Launcher (`start_dev.bat`)",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "> **Best for Windows developers making real-time React UI edits.**\n\n1. Ensure Docker Desktop is running (for Qdrant).\n2. Double-click [`start_dev.bat`](file:///c:/Users/vishn/Downloads/RAG-main/RAG-main/start_dev.bat) or run from terminal:\n```powershell\n.\\start_dev.bat\n```\n*This automated script:*\n* Automatically kills lingering processes on ports `8000` and `5173`.\n* Boots the FastAPI backend on `http://localhost:8000`.\n* Boots the Vite React dev server with Hot Module Reloading (HMR) on `http://localhost:5173`.\n* Automatically opens the browser window for you.\n\n---"
+    },
+    {
+      "section_title": "Mode 3: Manual Dual-Terminal Setup (Backend + Frontend)",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "> **Best for macOS/Linux developers making real-time UI edits.**"
+    },
+    {
+      "section_title": "Terminal 1 — Backend:",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "```bash\npip install -r requirements.txt\nuvicorn app.main:app --reload --host 0.0.0.0 --port 8000\n```"
+    },
+    {
+      "section_title": "Terminal 2 — Frontend:",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "```bash\ncd frontend\nnpm install\nnpm run dev\n```\n* Access Vite Frontend at: [http://localhost:5173](http://localhost:5173)\n\n---"
+    },
+    {
+      "section_title": "Mode 4: Full Containerized Deployment (Docker Compose)",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "> **Best for deploying everything inside isolated containers.**\n\n```bash\ndocker compose up -d\n```\n* **Web Application**: [http://localhost:8000](http://localhost:8000)\n* **Qdrant Vector Dashboard**: [http://localhost:6333/dashboard](http://localhost:6333/dashboard)\n* **Stop Containers**: `docker compose down`\n\n---"
+    },
+    {
+      "section_title": "⚙️ Environment Configuration (`.env`)",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "Create or update your [`.env`](file:///c:/Users/vishn/Downloads/RAG-main/RAG-main/.env) file in the root directory:\n\n```env"
+    },
+    {
+      "section_title": "Get your key at: https://aistudio.google.com/app/apikey",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "GEMINI_API_KEY=your_gemini_api_key_here\nGEMINI_MODEL=gemini-3.8-flash"
+    },
+    {
+      "section_title": "Get your free key at: https://console.groq.com/keys",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "GROQ_API_KEY=your_groq_api_key_here\nGROQ_MODEL=llama-3.3-70b-specdec"
+    },
+    {
+      "section_title": "── Qdrant Vector Database ──",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "QDRANT_HOST=localhost\nQDRANT_PORT=6333"
+    },
+    {
+      "section_title": "If PostgreSQL is not running, the system automatically falls back to local SQLite!",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "DATABASE_URL=postgresql://postgres:postgres@localhost:5432/upsc_rag"
+    },
+    {
+      "section_title": "── Models & Retrieval ──",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "EMBEDDING_MODEL_NAME=BAAI/bge-base-en-v1.5\nRERANKER_MODEL_NAME=cross-encoder/ms-marco-MiniLM-L-6-v2\nRETRIEVAL_CANDIDATE_K=10"
+    },
+    {
+      "section_title": "Tavily: https://tavily.com (1,000 free queries/month)",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "TAVILY_API_KEY=your_tavily_api_key_here"
+    },
+    {
+      "section_title": "Serper: https://serper.dev (2,500 free queries/month)",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "SERPER_API_KEY=your_serper_api_key_here\n```\n\n---"
+    },
+    {
+      "section_title": "🚀 Key API Endpoints Reference",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "| Category | Method | Endpoint | Description |\n|:---|:---|:---|:---|\n| **Query** | `POST` | `/api/v1/query` | Standard RAG Q&A with grounded citations & memory |\n| **Query** | `POST` | `/api/v1/query/stream` | Server-Sent Events (SSE) token streaming answer |\n| **Ingestion** | `POST` | `/api/v1/documents` | Upload & index digital PDFs using Docling layout parser |\n| **Ingestion** | `POST` | `/api/v1/documents/folder` | Batch-ingest all digital PDFs from a server folder |\n| **Ingestion** | `POST` | `/api/v2/documents` | Upload & index scanned/handwritten PDFs via Gemini VLM |\n| **Ingestion** | `POST` | `/api/v2/documents/folder` | Batch-ingest scanned PDFs from a server folder |\n| **Management** | `DELETE` | `/api/v1/documents/{id}` | Permanently delete document, database record & Qdrant vectors |\n| **News** | `GET` | `/api/v1/news/daily` | Fetch today's curated UPSC current affairs articles |\n| **News** | `POST` | `/api/v1/news/scrape` | Trigger an immediate manual news scraper run |\n| **MCQ** | `POST` | `/api/v1/mcq/generate` | Generate Prelims-style MCQs for a given topic/subject |\n| **Admin** | `GET` | `/api/v1/admin/storage/stats` | Qdrant vector counts, indexed documents & cache sizes |\n| **Admin** | `GET` | `/api/v1/admin/cache/stats` | Response cache and article cache telemetry |\n| **Admin** | `DELETE` | `/api/v1/admin/cache/all` | Purge both response cache and article cache |\n| **System** | `GET` | `/health` | Application health check endpoint |\n\n---"
+    },
+    {
+      "section_title": "🛠️ Offline & Batch Ingestion Utilities",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "For ingesting massive books, NCERT textbooks, or historical documents offline:\n\n| Task | Script Command |\n|:---|:---|\n| **Batch Ingest Scanned Books via Gemini** | `python scripts/run_scanned_ingestion.py` |\n| **Single PDF Multimodal Extraction** | `python scripts/gemini_batch_extract.py \"path/to/book.pdf\"` |\n| **Embed & Upsert Preprocessed JSON to Qdrant** | `python scripts/ingest_to_qdrant.py` |\n| **Run Complete Document Pipeline** | `python scripts/run_pipeline.py` |\n| **Trigger Daily News Scraper & Sync** | `python pipeline/daily_news_scraper.py` |\n| **Backfill Historical News Data** | `python pipeline/run_backfill.py` |\n| **Evaluate Retrieval Quality** | `python scripts/evaluate_all_quality.py` |\n\n---"
+    },
+    {
+      "section_title": "🧪 Testing",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "Run the automated test suite covering routing, anti-hallucination gating, embeddings, and API endpoints:\n```powershell\npytest tests/ -v\n```\n\n---"
+    },
+    {
+      "section_title": "📄 License",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "This project is licensed under the MIT License."
+    }
+  ]
+}

@@ -1,0 +1,366 @@
+{
+  "document_id": "f1ce6764-b4df-4a0f-8ec8-66df1c161f02",
+  "project_id": "proj_upsc_rag",
+  "filename": "README.md",
+  "total_chunks_analyzed": 42,
+  "requirements_count": 34,
+  "ambiguities_count": 8,
+  "requirements": [
+    {
+      "id": "0df513f8-0b98-478e-ab05-a81506fbb0f5",
+      "text": "Score Gating*: Automatically returns \"insufficient information\" if context rerank scores fall below threshold.",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "87e07b14-6f26-4918-8479-1ca42cff439b"
+      ]
+    },
+    {
+      "id": "10ef33a1-9997-484b-b5d9-bc744beffb23",
+      "text": "nt information\" if context rerank scores fall below threshold.",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "c8cd8b55-a298-4ce3-952c-b3173187e29b"
+      ]
+    },
+    {
+      "id": "eea622f3-b813-4d17-bf6a-332f2dc92ec7",
+      "text": "v2 - Gemini 3.8 Multimodal VLM** (`POST /api/v2/documents`): End-to-end extraction for scanned PDFs, handwritten study notes, diagrams, and historical maps.",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "223d6471-286e-4da3-81f0-8163bcca471e"
+      ]
+    },
+    {
+      "id": "e0c30f29-9f08-4051-a593-7b292786c7b9",
+      "text": "Real-time validation with detailed pedagogical explanations and UPSC syllabus paper mapping (GS1, GS2, GS3, GS4).",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "f4a23228-ea50-46b4-8778-37939d6d2ef9"
+      ]
+    },
+    {
+      "id": "880cc165-8a34-4744-8607-503630845afc",
+      "text": "│ │ ├── extract_page.py # Gemini 3.8 VLM scanned document ingestion",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "22435536-ce2f-4708-abca-c9c89ed0c90b"
+      ]
+    },
+    {
+      "id": "36803578-b797-4636-91d8-8e14a1a5ed9c",
+      "text": "│ │ ├── mcq.py # MCQ practice generation & validation",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "22435536-ce2f-4708-abca-c9c89ed0c90b"
+      ]
+    },
+    {
+      "id": "bdbcc4b8-e4a6-4489-ad5e-728866563c16",
+      "text": "You can run the application in any of the **4 modes** below depending on your workflow:",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "3075468d-4e9e-4d0a-b381-61a7fb8c7342"
+      ]
+    },
+    {
+      "id": "c01c2509-22a9-43b6-a72c-9976d7c48dcb",
+      "text": "RETRIEVAL_CANDIDATE_K=10",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "4b83b820-306a-43b5-b220-5c91a9bff082"
+      ]
+    },
+    {
+      "id": "54e297d6-cc2b-473b-b309-e2f3d6057198",
+      "text": "Specification row: Category, Method, Endpoint, Description",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "c0b31086-6fc7-41fa-b9c6-67e81621bd86"
+      ]
+    },
+    {
+      "id": "2f08274f-af69-4458-9f8e-18f49312165e",
+      "text": "Specification row: :---, :---, :---, :---",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "c0b31086-6fc7-41fa-b9c6-67e81621bd86"
+      ]
+    },
+    {
+      "id": "1364d20a-a225-471d-9546-e42f402327ef",
+      "text": "Specification row: **Query**, `POST`, `/api/v1/query`, Standard RAG Q&A with grounded citations & memory",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "c0b31086-6fc7-41fa-b9c6-67e81621bd86"
+      ]
+    },
+    {
+      "id": "3fd9444c-a3a3-4d93-bdb4-6a551a9e4c45",
+      "text": "Specification row: **Query**, `POST`, `/api/v1/query/stream`, Server-Sent Events (SSE) token streaming answer",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "c0b31086-6fc7-41fa-b9c6-67e81621bd86"
+      ]
+    },
+    {
+      "id": "2c897381-aede-421a-9b9b-9d67ba4a21bb",
+      "text": "Specification row: **Ingestion**, `POST`, `/api/v1/documents`, Upload & index digital PDFs using Docling layout parser",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "c0b31086-6fc7-41fa-b9c6-67e81621bd86"
+      ]
+    },
+    {
+      "id": "ec1f9238-0dab-4b39-87bd-9e48e3d1a316",
+      "text": "Specification row: **Ingestion**, `POST`, `/api/v1/documents/folder`, Batch-ingest all digital PDFs from a server folder",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "c0b31086-6fc7-41fa-b9c6-67e81621bd86"
+      ]
+    },
+    {
+      "id": "92b9f06d-d73a-43bf-b358-4870b4af217d",
+      "text": "Specification row: **Ingestion**, `POST`, `/api/v2/documents`, Upload & index scanned/handwritten PDFs via Gemini VLM",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "c0b31086-6fc7-41fa-b9c6-67e81621bd86"
+      ]
+    },
+    {
+      "id": "e763d542-908a-462b-9afd-f3d920068341",
+      "text": "Specification row: **Ingestion**, `POST`, `/api/v2/documents/folder`, Batch-ingest scanned PDFs from a server folder",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "c0b31086-6fc7-41fa-b9c6-67e81621bd86"
+      ]
+    },
+    {
+      "id": "da24ce92-78d4-49ad-b615-4f6a3ea2d2cb",
+      "text": "`POST` | `/api/v2/documents/folder` | Batch-ingest scanned PDFs from a server folder |",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "bc6634bb-0385-43e2-8e5f-705e67eac524"
+      ]
+    },
+    {
+      "id": "ad1b0d99-724f-4e65-9431-49eee3b45911",
+      "text": "Specification row: **Management**, `DELETE`, `/api/v1/documents/{id}`, Permanently delete document, database record & Qdrant vectors",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "bc6634bb-0385-43e2-8e5f-705e67eac524"
+      ]
+    },
+    {
+      "id": "88f46864-698c-4071-b522-02f0ba140cf9",
+      "text": "Specification row: **News**, `GET`, `/api/v1/news/daily`, Fetch today's curated UPSC current affairs articles",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "bc6634bb-0385-43e2-8e5f-705e67eac524"
+      ]
+    },
+    {
+      "id": "cac0d8f9-61e9-40f0-9049-7c9872194fa5",
+      "text": "Specification row: **News**, `POST`, `/api/v1/news/scrape`, Trigger an immediate manual news scraper run",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "bc6634bb-0385-43e2-8e5f-705e67eac524"
+      ]
+    },
+    {
+      "id": "d91f5a95-e116-4ab7-8eeb-a36c6ac75c57",
+      "text": "Specification row: **MCQ**, `POST`, `/api/v1/mcq/generate`, Generate Prelims-style MCQs for a given topic/subject",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "bc6634bb-0385-43e2-8e5f-705e67eac524"
+      ]
+    },
+    {
+      "id": "345c8e06-aab3-40f8-86e2-46e9515c7b5a",
+      "text": "Specification row: **Admin**, `GET`, `/api/v1/admin/storage/stats`, Qdrant vector counts, indexed documents & cache sizes",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "bc6634bb-0385-43e2-8e5f-705e67eac524"
+      ]
+    },
+    {
+      "id": "e4d7bb76-e0d1-412b-b6c5-90b1fba0039c",
+      "text": "Specification row: **Admin**, `GET`, `/api/v1/admin/cache/stats`, Response cache and article cache tele",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "bc6634bb-0385-43e2-8e5f-705e67eac524"
+      ]
+    },
+    {
+      "id": "65cb0b88-7043-4046-a135-1faf62b4d08f",
+      "text": "Specification row: **Admin**, `GET`, `/api/v1/admin/cache/stats`, Response cache and article cache telemetry",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "fe8c15d4-0362-4d67-9f93-1a028d06b66e"
+      ]
+    },
+    {
+      "id": "308d4d6e-3b38-4891-a3c4-0f18a5c609ad",
+      "text": "Specification row: **Admin**, `DELETE`, `/api/v1/admin/cache/all`, Purge both response cache and article cache",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "fe8c15d4-0362-4d67-9f93-1a028d06b66e"
+      ]
+    },
+    {
+      "id": "6b0f54f5-91d6-40d8-a39b-b47895c6b49b",
+      "text": "Specification row: **System**, `GET`, `/health`, Application health check endpoint",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "fe8c15d4-0362-4d67-9f93-1a028d06b66e"
+      ]
+    },
+    {
+      "id": "73ed42f9-82c4-4c67-9f92-f5ee1806a255",
+      "text": "Specification row: Task, Script Command",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "3f77dee4-2362-41ba-8263-a00f192b3832"
+      ]
+    },
+    {
+      "id": "7a103d48-6347-4a3c-916c-c162ab399da0",
+      "text": "Specification row: **Batch Ingest Scanned Books via Gemini**, `python scripts/run_scanned_ingestion.py`",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "3f77dee4-2362-41ba-8263-a00f192b3832"
+      ]
+    },
+    {
+      "id": "c65570d5-38c6-4437-942e-8c4a3b555f64",
+      "text": "Specification row: **Single PDF Multimodal Extraction**, `python scripts/gemini_batch_extract.py \"path/to/book.pdf\"`",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "3f77dee4-2362-41ba-8263-a00f192b3832"
+      ]
+    },
+    {
+      "id": "1950383e-eb41-4708-8167-a61c02ae3a87",
+      "text": "Specification row: **Embed & Upsert Preprocessed JSON to Qdrant**, `python scripts/ingest_to_qdrant.py`",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "3f77dee4-2362-41ba-8263-a00f192b3832"
+      ]
+    },
+    {
+      "id": "81fda8f1-fc02-45bb-8bf9-4de031730302",
+      "text": "Specification row: **Run Complete Document Pipeline**, `python scripts/run_pipeline.py`",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "3f77dee4-2362-41ba-8263-a00f192b3832"
+      ]
+    },
+    {
+      "id": "45e8d96a-fd91-4641-9f0a-29efaaa5daba",
+      "text": "Specification row: **Trigger Daily News Scraper & Sync**, `python pipeline/daily_news_scraper.py`",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "3f77dee4-2362-41ba-8263-a00f192b3832"
+      ]
+    },
+    {
+      "id": "03af26db-ac3d-413e-b61c-9909dc329eda",
+      "text": "Specification row: **Backfill Historical News Data**, `python pipeline/run_backfill.py`",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "3f77dee4-2362-41ba-8263-a00f192b3832"
+      ]
+    },
+    {
+      "id": "28a6a185-e6a2-4ddd-8ddd-77bd38386b9f",
+      "text": "Specification row: **Evaluate Retrieval Quality**, `python scripts/evaluate_all_quality.py`",
+      "confidence": 0.85,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "3f77dee4-2362-41ba-8263-a00f192b3832"
+      ]
+    }
+  ],
+  "ambiguities": [
+    {
+      "id": "659dc146-492f-4a94-87cb-2637a4c7b810",
+      "description": "Vague or subjective term 'fast' used in statement: '│ FastAPI Application │ │ Static SPA Catch-All │...'",
+      "suggested_clarification": "Please specify precise numerical metrics or verifiable criteria for 'fast'.",
+      "status": "open"
+    },
+    {
+      "id": "907b6ad6-d888-4697-a0a8-0056d34e73c9",
+      "description": "Vague or subjective term 'fast' used in statement: 'Pre-Loaded Fast Inference**: Both `BAAI/bge-base-en-v1.5` embeddings and `ms-mar...'",
+      "suggested_clarification": "Please specify precise numerical metrics or verifiable criteria for 'fast'.",
+      "status": "open"
+    },
+    {
+      "id": "272abcd5-dfa2-4624-ac3e-38dc932de9d1",
+      "description": "Vague or subjective term 'fast' used in statement: 'Single-Port Serving**: FastAPI directly serves the pre-built React 18 production...'",
+      "suggested_clarification": "Please specify precise numerical metrics or verifiable criteria for 'fast'.",
+      "status": "open"
+    },
+    {
+      "id": "e841821a-0515-4413-8d09-67cf75f4c766",
+      "description": "Vague or subjective term 'fast' used in statement: '├── app/ # Core FastAPI Backend...'",
+      "suggested_clarification": "Please specify precise numerical metrics or verifiable criteria for 'fast'.",
+      "status": "open"
+    },
+    {
+      "id": "f3d89ea4-24df-4d33-9166-4b99d81f741c",
+      "description": "Vague or subjective term 'fast' used in statement: '│ ├── dist/ # Pre-compiled static assets served by FastAPI (:8000)...'",
+      "suggested_clarification": "Please specify precise numerical metrics or verifiable criteria for 'fast'.",
+      "status": "open"
+    },
+    {
+      "id": "997bd586-0779-46ff-be5b-a965c83a13fb",
+      "description": "Vague or subjective term 'fast' used in statement: 'Start FastAPI**:...'",
+      "suggested_clarification": "Please specify precise numerical metrics or verifiable criteria for 'fast'.",
+      "status": "open"
+    },
+    {
+      "id": "b02ac2d2-b8e8-4f0c-b120-efe2d0fde409",
+      "description": "Vague or subjective term 'fast' used in statement: 'Boots the FastAPI backend on `http://localhost:8000`....'",
+      "suggested_clarification": "Please specify precise numerical metrics or verifiable criteria for 'fast'.",
+      "status": "open"
+    },
+    {
+      "id": "68e21b9a-4842-4b2e-a858-16b808d9dedf",
+      "description": "Vague or subjective term 'etc' used in statement: '| **News** | `GET` | `/api/v1/news/daily` | Fetch today's curated UPSC current a...'",
+      "suggested_clarification": "Please specify precise numerical metrics or verifiable criteria for 'etc'.",
+      "status": "open"
+    }
+  ]
+}

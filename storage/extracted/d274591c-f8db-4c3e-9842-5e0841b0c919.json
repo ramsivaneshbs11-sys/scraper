@@ -1,0 +1,20 @@
+{
+  "document_id": "d274591c-f8db-4c3e-9842-5e0841b0c919",
+  "filename": "syllabus_spec.txt",
+  "file_type": "txt",
+  "total_characters": 119,
+  "units_count": 1,
+  "metadata": {
+    "sections_count": 1,
+    "preprocessed": true
+  },
+  "units": [
+    {
+      "section_title": "Paragraph 1",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "# UPSC Chatbot Requirements\n1. User must be able to ask syllabus questions.\n2. Answers must cite official UPSC sources."
+    }
+  ]
+}

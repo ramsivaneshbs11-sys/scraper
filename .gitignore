@@ -1,0 +1,8 @@
+.env
+__pycache__/
+*.py[cod]
+*$py.class
+*.db
+.pytest_cache/
+tests/.pytest_cache/
+RAG/

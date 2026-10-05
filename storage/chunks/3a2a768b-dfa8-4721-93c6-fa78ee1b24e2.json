@@ -1,0 +1,34 @@
+{
+  "document_id": "3a2a768b-dfa8-4721-93c6-fa78ee1b24e2",
+  "filename": "payment_specs.md",
+  "file_type": "md",
+  "total_chunks": 2,
+  "chunks": [
+    {
+      "chunk_id": "5afc496a-2e03-4819-9b81-e3212f19ebcc",
+      "project_id": "p_copilot",
+      "document_id": "3a2a768b-dfa8-4721-93c6-fa78ee1b24e2",
+      "chunk_type": "requirement_doc",
+      "source_section": "1. Wallet Top-Up Limits",
+      "source_page": null,
+      "source_line_start": null,
+      "source_line_end": null,
+      "text_length": 147,
+      "text": "The wallet top-up amount must be between 100 and 10000 rupees.\nTransactions below 100 or above 10000 must be rejected with an invalid amount error.",
+      "embedding_status": false
+    },
+    {
+      "chunk_id": "a03942b0-7daa-4d96-9233-7b0cb2c2ccba",
+      "project_id": "p_copilot",
+      "document_id": "3a2a768b-dfa8-4721-93c6-fa78ee1b24e2",
+      "chunk_type": "requirement_doc",
+      "source_section": "2. Bank Retry & Timeout",
+      "source_page": null,
+      "source_line_start": null,
+      "source_line_end": null,
+      "text_length": 144,
+      "text": "If the bank server is unresponsive, the system must retry 3 times before failing the transaction.\nThe system response should be fast and secure.",
+      "embedding_status": false
+    }
+  ]
+}

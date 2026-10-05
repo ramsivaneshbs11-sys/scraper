@@ -1,0 +1,926 @@
+{
+  "project_id": "p_copilot",
+  "generated_at": "2026-10-01T06:51:46.058635",
+  "total_test_cases": 39,
+  "breakdown": {
+    "BOUNDARY": 9,
+    "PERFORMANCE": 3,
+    "NEGATIVE": 12,
+    "POSITIVE": 12,
+    "SECURITY": 3
+  },
+  "test_cases": [
+    {
+      "id": "6706f1a6-6a36-47b2-a64a-898d1269bd01",
+      "title": "[POSITIVE] Verify: The wallet top-up amount must be between 100 and 10000 rupees.",
+      "test_type": "POSITIVE",
+      "priority": "P0",
+      "preconditions": "System is initialized with valid configuration and test data.",
+      "steps": [
+        "1. Set up prerequisite conditions for: The wallet top-up amount must be between 100 and 10000 rupee.",
+        "2. Submit valid inputs matching the specification.",
+        "3. Execute the operation and observe system response.",
+        "[ACCEPTANCE CRITERIA] Operation completes without errors within expected response time.",
+        "[RAG SOURCES] 5afc496a-2e03-4819-9b81-e3212f19ebcc"
+      ],
+      "expected_result": "System processes the request successfully as per: 'The wallet top-up amount must be between 100 and 10000 rupees.'.",
+      "acceptance_criteria": "Operation completes without errors within expected response time.",
+      "linked_requirement_ids": [
+        "a5e0bd92-6230-49d0-8992-86c686d9f129"
+      ],
+      "rag_chunk_ids": [
+        "5afc496a-2e03-4819-9b81-e3212f19ebcc"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "d3422377-ff17-4a2f-a16e-9fb41f41646f",
+      "title": "[NEGATIVE] Verify error handling: The wallet top-up amount must be between 100 and 10000 rupees.",
+      "test_type": "NEGATIVE",
+      "priority": "P1",
+      "preconditions": "Application server and error monitoring are active.",
+      "steps": [
+        "1. Provide malformed, empty, or out-of-range input parameters.",
+        "2. Omit one or more required fields.",
+        "3. Submit the request and check system response and logs.",
+        "[ACCEPTANCE CRITERIA] Error response returned within 200ms with correct HTTP status code.",
+        "[RAG SOURCES] 5afc496a-2e03-4819-9b81-e3212f19ebcc"
+      ],
+      "expected_result": "System rejects invalid inputs with a clear error message and does not crash or leak sensitive data.",
+      "acceptance_criteria": "Error response returned within 200ms with correct HTTP status code.",
+      "linked_requirement_ids": [
+        "a5e0bd92-6230-49d0-8992-86c686d9f129"
+      ],
+      "rag_chunk_ids": [
+        "5afc496a-2e03-4819-9b81-e3212f19ebcc"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "7fbfee00-2cca-488f-b5a0-b00031dc8e8a",
+      "title": "[BOUNDARY] Verify threshold limits: The wallet top-up amount must be between 100 and 10000 rupees.",
+      "test_type": "BOUNDARY",
+      "priority": "P1",
+      "preconditions": "Test harness prepared with boundary edge-case datasets.",
+      "steps": [
+        "1. Submit input at the exact minimum valid threshold value.",
+        "2. Submit input at the exact maximum valid threshold value.",
+        "3. Submit input immediately below the minimum (min - 1).",
+        "4. Submit input immediately above the maximum (max + 1).",
+        "[ACCEPTANCE CRITERIA] All boundary values handled correctly without system error or data corruption.",
+        "[RAG SOURCES] 5afc496a-2e03-4819-9b81-e3212f19ebcc"
+      ],
+      "expected_result": "Values at exact boundaries are accepted. Values outside the boundary are rejected with a precise validation error.",
+      "acceptance_criteria": "All boundary values handled correctly without system error or data corruption.",
+      "linked_requirement_ids": [
+        "a5e0bd92-6230-49d0-8992-86c686d9f129"
+      ],
+      "rag_chunk_ids": [
+        "5afc496a-2e03-4819-9b81-e3212f19ebcc"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "a2ec1332-3195-435b-988f-70edf8a25b46",
+      "title": "[POSITIVE] Verify: Transactions below 100 or above 10000 must be rejected with an invalid amount er",
+      "test_type": "POSITIVE",
+      "priority": "P0",
+      "preconditions": "System is initialized with valid configuration and test data.",
+      "steps": [
+        "1. Set up prerequisite conditions for: Transactions below 100 or above 10000 must be rejected with .",
+        "2. Submit valid inputs matching the specification.",
+        "3. Execute the operation and observe system response.",
+        "[ACCEPTANCE CRITERIA] Operation completes without errors within expected response time.",
+        "[RAG SOURCES] 5afc496a-2e03-4819-9b81-e3212f19ebcc"
+      ],
+      "expected_result": "System processes the request successfully as per: 'Transactions below 100 or above 10000 must be rejected with an invalid amount error.'.",
+      "acceptance_criteria": "Operation completes without errors within expected response time.",
+      "linked_requirement_ids": [
+        "c5af530f-ab67-493c-8ef4-1782eaec35fd"
+      ],
+      "rag_chunk_ids": [
+        "5afc496a-2e03-4819-9b81-e3212f19ebcc"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "66801f68-e9d7-4876-8d6f-4cff6e7e9132",
+      "title": "[NEGATIVE] Verify error handling: Transactions below 100 or above 10000 must be rejected with an invalid amount er",
+      "test_type": "NEGATIVE",
+      "priority": "P1",
+      "preconditions": "Application server and error monitoring are active.",
+      "steps": [
+        "1. Provide malformed, empty, or out-of-range input parameters.",
+        "2. Omit one or more required fields.",
+        "3. Submit the request and check system response and logs.",
+        "[ACCEPTANCE CRITERIA] Error response returned within 200ms with correct HTTP status code.",
+        "[RAG SOURCES] 5afc496a-2e03-4819-9b81-e3212f19ebcc"
+      ],
+      "expected_result": "System rejects invalid inputs with a clear error message and does not crash or leak sensitive data.",
+      "acceptance_criteria": "Error response returned within 200ms with correct HTTP status code.",
+      "linked_requirement_ids": [
+        "c5af530f-ab67-493c-8ef4-1782eaec35fd"
+      ],
+      "rag_chunk_ids": [
+        "5afc496a-2e03-4819-9b81-e3212f19ebcc"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "96862521-c8f2-436d-b129-10afd508ac72",
+      "title": "[BOUNDARY] Verify threshold limits: Transactions below 100 or above 10000 must be rejected with an invalid amount er",
+      "test_type": "BOUNDARY",
+      "priority": "P1",
+      "preconditions": "Test harness prepared with boundary edge-case datasets.",
+      "steps": [
+        "1. Submit input at the exact minimum valid threshold value.",
+        "2. Submit input at the exact maximum valid threshold value.",
+        "3. Submit input immediately below the minimum (min - 1).",
+        "4. Submit input immediately above the maximum (max + 1).",
+        "[ACCEPTANCE CRITERIA] All boundary values handled correctly without system error or data corruption.",
+        "[RAG SOURCES] 5afc496a-2e03-4819-9b81-e3212f19ebcc"
+      ],
+      "expected_result": "Values at exact boundaries are accepted. Values outside the boundary are rejected with a precise validation error.",
+      "acceptance_criteria": "All boundary values handled correctly without system error or data corruption.",
+      "linked_requirement_ids": [
+        "c5af530f-ab67-493c-8ef4-1782eaec35fd"
+      ],
+      "rag_chunk_ids": [
+        "5afc496a-2e03-4819-9b81-e3212f19ebcc"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "838955f8-a351-43c7-a6c4-87260b305292",
+      "title": "[POSITIVE] Verify: If the bank server is unresponsive, the system must retry 3 times before failing",
+      "test_type": "POSITIVE",
+      "priority": "P0",
+      "preconditions": "System is initialized with valid configuration and test data.",
+      "steps": [
+        "1. Set up prerequisite conditions for: If the bank server is unresponsive, the system must retry 3 .",
+        "2. Submit valid inputs matching the specification.",
+        "3. Execute the operation and observe system response.",
+        "[ACCEPTANCE CRITERIA] Operation completes without errors within expected response time.",
+        "[RAG SOURCES] a03942b0-7daa-4d96-9233-7b0cb2c2ccba"
+      ],
+      "expected_result": "System processes the request successfully as per: 'If the bank server is unresponsive, the system must retry 3 times before failing the transaction.'.",
+      "acceptance_criteria": "Operation completes without errors within expected response time.",
+      "linked_requirement_ids": [
+        "32f28b75-601a-4c54-b69e-83ff77d6d1c9"
+      ],
+      "rag_chunk_ids": [
+        "a03942b0-7daa-4d96-9233-7b0cb2c2ccba"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "800d5d6a-cf79-4db4-a9d0-afd830e530b3",
+      "title": "[NEGATIVE] Verify error handling: If the bank server is unresponsive, the system must retry 3 times before failing",
+      "test_type": "NEGATIVE",
+      "priority": "P1",
+      "preconditions": "Application server and error monitoring are active.",
+      "steps": [
+        "1. Provide malformed, empty, or out-of-range input parameters.",
+        "2. Omit one or more required fields.",
+        "3. Submit the request and check system response and logs.",
+        "[ACCEPTANCE CRITERIA] Error response returned within 200ms with correct HTTP status code.",
+        "[RAG SOURCES] a03942b0-7daa-4d96-9233-7b0cb2c2ccba"
+      ],
+      "expected_result": "System rejects invalid inputs with a clear error message and does not crash or leak sensitive data.",
+      "acceptance_criteria": "Error response returned within 200ms with correct HTTP status code.",
+      "linked_requirement_ids": [
+        "32f28b75-601a-4c54-b69e-83ff77d6d1c9"
+      ],
+      "rag_chunk_ids": [
+        "a03942b0-7daa-4d96-9233-7b0cb2c2ccba"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "c90ef4a4-296e-4214-9110-4eb5b995b32b",
+      "title": "[BOUNDARY] Verify threshold limits: If the bank server is unresponsive, the system must retry 3 times before failing",
+      "test_type": "BOUNDARY",
+      "priority": "P1",
+      "preconditions": "Test harness prepared with boundary edge-case datasets.",
+      "steps": [
+        "1. Submit input at the exact minimum valid threshold value.",
+        "2. Submit input at the exact maximum valid threshold value.",
+        "3. Submit input immediately below the minimum (min - 1).",
+        "4. Submit input immediately above the maximum (max + 1).",
+        "[ACCEPTANCE CRITERIA] All boundary values handled correctly without system error or data corruption.",
+        "[RAG SOURCES] a03942b0-7daa-4d96-9233-7b0cb2c2ccba"
+      ],
+      "expected_result": "Values at exact boundaries are accepted. Values outside the boundary are rejected with a precise validation error.",
+      "acceptance_criteria": "All boundary values handled correctly without system error or data corruption.",
+      "linked_requirement_ids": [
+        "32f28b75-601a-4c54-b69e-83ff77d6d1c9"
+      ],
+      "rag_chunk_ids": [
+        "a03942b0-7daa-4d96-9233-7b0cb2c2ccba"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "58943608-63db-4cd7-a57d-813176fb275e",
+      "title": "[PERFORMANCE] Verify response time/throughput: If the bank server is unresponsive, the system must retry 3 times before failing",
+      "test_type": "PERFORMANCE",
+      "priority": "P1",
+      "preconditions": "Load testing environment configured. Monitoring and metrics collection active.",
+      "steps": [
+        "1. Configure load testing tool (e.g. k6, JMeter) for the target endpoint.",
+        "2. Execute requests at specified load (concurrent users / requests per second).",
+        "3. Record P50, P95, P99 response times and error rate.",
+        "4. Compare against the performance requirement thresholds.",
+        "[ACCEPTANCE CRITERIA] P95 response time within stated SLA. Error rate < 0.1% under normal load.",
+        "[RAG SOURCES] a03942b0-7daa-4d96-9233-7b0cb2c2ccba"
+      ],
+      "expected_result": "All performance metrics meet or exceed the stated requirement thresholds under specified load conditions.",
+      "acceptance_criteria": "P95 response time within stated SLA. Error rate < 0.1% under normal load.",
+      "linked_requirement_ids": [
+        "32f28b75-601a-4c54-b69e-83ff77d6d1c9"
+      ],
+      "rag_chunk_ids": [
+        "a03942b0-7daa-4d96-9233-7b0cb2c2ccba"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "10be2d2f-d9ed-4e87-9837-cdcd8baea37c",
+      "title": "[POSITIVE] Verify: The system response should be fast and secure.",
+      "test_type": "POSITIVE",
+      "priority": "P1",
+      "preconditions": "System is initialized with valid configuration and test data.",
+      "steps": [
+        "1. Set up prerequisite conditions for: The system response should be fast and secure..",
+        "2. Submit valid inputs matching the specification.",
+        "3. Execute the operation and observe system response.",
+        "[ACCEPTANCE CRITERIA] Operation completes without errors within expected response time.",
+        "[RAG SOURCES] a03942b0-7daa-4d96-9233-7b0cb2c2ccba"
+      ],
+      "expected_result": "System processes the request successfully as per: 'The system response should be fast and secure.'.",
+      "acceptance_criteria": "Operation completes without errors within expected response time.",
+      "linked_requirement_ids": [
+        "d0dfcd82-5f6e-46d8-bce8-8203c4beb3b2"
+      ],
+      "rag_chunk_ids": [
+        "a03942b0-7daa-4d96-9233-7b0cb2c2ccba"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "0b3c8cfe-a6b4-4c07-b39a-679ccf94e1d8",
+      "title": "[NEGATIVE] Verify error handling: The system response should be fast and secure.",
+      "test_type": "NEGATIVE",
+      "priority": "P1",
+      "preconditions": "Application server and error monitoring are active.",
+      "steps": [
+        "1. Provide malformed, empty, or out-of-range input parameters.",
+        "2. Omit one or more required fields.",
+        "3. Submit the request and check system response and logs.",
+        "[ACCEPTANCE CRITERIA] Error response returned within 200ms with correct HTTP status code.",
+        "[RAG SOURCES] a03942b0-7daa-4d96-9233-7b0cb2c2ccba"
+      ],
+      "expected_result": "System rejects invalid inputs with a clear error message and does not crash or leak sensitive data.",
+      "acceptance_criteria": "Error response returned within 200ms with correct HTTP status code.",
+      "linked_requirement_ids": [
+        "d0dfcd82-5f6e-46d8-bce8-8203c4beb3b2"
+      ],
+      "rag_chunk_ids": [
+        "a03942b0-7daa-4d96-9233-7b0cb2c2ccba"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "5634c15c-ee49-47fa-b2de-f7737e69bc7a",
+      "title": "[SECURITY] Verify access control: The system response should be fast and secure.",
+      "test_type": "SECURITY",
+      "priority": "P0",
+      "preconditions": "Security testing tools configured. Unauthorized user account available.",
+      "steps": [
+        "1. Attempt the operation without any authentication credentials.",
+        "2. Attempt the operation with an expired or tampered token.",
+        "3. Attempt privilege escalation with a lower-privileged user account.",
+        "4. Try SQL injection / XSS payloads in input fields if applicable.",
+        "[ACCEPTANCE CRITERIA] Zero unauthorized access granted. Security headers (Content-Security-Policy, X-Frame-Options) present in responses.",
+        "[RAG SOURCES] a03942b0-7daa-4d96-9233-7b0cb2c2ccba"
+      ],
+      "expected_result": "All unauthorized access attempts are rejected with 401/403. No sensitive data is leaked. Injection payloads are sanitized.",
+      "acceptance_criteria": "Zero unauthorized access granted. Security headers (Content-Security-Policy, X-Frame-Options) present in responses.",
+      "linked_requirement_ids": [
+        "d0dfcd82-5f6e-46d8-bce8-8203c4beb3b2"
+      ],
+      "rag_chunk_ids": [
+        "a03942b0-7daa-4d96-9233-7b0cb2c2ccba"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "8e0918af-f76a-4872-a097-fe928ac2d9aa",
+      "title": "[POSITIVE] Verify: The wallet top-up amount must be between 100 and 10000 rupees.",
+      "test_type": "POSITIVE",
+      "priority": "P0",
+      "preconditions": "System is initialized with valid configuration and test data.",
+      "steps": [
+        "1. Set up prerequisite conditions for: The wallet top-up amount must be between 100 and 10000 rupee.",
+        "2. Submit valid inputs matching the specification.",
+        "3. Execute the operation and observe system response.",
+        "[ACCEPTANCE CRITERIA] Operation completes without errors within expected response time.",
+        "[RAG SOURCES] 4c6f85b3-f0d6-45aa-9db4-6e551c31c7ec"
+      ],
+      "expected_result": "System processes the request successfully as per: 'The wallet top-up amount must be between 100 and 10000 rupees.'.",
+      "acceptance_criteria": "Operation completes without errors within expected response time.",
+      "linked_requirement_ids": [
+        "c371ad3f-2c82-4792-ab31-693bed02f852"
+      ],
+      "rag_chunk_ids": [
+        "4c6f85b3-f0d6-45aa-9db4-6e551c31c7ec"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "2b3ab2d0-14f5-43b9-b316-4d41ac2de162",
+      "title": "[NEGATIVE] Verify error handling: The wallet top-up amount must be between 100 and 10000 rupees.",
+      "test_type": "NEGATIVE",
+      "priority": "P1",
+      "preconditions": "Application server and error monitoring are active.",
+      "steps": [
+        "1. Provide malformed, empty, or out-of-range input parameters.",
+        "2. Omit one or more required fields.",
+        "3. Submit the request and check system response and logs.",
+        "[ACCEPTANCE CRITERIA] Error response returned within 200ms with correct HTTP status code.",
+        "[RAG SOURCES] 4c6f85b3-f0d6-45aa-9db4-6e551c31c7ec"
+      ],
+      "expected_result": "System rejects invalid inputs with a clear error message and does not crash or leak sensitive data.",
+      "acceptance_criteria": "Error response returned within 200ms with correct HTTP status code.",
+      "linked_requirement_ids": [
+        "c371ad3f-2c82-4792-ab31-693bed02f852"
+      ],
+      "rag_chunk_ids": [
+        "4c6f85b3-f0d6-45aa-9db4-6e551c31c7ec"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "8ac74f92-d89f-46b6-a7ba-5c4848190057",
+      "title": "[BOUNDARY] Verify threshold limits: The wallet top-up amount must be between 100 and 10000 rupees.",
+      "test_type": "BOUNDARY",
+      "priority": "P1",
+      "preconditions": "Test harness prepared with boundary edge-case datasets.",
+      "steps": [
+        "1. Submit input at the exact minimum valid threshold value.",
+        "2. Submit input at the exact maximum valid threshold value.",
+        "3. Submit input immediately below the minimum (min - 1).",
+        "4. Submit input immediately above the maximum (max + 1).",
+        "[ACCEPTANCE CRITERIA] All boundary values handled correctly without system error or data corruption.",
+        "[RAG SOURCES] 4c6f85b3-f0d6-45aa-9db4-6e551c31c7ec"
+      ],
+      "expected_result": "Values at exact boundaries are accepted. Values outside the boundary are rejected with a precise validation error.",
+      "acceptance_criteria": "All boundary values handled correctly without system error or data corruption.",
+      "linked_requirement_ids": [
+        "c371ad3f-2c82-4792-ab31-693bed02f852"
+      ],
+      "rag_chunk_ids": [
+        "4c6f85b3-f0d6-45aa-9db4-6e551c31c7ec"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "b299814f-a9e2-4ee0-97ef-0d5f5896f805",
+      "title": "[POSITIVE] Verify: Transactions below 100 or above 10000 must be rejected with an invalid amount er",
+      "test_type": "POSITIVE",
+      "priority": "P0",
+      "preconditions": "System is initialized with valid configuration and test data.",
+      "steps": [
+        "1. Set up prerequisite conditions for: Transactions below 100 or above 10000 must be rejected with .",
+        "2. Submit valid inputs matching the specification.",
+        "3. Execute the operation and observe system response.",
+        "[ACCEPTANCE CRITERIA] Operation completes without errors within expected response time.",
+        "[RAG SOURCES] 4c6f85b3-f0d6-45aa-9db4-6e551c31c7ec"
+      ],
+      "expected_result": "System processes the request successfully as per: 'Transactions below 100 or above 10000 must be rejected with an invalid amount error.'.",
+      "acceptance_criteria": "Operation completes without errors within expected response time.",
+      "linked_requirement_ids": [
+        "63e78a53-3767-442e-a5fc-a6bbf8d88c6a"
+      ],
+      "rag_chunk_ids": [
+        "4c6f85b3-f0d6-45aa-9db4-6e551c31c7ec"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "e7246bd3-8789-4713-8602-2d8fb461b021",
+      "title": "[NEGATIVE] Verify error handling: Transactions below 100 or above 10000 must be rejected with an invalid amount er",
+      "test_type": "NEGATIVE",
+      "priority": "P1",
+      "preconditions": "Application server and error monitoring are active.",
+      "steps": [
+        "1. Provide malformed, empty, or out-of-range input parameters.",
+        "2. Omit one or more required fields.",
+        "3. Submit the request and check system response and logs.",
+        "[ACCEPTANCE CRITERIA] Error response returned within 200ms with correct HTTP status code.",
+        "[RAG SOURCES] 4c6f85b3-f0d6-45aa-9db4-6e551c31c7ec"
+      ],
+      "expected_result": "System rejects invalid inputs with a clear error message and does not crash or leak sensitive data.",
+      "acceptance_criteria": "Error response returned within 200ms with correct HTTP status code.",
+      "linked_requirement_ids": [
+        "63e78a53-3767-442e-a5fc-a6bbf8d88c6a"
+      ],
+      "rag_chunk_ids": [
+        "4c6f85b3-f0d6-45aa-9db4-6e551c31c7ec"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "0b38a805-8970-4d0d-ac33-f8c530e18321",
+      "title": "[BOUNDARY] Verify threshold limits: Transactions below 100 or above 10000 must be rejected with an invalid amount er",
+      "test_type": "BOUNDARY",
+      "priority": "P1",
+      "preconditions": "Test harness prepared with boundary edge-case datasets.",
+      "steps": [
+        "1. Submit input at the exact minimum valid threshold value.",
+        "2. Submit input at the exact maximum valid threshold value.",
+        "3. Submit input immediately below the minimum (min - 1).",
+        "4. Submit input immediately above the maximum (max + 1).",
+        "[ACCEPTANCE CRITERIA] All boundary values handled correctly without system error or data corruption.",
+        "[RAG SOURCES] 4c6f85b3-f0d6-45aa-9db4-6e551c31c7ec"
+      ],
+      "expected_result": "Values at exact boundaries are accepted. Values outside the boundary are rejected with a precise validation error.",
+      "acceptance_criteria": "All boundary values handled correctly without system error or data corruption.",
+      "linked_requirement_ids": [
+        "63e78a53-3767-442e-a5fc-a6bbf8d88c6a"
+      ],
+      "rag_chunk_ids": [
+        "4c6f85b3-f0d6-45aa-9db4-6e551c31c7ec"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "8a7a11ad-f4d9-4591-8d7a-b58472283a3d",
+      "title": "[POSITIVE] Verify: If the bank server is unresponsive, the system must retry 3 times before failing",
+      "test_type": "POSITIVE",
+      "priority": "P0",
+      "preconditions": "System is initialized with valid configuration and test data.",
+      "steps": [
+        "1. Set up prerequisite conditions for: If the bank server is unresponsive, the system must retry 3 .",
+        "2. Submit valid inputs matching the specification.",
+        "3. Execute the operation and observe system response.",
+        "[ACCEPTANCE CRITERIA] Operation completes without errors within expected response time.",
+        "[RAG SOURCES] f26eb8d2-3a93-4d98-8fdd-e87e578d2901"
+      ],
+      "expected_result": "System processes the request successfully as per: 'If the bank server is unresponsive, the system must retry 3 times before failing the transaction.'.",
+      "acceptance_criteria": "Operation completes without errors within expected response time.",
+      "linked_requirement_ids": [
+        "11a6532e-33d5-4ad6-a331-ef5751f4f64c"
+      ],
+      "rag_chunk_ids": [
+        "f26eb8d2-3a93-4d98-8fdd-e87e578d2901"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "9e7898c4-67ae-4d73-9228-868f06f3ce88",
+      "title": "[NEGATIVE] Verify error handling: If the bank server is unresponsive, the system must retry 3 times before failing",
+      "test_type": "NEGATIVE",
+      "priority": "P1",
+      "preconditions": "Application server and error monitoring are active.",
+      "steps": [
+        "1. Provide malformed, empty, or out-of-range input parameters.",
+        "2. Omit one or more required fields.",
+        "3. Submit the request and check system response and logs.",
+        "[ACCEPTANCE CRITERIA] Error response returned within 200ms with correct HTTP status code.",
+        "[RAG SOURCES] f26eb8d2-3a93-4d98-8fdd-e87e578d2901"
+      ],
+      "expected_result": "System rejects invalid inputs with a clear error message and does not crash or leak sensitive data.",
+      "acceptance_criteria": "Error response returned within 200ms with correct HTTP status code.",
+      "linked_requirement_ids": [
+        "11a6532e-33d5-4ad6-a331-ef5751f4f64c"
+      ],
+      "rag_chunk_ids": [
+        "f26eb8d2-3a93-4d98-8fdd-e87e578d2901"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "1e8e01d9-6d64-4fe6-8755-fac79dd28da5",
+      "title": "[BOUNDARY] Verify threshold limits: If the bank server is unresponsive, the system must retry 3 times before failing",
+      "test_type": "BOUNDARY",
+      "priority": "P1",
+      "preconditions": "Test harness prepared with boundary edge-case datasets.",
+      "steps": [
+        "1. Submit input at the exact minimum valid threshold value.",
+        "2. Submit input at the exact maximum valid threshold value.",
+        "3. Submit input immediately below the minimum (min - 1).",
+        "4. Submit input immediately above the maximum (max + 1).",
+        "[ACCEPTANCE CRITERIA] All boundary values handled correctly without system error or data corruption.",
+        "[RAG SOURCES] f26eb8d2-3a93-4d98-8fdd-e87e578d2901"
+      ],
+      "expected_result": "Values at exact boundaries are accepted. Values outside the boundary are rejected with a precise validation error.",
+      "acceptance_criteria": "All boundary values handled correctly without system error or data corruption.",
+      "linked_requirement_ids": [
+        "11a6532e-33d5-4ad6-a331-ef5751f4f64c"
+      ],
+      "rag_chunk_ids": [
+        "f26eb8d2-3a93-4d98-8fdd-e87e578d2901"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "b3d9e0d8-2e49-43ab-aece-54d3da62e1ad",
+      "title": "[PERFORMANCE] Verify response time/throughput: If the bank server is unresponsive, the system must retry 3 times before failing",
+      "test_type": "PERFORMANCE",
+      "priority": "P1",
+      "preconditions": "Load testing environment configured. Monitoring and metrics collection active.",
+      "steps": [
+        "1. Configure load testing tool (e.g. k6, JMeter) for the target endpoint.",
+        "2. Execute requests at specified load (concurrent users / requests per second).",
+        "3. Record P50, P95, P99 response times and error rate.",
+        "4. Compare against the performance requirement thresholds.",
+        "[ACCEPTANCE CRITERIA] P95 response time within stated SLA. Error rate < 0.1% under normal load.",
+        "[RAG SOURCES] f26eb8d2-3a93-4d98-8fdd-e87e578d2901"
+      ],
+      "expected_result": "All performance metrics meet or exceed the stated requirement thresholds under specified load conditions.",
+      "acceptance_criteria": "P95 response time within stated SLA. Error rate < 0.1% under normal load.",
+      "linked_requirement_ids": [
+        "11a6532e-33d5-4ad6-a331-ef5751f4f64c"
+      ],
+      "rag_chunk_ids": [
+        "f26eb8d2-3a93-4d98-8fdd-e87e578d2901"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "c1526760-09bc-43b6-8ec4-df538b04de8d",
+      "title": "[POSITIVE] Verify: The system response should be fast and secure.",
+      "test_type": "POSITIVE",
+      "priority": "P1",
+      "preconditions": "System is initialized with valid configuration and test data.",
+      "steps": [
+        "1. Set up prerequisite conditions for: The system response should be fast and secure..",
+        "2. Submit valid inputs matching the specification.",
+        "3. Execute the operation and observe system response.",
+        "[ACCEPTANCE CRITERIA] Operation completes without errors within expected response time.",
+        "[RAG SOURCES] f26eb8d2-3a93-4d98-8fdd-e87e578d2901"
+      ],
+      "expected_result": "System processes the request successfully as per: 'The system response should be fast and secure.'.",
+      "acceptance_criteria": "Operation completes without errors within expected response time.",
+      "linked_requirement_ids": [
+        "c36313dc-ea8b-49dd-9bd1-86bfab6981c7"
+      ],
+      "rag_chunk_ids": [
+        "f26eb8d2-3a93-4d98-8fdd-e87e578d2901"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "784a114c-0360-47c0-b8c3-1e6120dfc8a1",
+      "title": "[NEGATIVE] Verify error handling: The system response should be fast and secure.",
+      "test_type": "NEGATIVE",
+      "priority": "P1",
+      "preconditions": "Application server and error monitoring are active.",
+      "steps": [
+        "1. Provide malformed, empty, or out-of-range input parameters.",
+        "2. Omit one or more required fields.",
+        "3. Submit the request and check system response and logs.",
+        "[ACCEPTANCE CRITERIA] Error response returned within 200ms with correct HTTP status code.",
+        "[RAG SOURCES] f26eb8d2-3a93-4d98-8fdd-e87e578d2901"
+      ],
+      "expected_result": "System rejects invalid inputs with a clear error message and does not crash or leak sensitive data.",
+      "acceptance_criteria": "Error response returned within 200ms with correct HTTP status code.",
+      "linked_requirement_ids": [
+        "c36313dc-ea8b-49dd-9bd1-86bfab6981c7"
+      ],
+      "rag_chunk_ids": [
+        "f26eb8d2-3a93-4d98-8fdd-e87e578d2901"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "9f790bbb-39d4-4626-a902-ead54a60e290",
+      "title": "[SECURITY] Verify access control: The system response should be fast and secure.",
+      "test_type": "SECURITY",
+      "priority": "P0",
+      "preconditions": "Security testing tools configured. Unauthorized user account available.",
+      "steps": [
+        "1. Attempt the operation without any authentication credentials.",
+        "2. Attempt the operation with an expired or tampered token.",
+        "3. Attempt privilege escalation with a lower-privileged user account.",
+        "4. Try SQL injection / XSS payloads in input fields if applicable.",
+        "[ACCEPTANCE CRITERIA] Zero unauthorized access granted. Security headers (Content-Security-Policy, X-Frame-Options) present in responses.",
+        "[RAG SOURCES] f26eb8d2-3a93-4d98-8fdd-e87e578d2901"
+      ],
+      "expected_result": "All unauthorized access attempts are rejected with 401/403. No sensitive data is leaked. Injection payloads are sanitized.",
+      "acceptance_criteria": "Zero unauthorized access granted. Security headers (Content-Security-Policy, X-Frame-Options) present in responses.",
+      "linked_requirement_ids": [
+        "c36313dc-ea8b-49dd-9bd1-86bfab6981c7"
+      ],
+      "rag_chunk_ids": [
+        "f26eb8d2-3a93-4d98-8fdd-e87e578d2901"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "25d5be11-4ca9-473c-b56e-e1c7ba578f20",
+      "title": "[POSITIVE] Verify: The wallet top-up amount must be between 100 and 10000 rupees.",
+      "test_type": "POSITIVE",
+      "priority": "P0",
+      "preconditions": "System is initialized with valid configuration and test data.",
+      "steps": [
+        "1. Set up prerequisite conditions for: The wallet top-up amount must be between 100 and 10000 rupee.",
+        "2. Submit valid inputs matching the specification.",
+        "3. Execute the operation and observe system response.",
+        "[ACCEPTANCE CRITERIA] Operation completes without errors within expected response time.",
+        "[RAG SOURCES] 53468812-b4bd-462c-ae40-3e39d849c2f9"
+      ],
+      "expected_result": "System processes the request successfully as per: 'The wallet top-up amount must be between 100 and 10000 rupees.'.",
+      "acceptance_criteria": "Operation completes without errors within expected response time.",
+      "linked_requirement_ids": [
+        "223ce71c-2179-4e39-b58a-1c07ba111c78"
+      ],
+      "rag_chunk_ids": [
+        "53468812-b4bd-462c-ae40-3e39d849c2f9"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "615d9049-2355-4c97-83e3-780c79ac439a",
+      "title": "[NEGATIVE] Verify error handling: The wallet top-up amount must be between 100 and 10000 rupees.",
+      "test_type": "NEGATIVE",
+      "priority": "P1",
+      "preconditions": "Application server and error monitoring are active.",
+      "steps": [
+        "1. Provide malformed, empty, or out-of-range input parameters.",
+        "2. Omit one or more required fields.",
+        "3. Submit the request and check system response and logs.",
+        "[ACCEPTANCE CRITERIA] Error response returned within 200ms with correct HTTP status code.",
+        "[RAG SOURCES] 53468812-b4bd-462c-ae40-3e39d849c2f9"
+      ],
+      "expected_result": "System rejects invalid inputs with a clear error message and does not crash or leak sensitive data.",
+      "acceptance_criteria": "Error response returned within 200ms with correct HTTP status code.",
+      "linked_requirement_ids": [
+        "223ce71c-2179-4e39-b58a-1c07ba111c78"
+      ],
+      "rag_chunk_ids": [
+        "53468812-b4bd-462c-ae40-3e39d849c2f9"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "82cc1fae-616a-4695-90ea-5320ecc999d5",
+      "title": "[BOUNDARY] Verify threshold limits: The wallet top-up amount must be between 100 and 10000 rupees.",
+      "test_type": "BOUNDARY",
+      "priority": "P1",
+      "preconditions": "Test harness prepared with boundary edge-case datasets.",
+      "steps": [
+        "1. Submit input at the exact minimum valid threshold value.",
+        "2. Submit input at the exact maximum valid threshold value.",
+        "3. Submit input immediately below the minimum (min - 1).",
+        "4. Submit input immediately above the maximum (max + 1).",
+        "[ACCEPTANCE CRITERIA] All boundary values handled correctly without system error or data corruption.",
+        "[RAG SOURCES] 53468812-b4bd-462c-ae40-3e39d849c2f9"
+      ],
+      "expected_result": "Values at exact boundaries are accepted. Values outside the boundary are rejected with a precise validation error.",
+      "acceptance_criteria": "All boundary values handled correctly without system error or data corruption.",
+      "linked_requirement_ids": [
+        "223ce71c-2179-4e39-b58a-1c07ba111c78"
+      ],
+      "rag_chunk_ids": [
+        "53468812-b4bd-462c-ae40-3e39d849c2f9"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "88e63aa7-9c54-47fb-9f50-cdad1155aa64",
+      "title": "[POSITIVE] Verify: Transactions below 100 or above 10000 must be rejected with an invalid amount er",
+      "test_type": "POSITIVE",
+      "priority": "P0",
+      "preconditions": "System is initialized with valid configuration and test data.",
+      "steps": [
+        "1. Set up prerequisite conditions for: Transactions below 100 or above 10000 must be rejected with .",
+        "2. Submit valid inputs matching the specification.",
+        "3. Execute the operation and observe system response.",
+        "[ACCEPTANCE CRITERIA] Operation completes without errors within expected response time.",
+        "[RAG SOURCES] 53468812-b4bd-462c-ae40-3e39d849c2f9"
+      ],
+      "expected_result": "System processes the request successfully as per: 'Transactions below 100 or above 10000 must be rejected with an invalid amount error.'.",
+      "acceptance_criteria": "Operation completes without errors within expected response time.",
+      "linked_requirement_ids": [
+        "1dbcf177-9b75-4164-9021-6d4a4da5c650"
+      ],
+      "rag_chunk_ids": [
+        "53468812-b4bd-462c-ae40-3e39d849c2f9"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "50577856-b517-4768-9323-16375631e7bc",
+      "title": "[NEGATIVE] Verify error handling: Transactions below 100 or above 10000 must be rejected with an invalid amount er",
+      "test_type": "NEGATIVE",
+      "priority": "P1",
+      "preconditions": "Application server and error monitoring are active.",
+      "steps": [
+        "1. Provide malformed, empty, or out-of-range input parameters.",
+        "2. Omit one or more required fields.",
+        "3. Submit the request and check system response and logs.",
+        "[ACCEPTANCE CRITERIA] Error response returned within 200ms with correct HTTP status code.",
+        "[RAG SOURCES] 53468812-b4bd-462c-ae40-3e39d849c2f9"
+      ],
+      "expected_result": "System rejects invalid inputs with a clear error message and does not crash or leak sensitive data.",
+      "acceptance_criteria": "Error response returned within 200ms with correct HTTP status code.",
+      "linked_requirement_ids": [
+        "1dbcf177-9b75-4164-9021-6d4a4da5c650"
+      ],
+      "rag_chunk_ids": [
+        "53468812-b4bd-462c-ae40-3e39d849c2f9"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "98c29717-bd11-401b-9a8a-4e06bb1cb256",
+      "title": "[BOUNDARY] Verify threshold limits: Transactions below 100 or above 10000 must be rejected with an invalid amount er",
+      "test_type": "BOUNDARY",
+      "priority": "P1",
+      "preconditions": "Test harness prepared with boundary edge-case datasets.",
+      "steps": [
+        "1. Submit input at the exact minimum valid threshold value.",
+        "2. Submit input at the exact maximum valid threshold value.",
+        "3. Submit input immediately below the minimum (min - 1).",
+        "4. Submit input immediately above the maximum (max + 1).",
+        "[ACCEPTANCE CRITERIA] All boundary values handled correctly without system error or data corruption.",
+        "[RAG SOURCES] 53468812-b4bd-462c-ae40-3e39d849c2f9"
+      ],
+      "expected_result": "Values at exact boundaries are accepted. Values outside the boundary are rejected with a precise validation error.",
+      "acceptance_criteria": "All boundary values handled correctly without system error or data corruption.",
+      "linked_requirement_ids": [
+        "1dbcf177-9b75-4164-9021-6d4a4da5c650"
+      ],
+      "rag_chunk_ids": [
+        "53468812-b4bd-462c-ae40-3e39d849c2f9"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "4a12ab2e-ab0a-40f0-8153-b3204d00468b",
+      "title": "[POSITIVE] Verify: If the bank server is unresponsive, the system must retry 3 times before failing",
+      "test_type": "POSITIVE",
+      "priority": "P0",
+      "preconditions": "System is initialized with valid configuration and test data.",
+      "steps": [
+        "1. Set up prerequisite conditions for: If the bank server is unresponsive, the system must retry 3 .",
+        "2. Submit valid inputs matching the specification.",
+        "3. Execute the operation and observe system response.",
+        "[ACCEPTANCE CRITERIA] Operation completes without errors within expected response time.",
+        "[RAG SOURCES] 669939dd-33df-4e0f-a2d8-fa4a499af167"
+      ],
+      "expected_result": "System processes the request successfully as per: 'If the bank server is unresponsive, the system must retry 3 times before failing the transaction.'.",
+      "acceptance_criteria": "Operation completes without errors within expected response time.",
+      "linked_requirement_ids": [
+        "7cc71ad8-99d1-4737-b497-8831f5727b28"
+      ],
+      "rag_chunk_ids": [
+        "669939dd-33df-4e0f-a2d8-fa4a499af167"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "dc96bffe-9f34-4db2-a8e4-944b9ac38880",
+      "title": "[NEGATIVE] Verify error handling: If the bank server is unresponsive, the system must retry 3 times before failing",
+      "test_type": "NEGATIVE",
+      "priority": "P1",
+      "preconditions": "Application server and error monitoring are active.",
+      "steps": [
+        "1. Provide malformed, empty, or out-of-range input parameters.",
+        "2. Omit one or more required fields.",
+        "3. Submit the request and check system response and logs.",
+        "[ACCEPTANCE CRITERIA] Error response returned within 200ms with correct HTTP status code.",
+        "[RAG SOURCES] 669939dd-33df-4e0f-a2d8-fa4a499af167"
+      ],
+      "expected_result": "System rejects invalid inputs with a clear error message and does not crash or leak sensitive data.",
+      "acceptance_criteria": "Error response returned within 200ms with correct HTTP status code.",
+      "linked_requirement_ids": [
+        "7cc71ad8-99d1-4737-b497-8831f5727b28"
+      ],
+      "rag_chunk_ids": [
+        "669939dd-33df-4e0f-a2d8-fa4a499af167"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "d31c1412-304b-48b2-a9a3-792bb578d689",
+      "title": "[BOUNDARY] Verify threshold limits: If the bank server is unresponsive, the system must retry 3 times before failing",
+      "test_type": "BOUNDARY",
+      "priority": "P1",
+      "preconditions": "Test harness prepared with boundary edge-case datasets.",
+      "steps": [
+        "1. Submit input at the exact minimum valid threshold value.",
+        "2. Submit input at the exact maximum valid threshold value.",
+        "3. Submit input immediately below the minimum (min - 1).",
+        "4. Submit input immediately above the maximum (max + 1).",
+        "[ACCEPTANCE CRITERIA] All boundary values handled correctly without system error or data corruption.",
+        "[RAG SOURCES] 669939dd-33df-4e0f-a2d8-fa4a499af167"
+      ],
+      "expected_result": "Values at exact boundaries are accepted. Values outside the boundary are rejected with a precise validation error.",
+      "acceptance_criteria": "All boundary values handled correctly without system error or data corruption.",
+      "linked_requirement_ids": [
+        "7cc71ad8-99d1-4737-b497-8831f5727b28"
+      ],
+      "rag_chunk_ids": [
+        "669939dd-33df-4e0f-a2d8-fa4a499af167"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "017dc3e7-c7c8-4e88-96d9-31a9e99ab766",
+      "title": "[PERFORMANCE] Verify response time/throughput: If the bank server is unresponsive, the system must retry 3 times before failing",
+      "test_type": "PERFORMANCE",
+      "priority": "P1",
+      "preconditions": "Load testing environment configured. Monitoring and metrics collection active.",
+      "steps": [
+        "1. Configure load testing tool (e.g. k6, JMeter) for the target endpoint.",
+        "2. Execute requests at specified load (concurrent users / requests per second).",
+        "3. Record P50, P95, P99 response times and error rate.",
+        "4. Compare against the performance requirement thresholds.",
+        "[ACCEPTANCE CRITERIA] P95 response time within stated SLA. Error rate < 0.1% under normal load.",
+        "[RAG SOURCES] 669939dd-33df-4e0f-a2d8-fa4a499af167"
+      ],
+      "expected_result": "All performance metrics meet or exceed the stated requirement thresholds under specified load conditions.",
+      "acceptance_criteria": "P95 response time within stated SLA. Error rate < 0.1% under normal load.",
+      "linked_requirement_ids": [
+        "7cc71ad8-99d1-4737-b497-8831f5727b28"
+      ],
+      "rag_chunk_ids": [
+        "669939dd-33df-4e0f-a2d8-fa4a499af167"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "6184239a-a0f1-4eaf-8323-80222704d356",
+      "title": "[POSITIVE] Verify: The system response should be fast and secure.",
+      "test_type": "POSITIVE",
+      "priority": "P1",
+      "preconditions": "System is initialized with valid configuration and test data.",
+      "steps": [
+        "1. Set up prerequisite conditions for: The system response should be fast and secure..",
+        "2. Submit valid inputs matching the specification.",
+        "3. Execute the operation and observe system response.",
+        "[ACCEPTANCE CRITERIA] Operation completes without errors within expected response time.",
+        "[RAG SOURCES] 669939dd-33df-4e0f-a2d8-fa4a499af167"
+      ],
+      "expected_result": "System processes the request successfully as per: 'The system response should be fast and secure.'.",
+      "acceptance_criteria": "Operation completes without errors within expected response time.",
+      "linked_requirement_ids": [
+        "9ebe8ef7-36fc-4885-9f41-56d6963c7c7d"
+      ],
+      "rag_chunk_ids": [
+        "669939dd-33df-4e0f-a2d8-fa4a499af167"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "c52251a1-2ac8-4e02-b671-5262f8a07553",
+      "title": "[NEGATIVE] Verify error handling: The system response should be fast and secure.",
+      "test_type": "NEGATIVE",
+      "priority": "P1",
+      "preconditions": "Application server and error monitoring are active.",
+      "steps": [
+        "1. Provide malformed, empty, or out-of-range input parameters.",
+        "2. Omit one or more required fields.",
+        "3. Submit the request and check system response and logs.",
+        "[ACCEPTANCE CRITERIA] Error response returned within 200ms with correct HTTP status code.",
+        "[RAG SOURCES] 669939dd-33df-4e0f-a2d8-fa4a499af167"
+      ],
+      "expected_result": "System rejects invalid inputs with a clear error message and does not crash or leak sensitive data.",
+      "acceptance_criteria": "Error response returned within 200ms with correct HTTP status code.",
+      "linked_requirement_ids": [
+        "9ebe8ef7-36fc-4885-9f41-56d6963c7c7d"
+      ],
+      "rag_chunk_ids": [
+        "669939dd-33df-4e0f-a2d8-fa4a499af167"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "44643a30-51d8-486f-a617-ef38ca4a9002",
+      "title": "[SECURITY] Verify access control: The system response should be fast and secure.",
+      "test_type": "SECURITY",
+      "priority": "P0",
+      "preconditions": "Security testing tools configured. Unauthorized user account available.",
+      "steps": [
+        "1. Attempt the operation without any authentication credentials.",
+        "2. Attempt the operation with an expired or tampered token.",
+        "3. Attempt privilege escalation with a lower-privileged user account.",
+        "4. Try SQL injection / XSS payloads in input fields if applicable.",
+        "[ACCEPTANCE CRITERIA] Zero unauthorized access granted. Security headers (Content-Security-Policy, X-Frame-Options) present in responses.",
+        "[RAG SOURCES] 669939dd-33df-4e0f-a2d8-fa4a499af167"
+      ],
+      "expected_result": "All unauthorized access attempts are rejected with 401/403. No sensitive data is leaked. Injection payloads are sanitized.",
+      "acceptance_criteria": "Zero unauthorized access granted. Security headers (Content-Security-Policy, X-Frame-Options) present in responses.",
+      "linked_requirement_ids": [
+        "9ebe8ef7-36fc-4885-9f41-56d6963c7c7d"
+      ],
+      "rag_chunk_ids": [
+        "669939dd-33df-4e0f-a2d8-fa4a499af167"
+      ],
+      "status": "draft"
+    }
+  ]
+}

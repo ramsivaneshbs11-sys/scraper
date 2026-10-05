@@ -1,0 +1,27 @@
+{
+  "document_id": "c05b0b33-1c2b-412f-893a-699e1ea4e0f8",
+  "filename": "upsc_mock_test.md",
+  "file_type": "md",
+  "total_characters": 196,
+  "units_count": 2,
+  "metadata": {
+    "sections_count": 3,
+    "preprocessed": true
+  },
+  "units": [
+    {
+      "section_title": "1. Exam Structure",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "| Stage | Questions | Duration | Marks |\n| Prelims | 100 | 120 Mins | 200 |\n| Mains | 9 Papers | 3 Hours Each | 1750 |"
+    },
+    {
+      "section_title": "2. Evaluation Policy",
+      "page_number": null,
+      "line_start": null,
+      "line_end": null,
+      "text": "System performs automatic scoring and answers must cite official UPSC sources."
+    }
+  ]
+}

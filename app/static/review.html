@@ -1,0 +1,2822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI QA Engineer — Admin Review Console & Test Studio</title>
+  <meta name="description" content="Open-Source AI QA Engineer Workspace: Requirements, RAG Knowledge Hub, Test Studio, Traceability & Automation.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #030712;
+      --sidebar-bg: #080d1a;
+      --card-bg: rgba(13, 21, 38, 0.72);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-hover: rgba(20, 32, 58, 0.85);
+      --primary: #38bdf8;
+      --primary-hover: #0284c7;
+      --primary-glow: rgba(56, 189, 248, 0.3);
+      --accent: #818cf8;
+      --accent-gradient: linear-gradient(135deg, #38bdf8 0%, #6366f1 100%);
+      --success: #34d399;
+      --danger: #f87171;
+      --warning: #fbbf24;
+      --purple: #c084fc;
+      --cyan: #38bdf8;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --radius-sm: 8px;
+      --radius: 12px;
+      --radius-lg: 16px;
+      --transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      --font-heading: 'Plus Jakarta Sans', 'Inter', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      background-image:
+        radial-gradient(circle at 50% -10%, rgba(56, 189, 248, 0.14) 0%, transparent 45%),
+        radial-gradient(circle at 85% 95%, rgba(99, 102, 241, 0.10) 0%, transparent 50%),
+        radial-gradient(circle at 10% 80%, rgba(192, 132, 252, 0.06) 0%, transparent 45%);
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-heading);
+      letter-spacing: -0.3px;
+    }
+
+    /* ── Top Bar ────────────────────────────────────────────── */
+    .topbar {
+      height: 60px;
+      background: rgba(8, 13, 26, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .brand-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: var(--accent-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.4);
+    }
+
+    .brand-title {
+      font-family: var(--font-heading);
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -0.4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .admin-badge {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: rgba(129, 140, 248, 0.16);
+      color: #a5b4fc;
+      border: 1px solid rgba(129, 140, 248, 0.35);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    .topbar-center {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .project-picker {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text);
+      padding: 7px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 600;
+      outline: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+    }
+
+    .project-picker:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(56, 189, 248, 0.4);
+    }
+
+    .env-badge {
+      background: rgba(52, 211, 153, 0.12);
+      color: #34d399;
+      border: 1px solid rgba(52, 211, 153, 0.3);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .env-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #34d399;
+      box-shadow: 0 0 8px #34d399;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .rag-pill {
+      font-size: 11px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      background: rgba(56, 189, 248, 0.1);
+      color: #7dd3fc;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+    }
+
+    /* ── Main App Layout (Three-Pane) ────────────────────────── */
+    .app-container {
+      display: flex;
+      flex: 1;
+      height: calc(100vh - 60px);
+      overflow: hidden;
+    }
+
+    /* ── 1. Left Nav Sidebar ───────────────────────────────── */
+    .sidebar {
+      width: 230px;
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--card-border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      padding: 20px 12px;
+      gap: 4px;
+    }
+
+    .nav-label {
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 12px 12px 6px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      border: 1px solid transparent;
+      user-select: none;
+    }
+
+    .nav-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      transform: translateX(2px);
+    }
+
+    .nav-item.active {
+      background: rgba(56, 189, 248, 0.12);
+      color: #38bdf8;
+      border-color: rgba(56, 189, 248, 0.3);
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.15);
+    }
+
+    .nav-icon {
+      font-size: 16px;
+      width: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-badge {
+      margin-left: auto;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+    }
+
+    .sidebar-footer {
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid var(--card-border);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    /* ── 2. Center Main Workspace ───────────────────────────── */
+    .workspace {
+      flex: 1;
+      overflow-y: auto;
+      padding: 28px 36px 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .tab-content {
+      display: none;
+      flex-direction: column;
+      gap: 24px;
+      animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .tab-content.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Cards & Panels ─────────────────────────────────────── */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      transition: var(--transition);
+    }
+
+    .card:hover {
+      border-color: rgba(56, 189, 248, 0.22);
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .card-header h3 {
+      font-size: 16px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #f8fafc;
+    }
+
+    .card-header p {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    /* ── Buttons & Controls ─────────────────────────────────── */
+    .btn {
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 700;
+      font-family: var(--font-heading);
+      cursor: pointer;
+      border: 1px solid transparent;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+      white-space: nowrap;
+      text-decoration: none;
+      user-select: none;
+    }
+
+    .btn:hover:not(:disabled) {
+      transform: translateY(-1px);
+    }
+
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .btn-primary {
+      background: var(--accent-gradient);
+      color: white;
+      box-shadow: 0 4px 16px rgba(56, 189, 248, 0.3);
+    }
+    .btn-primary:hover:not(:disabled) {
+      box-shadow: 0 6px 22px rgba(56, 189, 248, 0.5);
+    }
+
+    .btn-success {
+      background: rgba(52, 211, 153, 0.14);
+      color: #34d399;
+      border-color: rgba(52, 211, 153, 0.35);
+    }
+    .btn-success:hover:not(:disabled) {
+      background: rgba(52, 211, 153, 0.25);
+      box-shadow: 0 0 16px rgba(52, 211, 153, 0.25);
+    }
+
+    .btn-danger {
+      background: rgba(248, 113, 113, 0.14);
+      color: #f87171;
+      border-color: rgba(248, 113, 113, 0.32);
+    }
+    .btn-danger:hover:not(:disabled) {
+      background: rgba(248, 113, 113, 0.24);
+      box-shadow: 0 0 16px rgba(248, 113, 113, 0.25);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+    .btn-secondary:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.10);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-purple {
+      background: rgba(192, 132, 252, 0.14);
+      color: #e9d5ff;
+      border-color: rgba(192, 132, 252, 0.35);
+    }
+    .btn-purple:hover:not(:disabled) {
+      background: rgba(192, 132, 252, 0.25);
+      box-shadow: 0 0 16px rgba(192, 132, 252, 0.25);
+    }
+
+    .btn-cyan {
+      background: rgba(56, 189, 248, 0.14);
+      color: #38bdf8;
+      border-color: rgba(56, 189, 248, 0.35);
+    }
+    .btn-cyan:hover:not(:disabled) {
+      background: rgba(56, 189, 248, 0.25);
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.25);
+    }
+
+    /* ── Overview Dashboard Metrics ─────────────────────────── */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .metric-card {
+      background: rgba(11, 18, 33, 0.6);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: var(--transition);
+    }
+
+    .metric-card:hover {
+      border-color: rgba(56, 189, 248, 0.25);
+      background: rgba(15, 24, 44, 0.75);
+    }
+
+    .metric-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .metric-val {
+      font-family: var(--font-heading);
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.8px;
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .metric-sub {
+      font-size: 11px;
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ── Test Studio Table ──────────────────────────────────── */
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      background: rgba(11, 18, 33, 0.65);
+      border: 1px solid var(--card-border);
+      padding: 12px 18px;
+      border-radius: var(--radius);
+    }
+
+    .toolbar-left, .toolbar-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .table-container {
+      overflow-x: auto;
+      border-radius: var(--radius);
+      border: 1px solid var(--card-border);
+      background: rgba(8, 13, 26, 0.6);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 12px;
+    }
+
+    th {
+      background: rgba(255, 255, 255, 0.02);
+      color: var(--text-muted);
+      font-weight: 700;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--card-border);
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      vertical-align: middle;
+      color: var(--text);
+    }
+
+    tr:hover td {
+      background: rgba(56, 189, 248, 0.03);
+    }
+
+    .badge-prio {
+      font-size: 10px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .badge-prio.p0 { background: rgba(248, 113, 113, 0.18); color: #f87171; border: 1px solid rgba(248, 113, 113, 0.4); box-shadow: 0 0 10px rgba(248, 113, 113, 0.15); }
+    .badge-prio.p1 { background: rgba(251, 191, 36, 0.18); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.4); }
+    .badge-prio.p2 { background: rgba(56, 189, 248, 0.18); color: #7dd3fc; border: 1px solid rgba(56, 189, 248, 0.4); }
+    .badge-prio.p3 { background: rgba(52, 211, 153, 0.18); color: #6ee7b7; border: 1px solid rgba(52, 211, 153, 0.4); }
+
+    .badge-type {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-muted);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .badge-status {
+      font-size: 10px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-status.approved { background: rgba(52, 211, 153, 0.15); color: #34d399; border: 1px solid rgba(52, 211, 153, 0.3); }
+    .badge-status.draft    { background: rgba(251, 191, 36, 0.15); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
+    .badge-status.rejected { background: rgba(248, 113, 113, 0.15); color: #f87171; border: 1px solid rgba(248, 113, 113, 0.3); }
+
+    /* ── Knowledge Hub & Ingestion Zone ────────────────────── */
+    .drop-zone {
+      border: 2px dashed rgba(56, 189, 248, 0.35);
+      border-radius: var(--radius-lg);
+      padding: 42px 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      background: rgba(56, 189, 248, 0.03);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .drop-zone:hover {
+      border-color: #38bdf8;
+      background: rgba(56, 189, 248, 0.08);
+      box-shadow: 0 0 24px rgba(56, 189, 248, 0.15);
+    }
+
+    .drop-icon {
+      font-size: 32px;
+      color: #38bdf8;
+    }
+
+    /* ── 3. Right Slideout Drawer: AI QA Copilot ────────────── */
+    .copilot-drawer {
+      width: 360px;
+      background: var(--sidebar-bg);
+      border-left: 1px solid var(--card-border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+
+    .copilot-drawer.collapsed {
+      margin-right: -360px;
+      transform: translateX(100%);
+    }
+
+    .copilot-header {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(12, 18, 34, 0.95);
+    }
+
+    .copilot-header h4 {
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .copilot-context-banner {
+      background: rgba(59, 130, 246, 0.08);
+      border-bottom: 1px solid rgba(59, 130, 246, 0.15);
+      padding: 8px 16px;
+      font-size: 11px;
+      color: #93c5fd;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .copilot-chat-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      font-size: 12px;
+    }
+
+    .chat-bubble {
+      padding: 12px 14px;
+      border-radius: var(--radius);
+      line-height: 1.55;
+      max-width: 92%;
+    }
+
+    .chat-bubble.ai {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      align-self: flex-start;
+    }
+
+    .chat-bubble.user {
+      background: var(--primary);
+      color: white;
+      align-self: flex-end;
+    }
+
+    .chat-bubble pre {
+      background: rgba(0, 0, 0, 0.35);
+      padding: 8px 10px;
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      margin-top: 6px;
+      overflow-x: auto;
+    }
+
+    .copilot-input-area {
+      padding: 12px 14px;
+      border-top: 1px solid var(--card-border);
+      background: rgba(12, 18, 34, 0.95);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .prompt-chips {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    .chip {
+      font-size: 11px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 3px 8px;
+      border-radius: 12px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: var(--transition);
+    }
+
+    .chip:hover {
+      background: rgba(59, 130, 246, 0.15);
+      color: #93c5fd;
+      border-color: rgba(59, 130, 246, 0.3);
+    }
+
+    .copilot-input-box {
+      display: flex;
+      gap: 8px;
+    }
+
+    .copilot-input-box input {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      outline: none;
+    }
+
+    .copilot-input-box input:focus {
+      border-color: #3b82f6;
+    }
+
+    /* ── Slideout Chunk Inspector Modal ────────────────────── */
+    .inspector-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      z-index: 300;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .inspector-modal.active {
+      display: flex;
+    }
+
+    .inspector-card {
+      width: 800px;
+      max-width: 95vw;
+      max-height: 85vh;
+      background: #0f172a;
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+
+    .inspector-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .inspector-content {
+      padding: 20px;
+      overflow-y: auto;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .chunk-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .chunk-meta {
+      display: flex;
+      gap: 8px;
+      font-size: 10px;
+      color: var(--text-dim);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .chunk-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      line-height: 1.6;
+      color: var(--text-muted);
+      white-space: pre-wrap;
+    }
+
+    /* ── Code block for Automation ─────────────────────────── */
+    .code-view {
+      background: #060911;
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      line-height: 1.6;
+      color: #93c5fd;
+      overflow-x: auto;
+      white-space: pre;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <div class="brand">
+        <div class="brand-icon">⚡</div>
+        <div class="brand-title">
+          <span>AI QA ENGINEER</span>
+          <span class="admin-badge">Admin Review Console</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="topbar-center">
+      <select id="projectSelect" class="project-picker" onchange="switchProject(this.value)">
+        <option value="">Loading projects...</option>
+      </select>
+      <div class="env-badge" title="Active Target Test Environment">Localhost:3000</div>
+    </div>
+
+    <div class="topbar-right">
+      <div id="ragStatusPill" class="rag-pill">
+        <span>🟢 RAG Vectors: Ready</span>
+      </div>
+      <button class="btn btn-secondary" onclick="openNewProjectModal()">+ New Project</button>
+      <button class="btn btn-primary" onclick="toggleCopilot()">🤖 QA Copilot</button>
+    </div>
+  </header>
+
+  <div class="app-container">
+    <!-- Left Navigation Rail -->
+    <nav class="sidebar">
+      <div class="nav-label">Workspace</div>
+      <div class="nav-item active" onclick="switchTab('dashboard')">
+        <span class="nav-icon">📊</span>
+        <span>Dashboard</span>
+      </div>
+      <div class="nav-item" onclick="switchTab('knowledge')">
+        <span class="nav-icon">📚</span>
+        <span>Knowledge Hub</span>
+        <span id="docCountBadge" class="nav-badge">0</span>
+      </div>
+      <div class="nav-item" onclick="switchTab('requirements')">
+        <span class="nav-icon">📝</span>
+        <span>Requirements</span>
+        <span id="reqCountBadge" class="nav-badge">0</span>
+      </div>
+      <div class="nav-item" onclick="switchTab('studio')">
+        <span class="nav-icon">🧪</span>
+        <span>Test Studio</span>
+        <span id="tcCountBadge" class="nav-badge">0</span>
+      </div>
+
+      <div class="nav-label">Lifecycle & Proof</div>
+      <div class="nav-item" onclick="switchTab('traceability')">
+        <span class="nav-icon">📈</span>
+        <span>Traceability Matrix</span>
+      </div>
+      <div class="nav-item" onclick="switchTab('automation')">
+        <span class="nav-icon">🤖</span>
+        <span>Automation Suite</span>
+      </div>
+      <div class="nav-item" onclick="switchTab('api-testing')">
+        <span class="nav-icon">🌐</span>
+        <span>API Testing Lab</span>
+        <span id="apiTcCountBadge" class="nav-badge">0</span>
+      </div>
+      <div class="nav-item" onclick="switchTab('recorder')">
+        <span class="nav-icon">🔴</span>
+        <span>Record & Playback</span>
+        <span id="recBadge" class="nav-badge" style="background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.4);">REC</span>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="nav-item" onclick="switchTab('settings')">
+          <span class="nav-icon">⚙️</span>
+          <span>Engine Settings</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Center Workspace -->
+    <main class="workspace">
+
+      <!-- 1. DASHBOARD TAB -->
+      <section id="tab-dashboard" class="tab-content active">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3>Executive Quality Overview</h3>
+              <p>Requirement coverage, test suite health, and RAG knowledge grounding status.</p>
+            </div>
+            <button class="btn btn-primary" onclick="generateAllTests()">⚡ Run Full Generation</button>
+          </div>
+          <div class="metrics-grid">
+            <div class="metric-card">
+              <span class="metric-label">Requirements</span>
+              <span id="mReqCount" class="metric-val">0</span>
+              <span class="metric-sub">Analyzed from specs</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">Generated Tests</span>
+              <span id="mTcCount" class="metric-val">0</span>
+              <span class="metric-sub">100% Traceable</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">Approved Status</span>
+              <span id="mApprovedCount" class="metric-val" style="color: #34d399;">0</span>
+              <span class="metric-sub">Human verified</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">Coverage Matrix</span>
+              <span id="mCoveragePct" class="metric-val" style="color: #60a5fa;">0%</span>
+              <span class="metric-sub">Requirement to Test</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3>🚀 Quick Start Guide</h3>
+              <p>How the 5-Layer QA Pipeline operates in this workspace.</p>
+            </div>
+          </div>
+          <div style="font-size: 13px; line-height: 1.8; color: var(--text-muted);">
+            <p>1. <strong>Knowledge Hub:</strong> Upload your PRD, API Specs (OpenAPI/Swagger), or existing manual test sheets. They are automatically extracted and indexed into Qdrant.</p>
+            <p>2. <strong>Requirements:</strong> Review extracted specifications, resolve ambiguities, and approve requirements.</p>
+            <p>3. <strong>Test Studio:</strong> Generate grounded test cases using RAG context. Edit steps, verify acceptance criteria, and export directly to Excel (.xlsx) or Gherkin.</p>
+            <p>4. <strong>Automation:</strong> Generate executable Playwright TypeScript tests mapped to requirements.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. KNOWLEDGE HUB TAB (RAG FEED INTERFACE) -->
+      <section id="tab-knowledge" class="tab-content">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3>📂 RAG Data Ingestion Hub</h3>
+              <p>Upload documents, view semantic chunking, and synchronize the Qdrant vector index.</p>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button class="btn btn-cyan" onclick="syncProjectRAG()">⚡ Re-Index Qdrant</button>
+            </div>
+          </div>
+
+          <!-- Drag and Drop upload -->
+          <div class="drop-zone" onclick="document.getElementById('fileUploadInput').click()">
+            <div class="drop-icon">📤</div>
+            <div style="font-weight: 600; font-size: 14px;">Drop PRD, BRD, API Specs or Test Cases here</div>
+            <div style="font-size: 12px; color: var(--text-dim);">Supported formats: PDF, DOCX, TXT, MD, OpenAPI JSON/YAML</div>
+            <input type="file" id="fileUploadInput" style="display: none;" onchange="handleFileUpload(event)">
+          </div>
+
+          <!-- Document Inventory Table -->
+          <div style="margin-top: 20px;">
+            <h4 style="font-size: 13px; margin-bottom: 10px; color: var(--text-muted);">Document Inventory & Ingestion Status</h4>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Filename</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th>Chunks</th>
+                    <th>Uploaded</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="documentsTableBody">
+                  <tr><td colspan="6" style="text-align: center; color: var(--text-dim);">Loading documents...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Semantic Search Sandbox -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3>🔍 Live RAG Semantic Search Sandbox</h3>
+              <p>Test your vector index by asking natural language questions against the uploaded documents.</p>
+            </div>
+          </div>
+          <div style="display: flex; gap: 10px; margin-bottom: 14px;">
+            <input type="text" id="ragSearchQuery" placeholder="e.g., What are the retry limits for failed payment gateway transactions?"
+              style="flex: 1; background: rgba(255,255,255,0.05); border: 1px solid var(--card-border); color: var(--text); padding: 8px 14px; border-radius: 8px; font-size: 12px;">
+            <button class="btn btn-primary" onclick="performRAGSearch()">Search Vectors</button>
+          </div>
+          <div id="ragSearchResults" style="display: flex; flex-direction: column; gap: 10px;">
+            <div style="font-size: 12px; color: var(--text-dim); text-align: center; padding: 14px;">Search results with similarity scores will appear here.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. REQUIREMENTS TAB -->
+      <section id="tab-requirements" class="tab-content">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3>📝 Extracted Requirements & Ambiguities</h3>
+              <p>Human-in-the-loop validation: approve clear requirements, clarify ambiguities.</p>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button class="btn btn-success" onclick="approveAllRequirements()">✓ Approve All Proposed</button>
+            </div>
+          </div>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Req ID</th>
+                  <th>Requirement Text</th>
+                  <th>Confidence</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="requirementsTableBody">
+                <tr><td colspan="5" style="text-align: center; color: var(--text-dim);">Loading requirements...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. TEST STUDIO TAB -->
+      <section id="tab-studio" class="tab-content">
+        <div class="toolbar">
+          <div class="toolbar-left">
+            <span style="font-size: 13px; font-weight: 700;">Filter:</span>
+            <select id="prioFilter" class="project-picker" onchange="renderTestCasesTable()">
+              <option value="ALL">All Priorities</option>
+              <option value="P0">P0 (Critical)</option>
+              <option value="P1">P1 (High)</option>
+              <option value="P2">P2 (Medium)</option>
+              <option value="P3">P3 (Low)</option>
+            </select>
+            <select id="statusFilter" class="project-picker" onchange="renderTestCasesTable()">
+              <option value="ALL">All Status</option>
+              <option value="draft">Draft</option>
+              <option value="approved">Approved</option>
+              <option value="rejected">Rejected</option>
+            </select>
+          </div>
+
+          <div class="toolbar-right">
+            <button class="btn btn-primary" onclick="generateAllTests()">⚡ Generate with RAG</button>
+            <button class="btn btn-success" onclick="exportExcel()">📥 Export Excel (.xlsx)</button>
+            <button class="btn btn-secondary" onclick="exportCSV()">📄 CSV</button>
+            <button class="btn btn-purple" onclick="exportGherkin()">🥒 Gherkin (.feature)</button>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 100px;">TC ID</th>
+                <th style="width: 70px;">Priority</th>
+                <th>Title / Scenario</th>
+                <th>Preconditions</th>
+                <th>Test Steps</th>
+                <th>Expected Result</th>
+                <th style="width: 80px;">Status</th>
+                <th style="width: 110px;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="testCasesTableBody">
+              <tr><td colspan="8" style="text-align: center; color: var(--text-dim);">No test cases generated yet. Click 'Generate with RAG' to begin.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 5. TRACEABILITY MATRIX TAB -->
+      <section id="tab-traceability" class="tab-content">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3>📈 Requirement ➔ Test Case Traceability Matrix</h3>
+              <p>Ensures zero coverage gaps: every requirement is linked to its tests, status, and scripts.</p>
+            </div>
+            <button class="btn btn-secondary" onclick="loadTraceability()">↻ Refresh Matrix</button>
+          </div>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Requirement ID</th>
+                  <th>Requirement Text</th>
+                  <th>Coverage Status</th>
+                  <th>Linked Test Cases</th>
+                </tr>
+              </thead>
+              <tbody id="traceabilityTableBody">
+                <tr><td colspan="4" style="text-align: center; color: var(--text-dim);">Loading traceability data...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. AUTOMATION & PLAYWRIGHT EXECUTION TAB -->
+      <section id="tab-automation" class="tab-content">
+        <!-- Live Playwright Runner Card -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3>🚀 Playwright Test Execution & Evidence Lab</h3>
+              <p>Run your test suite in headless Chromium, capture full-page screenshots, console logs, and proof of execution.</p>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button id="runPlaywrightBtn" class="btn btn-primary" onclick="runPlaywrightExecution()">
+                <span>▶️ Run Playwright Suite</span>
+              </button>
+              <button class="btn btn-secondary" onclick="generateAutomationScript()">⚡ View Playwright Code</button>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-bottom: 16px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <label style="font-size: 12px; color: var(--text-muted);">Target Application URL:</label>
+              <input type="text" id="automationTargetUrl" value="http://localhost:8000/review"
+                style="background: rgba(255,255,255,0.05); border: 1px solid var(--card-border); color: var(--text); padding: 7px 12px; border-radius: 6px; font-size: 12px; width: 280px;">
+            </div>
+            <div style="font-size: 11px; color: var(--text-dim);">
+              Browser: <strong>Headless Chromium</strong> | Viewport: <strong>1280x720</strong>
+            </div>
+          </div>
+
+          <!-- Execution Summary Metrics -->
+          <div id="executionMetricsCard" style="display: none; margin-bottom: 20px;">
+            <div class="metrics-grid">
+              <div class="metric-card">
+                <span class="metric-label">Run ID</span>
+                <span id="runIdVal" class="metric-val" style="font-size: 18px; font-family: 'JetBrains Mono';">-</span>
+                <span id="runTargetUrlVal" class="metric-sub">-</span>
+              </div>
+              <div class="metric-card">
+                <span class="metric-label">Pass Rate</span>
+                <span id="runPassPctVal" class="metric-val" style="color: #34d399;">0%</span>
+                <span class="metric-sub">Execution status</span>
+              </div>
+              <div class="metric-card">
+                <span class="metric-label">Passed Tests</span>
+                <span id="runPassedVal" class="metric-val" style="color: #34d399;">0</span>
+                <span class="metric-sub">Verified clean</span>
+              </div>
+              <div class="metric-card">
+                <span class="metric-label">Auto-Healed 🩺</span>
+                <span id="runHealedVal" class="metric-val" style="color: #c084fc;">0</span>
+                <span class="metric-sub">mabl / Katalon AI</span>
+              </div>
+              <div class="metric-card">
+                <span class="metric-label">Failed Tests</span>
+                <span id="runFailedVal" class="metric-val" style="color: #f87171;">0</span>
+                <span class="metric-sub">Discrepancies found</span>
+              </div>
+              <div class="metric-card">
+                <span class="metric-label">Duration</span>
+                <span id="runDurationVal" class="metric-val" style="color: #60a5fa; font-size: 20px;">0ms</span>
+                <span class="metric-sub">Total execution time</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Execution Evidence Table -->
+          <div id="executionEvidenceSection" style="display: none;">
+            <h4 style="font-size: 13px; margin-bottom: 10px; color: var(--text-muted); display: flex; align-items: center; gap: 8px;">
+              <span>📸 Captured Evidence & Step Telemetry</span>
+            </h4>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Status</th>
+                    <th>Priority</th>
+                    <th>Test Case</th>
+                    <th>Duration</th>
+                    <th>Screenshot Proof</th>
+                    <th>Step Waterfall & Healing</th>
+                    <th>Telemetry</th>
+                  </tr>
+                </thead>
+                <tbody id="executionEvidenceTableBody">
+                  <!-- Evidence records rendered dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Generated Playwright TypeScript Code Card -->
+        <div class="card" id="playwrightCodeCard">
+          <div class="card-header">
+            <div>
+              <h3>📄 Generated Playwright TypeScript Spec (`.spec.ts`)</h3>
+              <p>Downloadable Playwright test file ready for CI/CD integration with GitHub Actions or Jenkins.</p>
+            </div>
+            <button class="btn btn-purple" onclick="downloadPlaywrightSpec()">📥 Download .spec.ts</button>
+          </div>
+          <pre id="automationCodeBlock" class="code-view">// Click 'View Playwright Code' to inspect the compiled TypeScript suite.</pre>
+        </div>
+      </section>
+
+      <!-- 7. API TESTING LAB TAB -->
+      <section id="tab-api-testing" class="tab-content">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3>🌐 Automated REST API Testing Lab (Swagger / OpenAPI)</h3>
+              <p>Parse OpenAPI schemas, generate Positive, Negative, and Security HTTP assertions, and test live endpoints.</p>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button class="btn btn-primary" onclick="importLocalOpenApiSpec()">⚡ Discover OpenAPI Spec</button>
+              <button id="runApiSuiteBtn" class="btn btn-cyan" onclick="runLiveApiSuite()">▶️ Run Live API Suite</button>
+              <button class="btn btn-purple" onclick="exportPostmanCollection()">📥 Postman Collection</button>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-bottom: 16px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <label style="font-size: 12px; color: var(--text-muted);">Target API Base URL:</label>
+              <input type="text" id="apiTargetBaseUrl" value="http://localhost:8000"
+                style="background: rgba(255,255,255,0.05); border: 1px solid var(--card-border); color: var(--text); padding: 7px 12px; border-radius: 6px; font-size: 12px; width: 280px;">
+            </div>
+            <div style="font-size: 11px; color: var(--text-dim);">
+              Schema: <strong>OpenAPI 3.0 / Swagger</strong> | Engine: <strong>Python HTTPX Asynchronous Client</strong>
+            </div>
+          </div>
+
+          <!-- API Execution Metrics -->
+          <div id="apiMetricsCard" style="display: none; margin-bottom: 20px;">
+            <div class="metrics-grid">
+              <div class="metric-card">
+                <span class="metric-label">API Run ID</span>
+                <span id="apiRunIdVal" class="metric-val" style="font-size: 18px; font-family: 'JetBrains Mono';">-</span>
+                <span id="apiTargetUrlVal" class="metric-sub">-</span>
+              </div>
+              <div class="metric-card">
+                <span class="metric-label">Pass Rate</span>
+                <span id="apiPassPctVal" class="metric-val" style="color: #34d399;">0%</span>
+                <span class="metric-sub">HTTP assertions</span>
+              </div>
+              <div class="metric-card">
+                <span class="metric-label">Passed Requests</span>
+                <span id="apiPassedVal" class="metric-val" style="color: #34d399;">0</span>
+                <span class="metric-sub">Expected status code</span>
+              </div>
+              <div class="metric-card">
+                <span class="metric-label">Failed Requests</span>
+                <span id="apiFailedVal" class="metric-val" style="color: #f87171;">0</span>
+                <span class="metric-sub">Status discrepancies</span>
+              </div>
+              <div class="metric-card">
+                <span class="metric-label">Avg Latency</span>
+                <span id="apiAvgLatencyVal" class="metric-val" style="color: #60a5fa; font-size: 20px;">0ms</span>
+                <span class="metric-sub">Response time</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- API Test Cases & Results Table -->
+          <div>
+            <h4 style="font-size: 13px; margin-bottom: 10px; color: var(--text-muted); display: flex; align-items: center; gap: 8px;">
+              <span>📡 REST API Endpoints & Verification Results</span>
+            </h4>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Method</th>
+                    <th>Endpoint Path</th>
+                    <th>Scenario & Type</th>
+                    <th>Expected</th>
+                    <th>Actual</th>
+                    <th>Latency</th>
+                    <th>Status</th>
+                    <th>Payload & curl</th>
+                  </tr>
+                </thead>
+                <tbody id="apiTableBody">
+                  <tr><td colspan="8" style="text-align: center; color: var(--text-dim);">No API test cases imported yet. Click 'Discover OpenAPI Spec' to begin.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7B. RECORD & PLAYBACK TAB -->
+      <section id="tab-recorder" class="tab-content">
+        <!-- Control Hub -->
+        <div class="card" style="margin-bottom: 20px;">
+          <div class="card-header">
+            <div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 20px;">🔴</span>
+                <h3 style="margin: 0;">Record & Playback Studio</h3>
+                <span class="badge-status" style="background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.4);">LIVE ENGINE</span>
+              </div>
+              <p style="margin: 4px 0 0 0;">Capture live user interactions via Playwright Codegen or craft visual action sequences with auto-healing Playwright playback.</p>
+            </div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <button id="btnLaunchCodegen" class="btn btn-danger" onclick="launchLiveCodegen()">🔴 Launch Desktop Recorder</button>
+              <button id="btnStopCodegen" class="btn btn-secondary" style="display: none;" onclick="stopLiveCodegen()">⏹️ Stop & Import Recording</button>
+              <button class="btn btn-primary" onclick="runPlaybackExecution()">▶️ Run Playback</button>
+              <button class="btn btn-success" onclick="saveRecordedTestCase()">💾 Save as Test Case</button>
+            </div>
+          </div>
+
+          <!-- Configuration Fields -->
+          <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 14px; margin-top: 14px;">
+            <div>
+              <label style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Test Case Title</label>
+              <input type="text" id="recTestTitle" class="project-picker" style="width: 100%; margin-top: 4px; padding: 9px 12px; background: rgba(0,0,0,0.3);" value="Verify User Navigation & Action Flow">
+            </div>
+            <div>
+              <label style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Target Application URL</label>
+              <input type="text" id="recTargetUrl" class="project-picker" style="width: 100%; margin-top: 4px; padding: 9px 12px; background: rgba(0,0,0,0.3);" value="http://127.0.0.1:8000/review">
+            </div>
+          </div>
+
+          <!-- Live Codegen Status Banner -->
+          <div id="codegenStatusBanner" style="display: none; margin-top: 14px; padding: 12px 16px; border-radius: var(--radius-sm); background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); font-size: 12px; display: flex; align-items: center; justify-content: space-between;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span class="pulse-indicator" style="background: #ef4444; width: 10px; height: 10px; border-radius: 50%; display: inline-block;"></span>
+              <span><strong>Playwright Inspector active!</strong> Perform your clicks and inputs in the opened Chromium window.</span>
+            </div>
+            <button class="btn btn-danger" style="padding: 4px 10px; font-size: 11px;" onclick="stopLiveCodegen()">Stop & Save Test</button>
+          </div>
+        </div>
+
+        <!-- Action Sequence Builder & Playback Split Grid -->
+        <div style="display: grid; grid-template-columns: 1.3fr 1fr; gap: 20px;">
+          <!-- Left: Action Sequence Table -->
+          <div class="card">
+            <div class="card-header" style="padding-bottom: 8px;">
+              <div>
+                <h4 style="margin: 0; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--primary);">Recorded Action Sequence</h4>
+                <p style="font-size: 11px; color: var(--text-dim); margin-top: 2px;">Step-by-step DOM commands executed sequentially in Playwright.</p>
+              </div>
+              <button class="btn btn-secondary" style="font-size: 11px; padding: 4px 10px;" onclick="addRecordedStepRow()">+ Add Action Step</button>
+            </div>
+
+            <div class="table-container" style="max-height: 400px; overflow-y: auto;">
+              <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+                <thead>
+                  <tr>
+                    <th style="width: 35px;">#</th>
+                    <th style="width: 130px;">Action</th>
+                    <th>Target / Selector</th>
+                    <th>Value / Expected</th>
+                    <th style="width: 40px; text-align: center;">✕</th>
+                  </tr>
+                </thead>
+                <tbody id="recStepsTableBody">
+                  <!-- Default sample steps -->
+                  <tr>
+                    <td style="font-family: 'JetBrains Mono'; font-weight: 700; color: var(--text-muted);">1</td>
+                    <td>
+                      <select class="project-picker rec-action-type" style="width: 100%; font-size: 11px; padding: 4px;">
+                        <option value="NAVIGATE" selected>NAVIGATE</option>
+                        <option value="CLICK">CLICK</option>
+                        <option value="FILL">FILL INPUT</option>
+                        <option value="ASSERT_VISIBLE">ASSERT VISIBLE</option>
+                        <option value="ASSERT_TEXT">ASSERT TEXT</option>
+                        <option value="SCREENSHOT">SCREENSHOT</option>
+                      </select>
+                    </td>
+                    <td><input type="text" class="rec-selector" placeholder="Target URL or Selector" value="http://127.0.0.1:8000/review" style="width: 100%; background: rgba(0,0,0,0.3); border: 1px solid var(--card-border); color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 11px;"></td>
+                    <td><input type="text" class="rec-value" placeholder="Payload value" value="" style="width: 100%; background: rgba(0,0,0,0.3); border: 1px solid var(--card-border); color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 11px;"></td>
+                    <td style="text-align: center;"><button class="btn btn-danger" style="padding: 2px 6px; font-size: 10px;" onclick="removeStepRow(this)">✕</button></td>
+                  </tr>
+                  <tr>
+                    <td style="font-family: 'JetBrains Mono'; font-weight: 700; color: var(--text-muted);">2</td>
+                    <td>
+                      <select class="project-picker rec-action-type" style="width: 100%; font-size: 11px; padding: 4px;">
+                        <option value="NAVIGATE">NAVIGATE</option>
+                        <option value="CLICK">CLICK</option>
+                        <option value="FILL">FILL INPUT</option>
+                        <option value="ASSERT_VISIBLE" selected>ASSERT VISIBLE</option>
+                        <option value="ASSERT_TEXT">ASSERT TEXT</option>
+                        <option value="SCREENSHOT">SCREENSHOT</option>
+                      </select>
+                    </td>
+                    <td><input type="text" class="rec-selector" placeholder="Target URL or Selector" value=".topbar" style="width: 100%; background: rgba(0,0,0,0.3); border: 1px solid var(--card-border); color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 11px;"></td>
+                    <td><input type="text" class="rec-value" placeholder="Payload value" value="" style="width: 100%; background: rgba(0,0,0,0.3); border: 1px solid var(--card-border); color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 11px;"></td>
+                    <td style="text-align: center;"><button class="btn btn-danger" style="padding: 2px 6px; font-size: 10px;" onclick="removeStepRow(this)">✕</button></td>
+                  </tr>
+                  <tr>
+                    <td style="font-family: 'JetBrains Mono'; font-weight: 700; color: var(--text-muted);">3</td>
+                    <td>
+                      <select class="project-picker rec-action-type" style="width: 100%; font-size: 11px; padding: 4px;">
+                        <option value="NAVIGATE">NAVIGATE</option>
+                        <option value="CLICK">CLICK</option>
+                        <option value="FILL">FILL INPUT</option>
+                        <option value="ASSERT_VISIBLE">ASSERT VISIBLE</option>
+                        <option value="ASSERT_TEXT" selected>ASSERT TEXT</option>
+                        <option value="SCREENSHOT">SCREENSHOT</option>
+                      </select>
+                    </td>
+                    <td><input type="text" class="rec-selector" placeholder="Target URL or Selector" value="body" style="width: 100%; background: rgba(0,0,0,0.3); border: 1px solid var(--card-border); color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 11px;"></td>
+                    <td><input type="text" class="rec-value" placeholder="Payload value" value="AI QA ENGINEER" style="width: 100%; background: rgba(0,0,0,0.3); border: 1px solid var(--card-border); color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 11px;"></td>
+                    <td style="text-align: center;"><button class="btn btn-danger" style="padding: 2px 6px; font-size: 10px;" onclick="removeStepRow(this)">✕</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Import Script Sub-Accordion -->
+            <div style="margin-top: 14px; border-top: 1px solid var(--card-border); padding-top: 12px;">
+              <details>
+                <summary style="font-size: 12px; font-weight: 600; color: var(--text-muted); cursor: pointer;">📋 Or Paste Raw Playwright Python Script</summary>
+                <div style="margin-top: 10px;">
+                  <textarea id="rawScriptInput" rows="4" style="width: 100%; background: #070b14; border: 1px solid var(--card-border); color: #38bdf8; font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 10px; border-radius: 6px;" placeholder="page.goto('http://127.0.0.1:8000/review')&#10;page.locator('#btn-run').click()&#10;expect(page.locator('.result')).to_be_visible()"></textarea>
+                  <button class="btn btn-secondary" style="font-size: 11px; margin-top: 6px;" onclick="importRawScript()">Import Script as Test Case</button>
+                </div>
+              </details>
+            </div>
+          </div>
+
+          <!-- Right: Playback Evidence & Step Telemetry -->
+          <div class="card">
+            <div class="card-header" style="padding-bottom: 8px;">
+              <div>
+                <h4 style="margin: 0; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #a78bfa;">Playback Telemetry</h4>
+                <p style="font-size: 11px; color: var(--text-dim); margin-top: 2px;">Execution timings, self-healing status, and screenshot proof.</p>
+              </div>
+              <span id="playbackStatusPill" class="badge-status draft">READY</span>
+            </div>
+
+            <!-- Summary KPI -->
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px;">
+              <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); padding: 8px; border-radius: 6px; text-align: center;">
+                <div style="font-size: 10px; color: var(--text-dim);">STEPS</div>
+                <div id="pbStepsCount" style="font-size: 14px; font-weight: 700; color: #fff;">0</div>
+              </div>
+              <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); padding: 8px; border-radius: 6px; text-align: center;">
+                <div style="font-size: 10px; color: var(--text-dim);">DURATION</div>
+                <div id="pbDuration" style="font-size: 14px; font-weight: 700; color: #38bdf8;">0 ms</div>
+              </div>
+              <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); padding: 8px; border-radius: 6px; text-align: center;">
+                <div style="font-size: 10px; color: var(--text-dim);">HEALED</div>
+                <div id="pbHealedCount" style="font-size: 14px; font-weight: 700; color: #34d399;">0</div>
+              </div>
+            </div>
+
+            <!-- Step Waterfall Stream -->
+            <div id="playbackTimelineContainer" style="max-height: 180px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px;">
+              <div style="text-align: center; color: var(--text-dim); font-size: 11px; padding: 20px;">
+                No playback executed yet. Click 'Run Playback' to launch headless Playwright.
+              </div>
+            </div>
+
+            <!-- Screenshot Thumbnail -->
+            <div id="pbScreenshotPreview" style="display: none; border-top: 1px solid var(--card-border); padding-top: 12px; text-align: center;">
+              <div style="font-size: 11px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; text-align: left;">📸 Browser Screenshot Evidence:</div>
+              <img id="pbScreenshotImg" src="" alt="Evidence" style="width: 100%; height: 130px; object-fit: cover; border-radius: 6px; border: 1px solid var(--card-border); cursor: pointer;" onclick="openScreenshotModal(this.src, 'Playback Execution Evidence')">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8. SETTINGS TAB -->
+      <section id="tab-settings" class="tab-content">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3>⚙️ AI & QA Environment Configuration</h3>
+              <p>Select AI inference provider, embedding dimension, and vector storage.</p>
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 16px; font-size: 13px;">
+            <div>
+              <label style="font-weight: 600; display: block; margin-bottom: 6px;">AI Generation Model</label>
+              <select class="project-picker" style="width: 300px;">
+                <option selected>Gemini 2.0 Flash / Pro (Google AI)</option>
+                <option>Claude 3.5 Sonnet (Anthropic)</option>
+                <option>Local BYOK (Ollama / vLLM)</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-weight: 600; display: block; margin-bottom: 6px;">Vector Database</label>
+              <div style="font-size: 12px; color: var(--text-muted); line-height: 1.6;">
+                Engine: <strong>Qdrant (Vector Collection per Project)</strong><br>
+                Embedding Dimension: <strong>768 (text-embedding-004)</strong><br>
+                Fallback Mode: <strong>SQLite Deterministic Substring Search</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- 3. Slide-out AI QA Copilot Sidecar -->
+    <aside id="copilotDrawer" class="copilot-drawer">
+      <div class="copilot-header">
+        <h4><span>🤖</span> AI QA Copilot</h4>
+        <button class="btn btn-secondary" style="padding: 2px 7px;" onclick="toggleCopilot()">✕</button>
+      </div>
+
+      <div class="copilot-context-banner">
+        <span>📌 Active Context:</span>
+        <span id="copilotContextProject">Project: UPSC</span>
+      </div>
+
+      <div id="copilotChatBody" class="copilot-chat-body">
+        <div class="chat-bubble ai">
+          Hello! I am your <strong>AI QA Copilot</strong>. I analyze requirements, find boundary edge cases, verify security scenarios, and propose new tests grounded in your uploaded documents.
+        </div>
+      </div>
+
+      <div class="copilot-input-area">
+        <div class="prompt-chips">
+          <span class="chip" onclick="sendQuickPrompt('Generate 3 negative boundary test cases')">⚡ Boundary Cases</span>
+          <span class="chip" onclick="sendQuickPrompt('Add security and SQL injection scenarios')">🛡️ Security Tests</span>
+          <span class="chip" onclick="sendQuickPrompt('Suggest timeout and network drop tests')">⏱️ Resiliency</span>
+        </div>
+        <div class="copilot-input-box">
+          <input type="text" id="copilotInput" placeholder="Ask Copilot or request tests..." onkeydown="if(event.key==='Enter') sendCopilotMessage()">
+          <button class="btn btn-primary" onclick="sendCopilotMessage()">Send</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Chunk Inspector Modal -->
+  <div id="inspectorModal" class="inspector-modal" onclick="if(event.target===this) closeInspector()">
+    <div class="inspector-card">
+      <div class="inspector-header">
+        <h3 id="inspectorTitle" style="font-size: 14px; font-weight: 700;">Chunk Inspector</h3>
+        <button class="btn btn-secondary" onclick="closeInspector()">✕ Close</button>
+      </div>
+      <div id="inspectorContent" class="inspector-content">
+        <!-- Chunks list rendered here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Evidence Screenshot Modal -->
+  <div id="screenshotModal" class="inspector-modal" onclick="if(event.target===this) closeScreenshotModal()">
+    <div class="inspector-card" style="width: 1000px; max-width: 96vw;">
+      <div class="inspector-header">
+        <h3 id="screenshotModalTitle" style="font-size: 14px; font-weight: 700;">Captured Browser Screenshot</h3>
+        <button class="btn btn-secondary" onclick="closeScreenshotModal()">✕ Close</button>
+      </div>
+      <div style="padding: 16px; overflow-y: auto; text-align: center; background: #070b14;">
+        <img id="screenshotModalImg" src="" alt="Playwright Screenshot" style="max-width: 100%; border-radius: 8px; box-shadow: 0 8px 30px rgba(0,0,0,0.5); border: 1px solid var(--card-border);">
+      </div>
+    </div>
+  </div>
+
+  <!-- Step Waterfall & Self-Healing Inspector Modal (mabl & Katalon Pattern) -->
+  <div id="stepWaterfallModal" class="inspector-modal" onclick="if(event.target===this) closeStepWaterfallModal()">
+    <div class="inspector-card" style="width: 850px; max-width: 95vw;">
+      <div class="inspector-header">
+        <div>
+          <h3 id="stepWaterfallModalTitle" style="font-size: 14px; font-weight: 700;">Step Waterfall & Self-Healing Telemetry</h3>
+          <p style="font-size: 11px; color: var(--text-dim); margin-top: 2px;">Discrete step timings, multi-locator confidence scores, and automated DOM healing.</p>
+        </div>
+        <button class="btn btn-secondary" onclick="closeStepWaterfallModal()">✕ Close</button>
+      </div>
+      <div id="stepWaterfallContent" class="inspector-content">
+        <!-- Rendered steps waterfall here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- API Payload & cURL Inspector Modal -->
+  <div id="apiPayloadModal" class="inspector-modal" onclick="if(event.target===this) closeApiPayloadModal()">
+    <div class="inspector-card" style="width: 850px; max-width: 95vw;">
+      <div class="inspector-header">
+        <h3 id="apiPayloadModalTitle" style="font-size: 14px; font-weight: 700;">API Request & Response Telemetry</h3>
+        <button class="btn btn-secondary" onclick="closeApiPayloadModal()">✕ Close</button>
+      </div>
+      <div id="apiPayloadModalContent" class="inspector-content">
+        <!-- Rendered payload details here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Application Logic -->
+  <script>
+    let currentProjectId = "p1";
+    let projects = [];
+    let requirements = [];
+    let testCases = [];
+    let documents = [];
+    let apiTestCases = [];
+    let lastApiRun = null;
+
+    // Initialize application on load
+    window.addEventListener("DOMContentLoaded", async () => {
+      await loadProjects();
+      await refreshAllData();
+    });
+
+    // ── Tab Navigation ───────────────────────────────────────
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+
+      const targetTab = document.getElementById(`tab-${tabId}`);
+      if (targetTab) targetTab.classList.add('active');
+
+      const navEl = Array.from(document.querySelectorAll('.nav-item')).find(el =>
+        el.getAttribute('onclick')?.includes(`'${tabId}'`)
+      );
+      if (navEl) navEl.classList.add('active');
+
+      if (tabId === 'traceability') loadTraceability();
+      if (tabId === 'api-testing') loadApiTestCases();
+    }
+
+    function toggleCopilot() {
+      const drawer = document.getElementById('copilotDrawer');
+      drawer.classList.toggle('collapsed');
+    }
+
+    // ── Project Management ───────────────────────────────────
+    async function loadProjects() {
+      try {
+        const res = await fetch('/projects');
+        if (res.ok) {
+          projects = await res.json();
+          const select = document.getElementById('projectSelect');
+          select.innerHTML = '';
+          projects.forEach(p => {
+            const opt = document.createElement('option');
+            opt.value = p.id;
+            opt.textContent = p.name;
+            select.appendChild(opt);
+          });
+          if (projects.length > 0) {
+            currentProjectId = projects[0].id;
+            select.value = currentProjectId;
+            document.getElementById('copilotContextProject').textContent = `Project: ${projects[0].name}`;
+          }
+        }
+      } catch (err) {
+        console.error("Failed to load projects", err);
+      }
+    }
+
+    function switchProject(pId) {
+      currentProjectId = pId;
+      const p = projects.find(x => x.id === pId);
+      if (p) {
+        document.getElementById('copilotContextProject').textContent = `Project: ${p.name}`;
+      }
+      refreshAllData();
+    }
+
+    async function openNewProjectModal() {
+      const name = prompt("Enter new project name:");
+      if (!name) return;
+      try {
+        const res = await fetch('/projects', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ name: name, description: "QA Project Workspace" })
+        });
+        if (res.ok) {
+          await loadProjects();
+          refreshAllData();
+        }
+      } catch (e) {
+        alert("Error creating project: " + e);
+      }
+    }
+
+    // ── Refresh All Workspace Data ───────────────────────────
+    async function refreshAllData() {
+      if (!currentProjectId) return;
+      await Promise.all([
+        loadDocuments(),
+        loadRequirements(),
+        loadTestCases(),
+        loadApiTestCases(),
+        checkRAGStatus()
+      ]);
+      updateDashboardMetrics();
+    }
+
+    // ── 1. Documents & Knowledge Hub ─────────────────────────
+    async function loadDocuments() {
+      try {
+        const res = await fetch(`/projects/${currentProjectId}/documents`);
+        if (res.ok) {
+          documents = await res.json();
+          document.getElementById('docCountBadge').textContent = documents.length;
+          renderDocumentsTable();
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    function renderDocumentsTable() {
+      const tbody = document.getElementById('documentsTableBody');
+      if (!documents || documents.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--text-dim);">No documents uploaded yet. Drop files above.</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = documents.map(doc => `
+        <tr>
+          <td style="font-weight: 600;">${doc.filename}</td>
+          <td><span class="badge-type">${doc.file_type.toUpperCase()}</span></td>
+          <td><span class="badge-status approved">${doc.status.toUpperCase()}</span></td>
+          <td><span style="font-family: 'JetBrains Mono';">${doc.chunks_count || 'Ready'}</span></td>
+          <td style="color: var(--text-dim);">${new Date(doc.uploaded_at).toLocaleDateString()}</td>
+          <td>
+            <button class="btn btn-secondary" style="padding: 4px 8px;" onclick="inspectDocumentChunks('${doc.id}', '${doc.filename}')">🔍 Inspect Chunks</button>
+            <button class="btn btn-danger" style="padding: 4px 8px;" onclick="deleteDocument('${doc.id}')">🗑</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    async function handleFileUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('project_id', currentProjectId);
+      formData.append('auto_analyze', 'true');
+
+      const pill = document.getElementById('ragStatusPill');
+      pill.innerHTML = `<span>⏳ Ingesting & Chunking...</span>`;
+
+      try {
+        const res = await fetch('/documents/ingest', {
+          method: 'POST',
+          body: formData
+        });
+        if (res.ok) {
+          await refreshAllData();
+          alert(`Successfully ingested & indexed: ${file.name}`);
+        } else {
+          alert("Ingestion failed: " + (await res.text()));
+        }
+      } catch (err) {
+        alert("Upload error: " + err);
+      } finally {
+        checkRAGStatus();
+      }
+    }
+
+    async function deleteDocument(docId) {
+      if (!confirm("Are you sure you want to delete this document and its vector chunks?")) return;
+      try {
+        const res = await fetch(`/documents/${docId}`, { method: 'DELETE' });
+        if (res.ok) {
+          await refreshAllData();
+        }
+      } catch (e) {
+        alert("Error deleting: " + e);
+      }
+    }
+
+    async function inspectDocumentChunks(docId, filename) {
+      document.getElementById('inspectorTitle').textContent = `Inspecting Chunks: ${filename}`;
+      const content = document.getElementById('inspectorContent');
+      content.innerHTML = `<div style="text-align: center; color: var(--text-dim);">Loading chunk tokens & vectors...</div>`;
+      document.getElementById('inspectorModal').classList.add('active');
+
+      try {
+        const res = await fetch(`/documents/${docId}/chunks`);
+        if (res.ok) {
+          const chunks = await res.json();
+          if (chunks.length === 0) {
+            content.innerHTML = `<div style="text-align: center; color: var(--text-dim);">No chunk records found for this document.</div>`;
+            return;
+          }
+          content.innerHTML = chunks.map((c, i) => `
+            <div class="chunk-item">
+              <div class="chunk-meta">
+                <span>CHUNK #${i+1}</span>
+                <span>• ID: ${c.chunk_id}</span>
+                <span>• TYPE: ${c.chunk_type}</span>
+                <span>• VECTOR: ${c.embedding_status ? '🟢 INDEXED' : '🟡 PENDING'}</span>
+              </div>
+              <div class="chunk-text">${escapeHtml(c.text)}</div>
+            </div>
+          `).join('');
+        }
+      } catch (e) {
+        content.innerHTML = `<div style="color: var(--danger);">Failed to load chunks: ${e}</div>`;
+      }
+    }
+
+    function closeInspector() {
+      document.getElementById('inspectorModal').classList.remove('active');
+    }
+
+    // ── RAG Live Search Sandbox ──────────────────────────────
+    async function performRAGSearch() {
+      const q = document.getElementById('ragSearchQuery').value.trim();
+      if (!q) return;
+      const resContainer = document.getElementById('ragSearchResults');
+      resContainer.innerHTML = `<div style="text-align: center; color: var(--text-dim);">Searching Qdrant Vector Collection...</div>`;
+
+      try {
+        const res = await fetch(`/rag/projects/${currentProjectId}/search`, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ query: q, top_k: 4, score_threshold: 0.2 })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (!data.results || data.results.length === 0) {
+            resContainer.innerHTML = `<div style="text-align: center; color: var(--text-dim); padding: 12px;">No matching semantic chunks found for this threshold.</div>`;
+            return;
+          }
+          resContainer.innerHTML = data.results.map((r, i) => `
+            <div class="chunk-item" style="border-left: 3px solid #06b6d4;">
+              <div class="chunk-meta">
+                <span style="color: #67e8f9; font-weight: 700;">MATCH #${i+1}</span>
+                <span>• Similarity Score: ${(r.similarity_score * 100).toFixed(1)}%</span>
+                <span>• Source: ${r.document_filename || 'Spec'}</span>
+              </div>
+              <div class="chunk-text">${escapeHtml(r.text)}</div>
+            </div>
+          `).join('');
+        }
+      } catch (e) {
+        resContainer.innerHTML = `<div style="color: var(--danger);">Search failed: ${e}</div>`;
+      }
+    }
+
+    async function syncProjectRAG() {
+      const pill = document.getElementById('ragStatusPill');
+      pill.innerHTML = `<span>⏳ Indexing to Qdrant...</span>`;
+      try {
+        const res = await fetch(`/rag/projects/${currentProjectId}/index`, { method: 'POST' });
+        if (res.ok) {
+          alert("All project documents successfully indexed into Qdrant vectors.");
+        }
+      } catch (e) {
+        alert("Sync error: " + e);
+      } finally {
+        checkRAGStatus();
+      }
+    }
+
+    async function checkRAGStatus() {
+      try {
+        const res = await fetch(`/rag/projects/${currentProjectId}/status`);
+        if (res.ok) {
+          const status = await res.json();
+          const pill = document.getElementById('ragStatusPill');
+          if (status.ready_for_rag) {
+            pill.innerHTML = `<span>🟢 Qdrant: ${status.points_in_qdrant || status.indexed_chunks_in_sqlite} Chunks Ready</span>`;
+          } else {
+            pill.innerHTML = `<span>🟡 Local Index: ${status.indexed_chunks_in_sqlite}/${status.total_chunks_in_sqlite}</span>`;
+          }
+        }
+      } catch (e) {}
+    }
+
+    // ── 2. Requirements & Ambiguities ────────────────────────
+    async function loadRequirements() {
+      try {
+        const res = await fetch(`/projects/${currentProjectId}/requirements`);
+        if (res.ok) {
+          const raw = await res.json();
+          requirements = Array.isArray(raw) ? raw : (raw.requirements || []);
+          document.getElementById('reqCountBadge').textContent = requirements.length;
+          renderRequirementsTable();
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    function renderRequirementsTable() {
+      const tbody = document.getElementById('requirementsTableBody');
+      if (!requirements || requirements.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--text-dim);">No requirements extracted yet. Ingest a document above.</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = requirements.map(req => `
+        <tr>
+          <td style="font-family: 'JetBrains Mono'; font-weight: 600;">${req.id}</td>
+          <td>${escapeHtml(req.text)}</td>
+          <td><span class="badge-type">${(req.confidence * 100).toFixed(0)}%</span></td>
+          <td><span class="badge-status ${req.status}">${req.status.toUpperCase()}</span></td>
+          <td>
+            ${req.status === 'proposed' ? `
+              <button class="btn btn-success" style="padding: 4px 8px;" onclick="approveRequirement('${req.id}')">✓ Approve</button>
+              <button class="btn btn-danger" style="padding: 4px 8px;" onclick="rejectRequirement('${req.id}')">✕</button>
+            ` : `<span style="font-size: 11px; color: var(--text-dim);">Reviewed</span>`}
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    async function approveRequirement(id) {
+      await fetch(`/requirements/${id}/approve`, { method: 'PATCH' });
+      await loadRequirements();
+    }
+
+    async function rejectRequirement(id) {
+      const reason = prompt("Enter rejection reason:");
+      if (!reason) return;
+      await fetch(`/requirements/${id}/reject`, {
+        method: 'PATCH',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ reason: reason })
+      });
+      await loadRequirements();
+    }
+
+    async function approveAllRequirements() {
+      await fetch(`/projects/${currentProjectId}/requirements/approve-all`, { method: 'POST' });
+      await loadRequirements();
+      alert("All proposed requirements marked as Approved!");
+    }
+
+    // ── 3. Test Studio ───────────────────────────────────────
+    async function loadTestCases() {
+      try {
+        const res = await fetch(`/projects/${currentProjectId}/test-cases`);
+        if (res.ok) {
+          const raw = await res.json();
+          testCases = Array.isArray(raw) ? raw : (raw.test_cases || []);
+          document.getElementById('tcCountBadge').textContent = testCases.length;
+          renderTestCasesTable();
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    function renderTestCasesTable() {
+      const prioFilter = document.getElementById('prioFilter').value;
+      const statusFilter = document.getElementById('statusFilter').value;
+
+      let filtered = testCases;
+      if (prioFilter !== 'ALL') filtered = filtered.filter(t => t.priority === prioFilter);
+      if (statusFilter !== 'ALL') filtered = filtered.filter(t => t.status === statusFilter);
+
+      const tbody = document.getElementById('testCasesTableBody');
+      if (!filtered || filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; color: var(--text-dim);">No test cases match filter.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(tc => {
+        const pClass = (tc.priority || 'p2').toLowerCase();
+        const stepsFormatted = (Array.isArray(tc.steps) ? tc.steps : [tc.steps])
+          .map(s => `<div>• ${escapeHtml(String(s))}</div>`).join('');
+
+        return `
+          <tr>
+            <td style="font-family: 'JetBrains Mono'; font-weight: 600;">${tc.id.substring(0, 10)}...</td>
+            <td><span class="badge-prio ${pClass}">${tc.priority}</span></td>
+            <td style="font-weight: 600;">${escapeHtml(tc.title)}</td>
+            <td style="color: var(--text-muted); font-size: 11px;">${escapeHtml(tc.preconditions || 'N/A')}</td>
+            <td style="font-size: 11px; line-height: 1.5;">${stepsFormatted}</td>
+            <td style="font-size: 11px; color: #a78bfa;">${escapeHtml(tc.expected_result)}</td>
+            <td><span class="badge-status ${tc.status}">${tc.status}</span></td>
+            <td>
+              <button class="btn btn-success" style="padding: 4px 6px;" title="Approve" onclick="approveTestCase('${tc.id}')">✓</button>
+              <button class="btn btn-danger" style="padding: 4px 6px;" title="Delete" onclick="deleteTestCase('${tc.id}')">🗑</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    async function generateAllTests() {
+      const btn = event?.target;
+      if (btn) btn.disabled = true;
+      try {
+        const res = await fetch(`/projects/${currentProjectId}/generate-test-cases?use_rag=true&include_proposed=true`, {
+          method: 'POST'
+        });
+        if (res.ok) {
+          const data = await res.json();
+          alert(`Generated ${data.total_test_cases} test cases!`);
+          await refreshAllData();
+          switchTab('studio');
+        } else {
+          alert("Generation failed: " + (await res.text()));
+        }
+      } catch (e) {
+        alert("Error: " + e);
+      } finally {
+        if (btn) btn.disabled = false;
+      }
+    }
+
+    async function approveTestCase(id) {
+      await fetch(`/test-cases/${id}/approve`, { method: 'PATCH' });
+      await loadTestCases();
+    }
+
+    async function deleteTestCase(id) {
+      if (!confirm("Delete this test case?")) return;
+      await fetch(`/test-cases/${id}`, { method: 'DELETE' });
+      await loadTestCases();
+    }
+
+    // ── Export Handlers ──────────────────────────────────────
+    function exportExcel() {
+      window.location.href = `/projects/${currentProjectId}/test-cases/export/excel`;
+    }
+
+    function exportCSV() {
+      window.location.href = `/projects/${currentProjectId}/test-cases/export/csv`;
+    }
+
+    function exportGherkin() {
+      window.location.href = `/projects/${currentProjectId}/test-cases/export/gherkin`;
+    }
+
+    // ── 4. Traceability Matrix ───────────────────────────────
+    async function loadTraceability() {
+      const tbody = document.getElementById('traceabilityTableBody');
+      tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: var(--text-dim);">Generating Traceability Matrix...</td></tr>`;
+      try {
+        const res = await fetch(`/projects/${currentProjectId}/traceability`);
+        if (res.ok) {
+          const data = await res.json();
+          document.getElementById('mCoveragePct').textContent = `${data.coverage_percentage}%`;
+          if (!data.matrix || data.matrix.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: var(--text-dim);">No requirements mapped yet.</td></tr>`;
+            return;
+          }
+          tbody.innerHTML = data.matrix.map(row => `
+            <tr>
+              <td style="font-family: 'JetBrains Mono'; font-weight: 700;">${row.requirement_id}</td>
+              <td>${escapeHtml(row.text)}</td>
+              <td>
+                <span class="badge-status ${row.is_covered ? 'approved' : 'rejected'}">
+                  ${row.is_covered ? 'COVERED' : 'UNCOVERED'}
+                </span>
+              </td>
+              <td>
+                ${row.test_cases.length > 0
+                  ? row.test_cases.map(t => `<div style="font-size: 11px;">• [${t.priority}] ${escapeHtml(t.title)}</div>`).join('')
+                  : '<span style="color: var(--danger); font-size: 11px;">No test cases generated</span>'}
+              </td>
+            </tr>
+          `).join('');
+        }
+      } catch (e) {
+        tbody.innerHTML = `<tr><td colspan="4" style="color: var(--danger);">Failed to load traceability: ${e}</td></tr>`;
+      }
+    }
+
+    // ── 5. Playwright Automation Runner & Spec Generator ─────
+    let lastPlaywrightCode = "";
+
+    async function runPlaywrightExecution() {
+      const btn = document.getElementById('runPlaywrightBtn');
+      const targetUrl = document.getElementById('automationTargetUrl').value.trim() || 'http://localhost:8000/review';
+
+      btn.disabled = true;
+      btn.innerHTML = `<span>⏳ Launching Chromium & Executing...</span>`;
+
+      try {
+        const res = await fetch(`/projects/${currentProjectId}/execute`, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ target_url: targetUrl })
+        });
+
+        if (res.ok) {
+          const run = await res.json();
+          renderExecutionRun(run);
+          alert(`Execution Complete! Ran ${run.total_tests} tests in ${run.total_duration_ms}ms.`);
+        } else {
+          alert("Execution failed: " + (await res.text()));
+        }
+      } catch (err) {
+        alert("Execution exception: " + err);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<span>▶️ Run Playwright Suite</span>`;
+      }
+    }
+
+    function renderExecutionRun(run) {
+      document.getElementById('executionMetricsCard').style.display = 'block';
+      document.getElementById('executionEvidenceSection').style.display = 'block';
+
+      document.getElementById('runIdVal').textContent = run.run_id;
+      document.getElementById('runTargetUrlVal').textContent = run.target_url;
+      document.getElementById('runPassPctVal').textContent = `${run.pass_percentage}%`;
+      document.getElementById('runPassedVal').textContent = run.passed_tests;
+      document.getElementById('runHealedVal').textContent = run.healed_tests || 0;
+      document.getElementById('runFailedVal').textContent = run.failed_tests;
+      document.getElementById('runDurationVal').textContent = `${(run.total_duration_ms / 1000).toFixed(2)}s`;
+
+      const tbody = document.getElementById('executionEvidenceTableBody');
+      if (!run.evidence || run.evidence.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--text-dim);">No evidence collected.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = run.evidence.map(ev => {
+        const isPassed = ev.status === 'PASSED';
+        const isHealed = ev.self_healed;
+        const pClass = (ev.priority || 'p2').toLowerCase();
+        const stepsEscaped = JSON.stringify(ev.steps || []).replace(/"/g, '&quot;');
+
+        return `
+          <tr>
+            <td>
+              <span class="badge-status ${isHealed ? 'purple' : (isPassed ? 'approved' : 'rejected')}" style="${isHealed ? 'background: rgba(139,92,246,0.2); color: #c084fc; border: 1px solid rgba(139,92,246,0.4);' : ''}">
+                ${isHealed ? 'AUTO-HEALED 🩺' : ev.status}
+              </span>
+            </td>
+            <td><span class="badge-prio ${pClass}">${ev.priority}</span></td>
+            <td style="font-weight: 600;">${escapeHtml(ev.test_title)}</td>
+            <td style="font-family: 'JetBrains Mono'; font-size: 11px; color: var(--text-muted);">${ev.duration_ms}ms</td>
+            <td>
+              ${ev.has_screenshot ? `
+                <button class="btn btn-cyan" style="padding: 4px 8px; font-size: 11px;"
+                  onclick="openScreenshotModal('/evidence/${ev.evidence_id}/screenshot', '${escapeHtml(ev.test_title)}')">
+                  📸 Screenshot
+                </button>
+              ` : `<span style="color: var(--text-dim); font-size: 11px;">No Screenshot</span>`}
+            </td>
+            <td>
+              <button class="btn btn-purple" style="padding: 4px 8px; font-size: 11px;"
+                onclick="openStepWaterfallModal('${ev.test_title}', ${stepsEscaped}, ${isHealed})">
+                🔍 Step Waterfall (${(ev.steps || []).length})
+              </button>
+            </td>
+            <td>
+              <details style="font-family: 'JetBrains Mono'; font-size: 11px; color: var(--text-muted); cursor: pointer;">
+                <summary style="color: #60a5fa; outline: none;">Telemetry Logs</summary>
+                <div style="background: rgba(0,0,0,0.4); padding: 8px; border-radius: 4px; margin-top: 4px; white-space: pre-wrap;">${escapeHtml(Array.isArray(ev.logs) ? ev.logs.join('\n') : (ev.logs || 'Clean execution'))}</div>
+              </details>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function openStepWaterfallModal(title, steps, isHealed) {
+      document.getElementById('stepWaterfallModalTitle').textContent = `Step Waterfall: ${title} ${isHealed ? ' [Self-Healed 🩺]' : ''}`;
+      const content = document.getElementById('stepWaterfallContent');
+      if (!steps || steps.length === 0) {
+        content.innerHTML = `<div style="text-align: center; color: var(--text-dim); padding: 20px;">No discrete step telemetry available for this test.</div>`;
+      } else {
+        content.innerHTML = steps.map(s => `
+          <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); border-radius: 8px; padding: 12px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <span style="font-weight: 700; font-size: 12px; color: #93c5fd;">STEP #${s.step_num}: ${s.action}</span>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="badge-status ${s.status === 'HEALED' ? 'purple' : 'approved'}" style="${s.status === 'HEALED' ? 'background: rgba(139,92,246,0.2); color: #c084fc;' : ''}">${s.status}</span>
+                <span style="font-family: 'JetBrains Mono'; font-size: 11px; color: var(--text-dim);">${s.duration_ms}ms</span>
+              </div>
+            </div>
+            <div style="font-size: 12px; color: var(--text);">${escapeHtml(s.name)}</div>
+            <div style="font-size: 11px; color: var(--text-muted); margin-top: 6px; display: flex; gap: 12px;">
+              <span>• Match Confidence: <strong style="color: #67e8f9;">${s.confidence}</strong></span>
+              <span>• ${escapeHtml(s.detail)}</span>
+            </div>
+          </div>
+        `).join('');
+      }
+      document.getElementById('stepWaterfallModal').classList.add('active');
+    }
+
+    function closeStepWaterfallModal() {
+      document.getElementById('stepWaterfallModal').classList.remove('active');
+    }
+
+    async function generateAutomationScript() {
+      const targetUrl = document.getElementById('automationTargetUrl').value.trim() || 'http://localhost:8000/review';
+      const block = document.getElementById('automationCodeBlock');
+      block.textContent = "// Compiling Playwright test suite...";
+      try {
+        const res = await fetch(`/projects/${currentProjectId}/generate-automation?target_url=${encodeURIComponent(targetUrl)}`, {
+          method: 'POST'
+        });
+        if (res.ok) {
+          const data = await res.json();
+          lastPlaywrightCode = data.playwright_code;
+          block.textContent = data.playwright_code;
+        } else {
+          block.textContent = "// Error: " + (await res.text());
+        }
+      } catch (e) {
+        block.textContent = "// Exception: " + e;
+      }
+    }
+
+    function downloadPlaywrightSpec() {
+      if (!lastPlaywrightCode) {
+        alert("Please click 'View Playwright Code' first to compile the spec.");
+        return;
+      }
+      const blob = new Blob([lastPlaywrightCode], { type: "text/typescript" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `suite_${currentProjectId}.spec.ts`;
+      a.click();
+    }
+
+    function openScreenshotModal(imgUrl, title) {
+      document.getElementById('screenshotModalTitle').textContent = `Evidence Screenshot: ${title}`;
+      document.getElementById('screenshotModalImg').src = imgUrl;
+      document.getElementById('screenshotModal').classList.add('active');
+    }
+
+    function closeScreenshotModal() {
+      document.getElementById('screenshotModal').classList.remove('active');
+      document.getElementById('screenshotModalImg').src = '';
+    }
+
+    // ── 5. REST API Testing Lab (Swagger / OpenAPI) ───────────
+    async function loadApiTestCases() {
+      if (!currentProjectId) return;
+      try {
+        const res = await fetch(`/projects/${currentProjectId}/api/test-cases`);
+        if (res.ok) {
+          apiTestCases = await res.json();
+          renderApiTestCasesTable();
+        }
+
+        // Also check for the latest API execution run
+        const runRes = await fetch(`/projects/${currentProjectId}/api/runs`);
+        if (runRes.ok) {
+          const runs = await runRes.json();
+          if (runs && runs.length > 0) {
+            lastApiRun = runs[0];
+            updateApiMetricsDisplay(lastApiRun);
+          }
+        }
+      } catch (e) {
+        console.error("Failed to load API test cases:", e);
+      }
+    }
+
+    function renderApiTestCasesTable() {
+      const tbody = document.getElementById('apiTableBody');
+      if (!apiTestCases || apiTestCases.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; color: var(--text-dim); padding: 24px;">No API test cases imported yet. Click 'Discover OpenAPI Spec' to auto-generate tests from schema.</td></tr>`;
+        return;
+      }
+
+      const methodColors = {
+        'GET': '#34d399',
+        'POST': '#60a5fa',
+        'PUT': '#fbbf24',
+        'PATCH': '#a78bfa',
+        'DELETE': '#f87171'
+      };
+
+      tbody.innerHTML = apiTestCases.map(tc => {
+        const mColor = methodColors[tc.method?.toUpperCase()] || '#94a3b8';
+        const isPassed = tc.last_status === 'PASSED';
+        const isFailed = tc.last_status === 'FAILED';
+        const statusBadge = isPassed
+          ? `<span class="badge-status approved">PASSED</span>`
+          : (isFailed ? `<span class="badge-status rejected">FAILED</span>` : `<span class="badge-status" style="background: rgba(148,163,184,0.1); color: #94a3b8; border: 1px solid rgba(148,163,184,0.3);">UNTESTED</span>`);
+
+        const catBadge = tc.category === 'security'
+          ? `<span style="background: rgba(239,68,68,0.1); color: #f87171; border: 1px solid rgba(239,68,68,0.3); padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: 700;">SECURITY</span>`
+          : (tc.category === 'negative'
+            ? `<span style="background: rgba(251,191,36,0.1); color: #fbbf24; border: 1px solid rgba(251,191,36,0.3); padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: 700;">NEGATIVE</span>`
+            : `<span style="background: rgba(52,211,153,0.1); color: #34d399; border: 1px solid rgba(52,211,153,0.3); padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: 700;">POSITIVE</span>`);
+
+        let latencyPill = '<span style="color: var(--text-dim);">-</span>';
+        if (tc.last_latency_ms !== null && tc.last_latency_ms !== undefined) {
+          const latColor = tc.last_latency_ms < 300 ? '#34d399' : (tc.last_latency_ms < 800 ? '#fbbf24' : '#f87171');
+          latencyPill = `<span style="font-family: 'JetBrains Mono'; font-weight: 600; color: ${latColor};">${tc.last_latency_ms}ms</span>`;
+        }
+
+        const actualStatusText = tc.last_status_code
+          ? `<span style="font-family: 'JetBrains Mono'; font-weight: 600; color: ${tc.last_status_code === tc.expected_status ? '#34d399' : '#f87171'};">${tc.last_status_code}</span>`
+          : `<span style="color: var(--text-dim);">-</span>`;
+
+        return `
+          <tr>
+            <td>
+              <span style="font-family: 'JetBrains Mono'; font-weight: 800; font-size: 11px; padding: 2px 7px; border-radius: 4px; background: ${mColor}22; color: ${mColor}; border: 1px solid ${mColor}55;">
+                ${tc.method}
+              </span>
+            </td>
+            <td style="font-family: 'JetBrains Mono'; font-size: 12px; font-weight: 500; color: #e2e8f0;">
+              ${escapeHtml(tc.path)}
+            </td>
+            <td>
+              <div style="display: flex; flex-direction: column; gap: 4px;">
+                <span style="font-weight: 600; font-size: 12px;">${escapeHtml(tc.name)}</span>
+                <div>${catBadge}</div>
+              </div>
+            </td>
+            <td><span style="font-family: 'JetBrains Mono'; font-weight: 600; color: #a5b4fc;">${tc.expected_status}</span></td>
+            <td>${actualStatusText}</td>
+            <td>${latencyPill}</td>
+            <td>${statusBadge}</td>
+            <td>
+              <button class="btn btn-secondary" style="padding: 4px 9px; font-size: 11px;" onclick="openApiPayloadModal('${tc.id}')">
+                🔍 Details & cURL
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function updateApiMetricsDisplay(run) {
+      if (!run) return;
+      document.getElementById('apiMetricsCard').style.display = 'block';
+      document.getElementById('apiRunIdVal').textContent = run.id;
+      document.getElementById('apiTargetUrlVal').textContent = run.target_base_url || 'Target Endpoint';
+      document.getElementById('apiPassPctVal').textContent = `${run.pass_rate || 0}%`;
+      document.getElementById('apiPassedVal').textContent = run.passed_tests || 0;
+      document.getElementById('apiFailedVal').textContent = run.failed_tests || 0;
+      document.getElementById('apiAvgLatencyVal').textContent = `${run.avg_latency_ms || 0}ms`;
+    }
+
+    async function importLocalOpenApiSpec() {
+      const defaultUrl = window.location.origin + "/openapi.json";
+      const specUrl = prompt("Enter OpenAPI / Swagger Spec URL or Path (e.g. /openapi.json):", defaultUrl);
+      if (!specUrl) return;
+
+      try {
+        const res = await fetch(`/projects/${currentProjectId}/api/import-spec`, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ spec_url: specUrl })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          alert(`✅ OpenAPI Ingestion Successful!\n\nImported ${data.endpoints_discovered} endpoints.\nGenerated ${data.tests_created} automated test scenarios (Positive, Negative, Security).`);
+          await loadApiTestCases();
+        } else {
+          const err = await res.text();
+          alert(`❌ Import Failed: ${err}`);
+        }
+      } catch (e) {
+        alert("Failed to import OpenAPI spec: " + e);
+      }
+    }
+
+    async function runLiveApiSuite() {
+      const targetBase = document.getElementById('apiTargetBaseUrl').value.trim() || window.location.origin;
+      const runBtn = document.getElementById('runApiSuiteBtn');
+      runBtn.disabled = true;
+      runBtn.textContent = '⏳ Testing live endpoints...';
+
+      try {
+        const res = await fetch(`/projects/${currentProjectId}/api/execute`, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ base_url: targetBase })
+        });
+
+        if (res.ok) {
+          const run = await res.json();
+          updateApiMetricsDisplay(run);
+          await loadApiTestCases();
+        } else {
+          const err = await res.text();
+          alert(`API Run Failed: ${err}`);
+        }
+      } catch (e) {
+        alert("Live API Suite execution error: " + e);
+      } finally {
+        runBtn.disabled = false;
+        runBtn.textContent = '▶️ Run Live API Suite';
+      }
+    }
+
+    function exportPostmanCollection() {
+      window.open(`/projects/${currentProjectId}/api/export/postman`, '_blank');
+    }
+
+    function openApiPayloadModal(caseId) {
+      const tc = apiTestCases.find(x => x.id === caseId);
+      if (!tc) return;
+
+      document.getElementById('apiPayloadModalTitle').textContent = `${tc.method} ${tc.path} - Telemetry & Assertions`;
+      
+      const reqHeaders = JSON.stringify(tc.headers || {}, null, 2);
+      const reqBody = tc.request_body ? (typeof tc.request_body === 'string' ? tc.request_body : JSON.stringify(tc.request_body, null, 2)) : '(None)';
+      const respBody = tc.last_response_body ? (typeof tc.last_response_body === 'string' ? tc.last_response_body : JSON.stringify(tc.last_response_body, null, 2)) : '(No response recorded)';
+
+      // Auto-construct cURL command
+      let curlCmd = `curl -X ${tc.method} "${document.getElementById('apiTargetBaseUrl').value.trim() || 'http://localhost:8000'}${tc.path}"`;
+      if (tc.headers) {
+        Object.entries(tc.headers).forEach(([k, v]) => {
+          curlCmd += ` \\\n  -H "${k}: ${v}"`;
+        });
+      }
+      if (tc.request_body && Object.keys(tc.request_body).length > 0) {
+        curlCmd += ` \\\n  -d '${JSON.stringify(tc.request_body)}'`;
+      }
+
+      document.getElementById('apiPayloadModalContent').innerHTML = `
+        <div style="display: flex; flex-direction: column; gap: 14px; font-size: 12px;">
+          <div style="background: rgba(0,0,0,0.25); padding: 12px; border-radius: 8px; border: 1px solid var(--card-border);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <span style="font-weight: 700; color: #38bdf8;">📋 One-Click cURL Reproduction</span>
+              <button class="btn btn-secondary" style="padding: 2px 8px; font-size: 11px;" onclick="navigator.clipboard.writeText(\`${curlCmd.replace(/`/g, '\\`')}\`); alert('cURL copied to clipboard!');">📋 Copy</button>
+            </div>
+            <pre style="background: transparent; color: #a5b4fc; font-family: 'JetBrains Mono'; font-size: 11px; white-space: pre-wrap; margin: 0;">${escapeHtml(curlCmd)}</pre>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div>
+              <h5 style="color: var(--text-muted); font-size: 11px; margin-bottom: 6px;">REQUEST HEADERS</h5>
+              <pre class="code-view" style="font-size: 11px; max-height: 160px; overflow-y: auto;">${escapeHtml(reqHeaders)}</pre>
+            </div>
+            <div>
+              <h5 style="color: var(--text-muted); font-size: 11px; margin-bottom: 6px;">REQUEST BODY</h5>
+              <pre class="code-view" style="font-size: 11px; max-height: 160px; overflow-y: auto;">${escapeHtml(reqBody)}</pre>
+            </div>
+          </div>
+
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <h5 style="color: var(--text-muted); font-size: 11px; margin: 0;">ACTUAL SERVER RESPONSE BODY</h5>
+              <div style="font-size: 11px;">
+                Status: <span style="font-family: 'JetBrains Mono'; font-weight: 700; color: ${tc.last_status_code === tc.expected_status ? '#34d399' : '#f87171'};">${tc.last_status_code || 'N/A'}</span>
+                | Latency: <span style="font-family: 'JetBrains Mono'; color: #60a5fa;">${tc.last_latency_ms !== null ? tc.last_latency_ms + 'ms' : 'N/A'}</span>
+              </div>
+            </div>
+            <pre class="code-view" style="font-size: 11px; max-height: 220px; overflow-y: auto;">${escapeHtml(respBody)}</pre>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('apiPayloadModal').classList.add('active');
+    }
+
+    function closeApiPayloadModal() {
+      document.getElementById('apiPayloadModal').classList.remove('active');
+    }
+
+    // ── 6. AI QA Copilot Sidecar Chat ────────────────────────
+    async function sendQuickPrompt(promptText) {
+      document.getElementById('copilotInput').value = promptText;
+      await sendCopilotMessage();
+    }
+
+    async function sendCopilotMessage() {
+      const input = document.getElementById('copilotInput');
+      const text = input.value.trim();
+      if (!text) return;
+      input.value = '';
+
+      const chatBody = document.getElementById('copilotChatBody');
+      chatBody.innerHTML += `<div class="chat-bubble user">${escapeHtml(text)}</div>`;
+      chatBody.scrollTop = chatBody.scrollHeight;
+
+      // Loading bubble
+      const loadingId = 'loading-' + Date.now();
+      chatBody.innerHTML += `<div id="${loadingId}" class="chat-bubble ai"><span>🤖 Analyzing QA requirements & RAG context...</span></div>`;
+      chatBody.scrollTop = chatBody.scrollHeight;
+
+      try {
+        let res = await fetch(`/rag/projects/${currentProjectId}/chat`, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ message: text })
+        });
+
+        if (!res.ok) {
+          res = await fetch(`/projects/${currentProjectId}/copilot/chat`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ prompt: text })
+          });
+        }
+
+        const loadingEl = document.getElementById(loadingId);
+        if (res.ok) {
+          const data = await res.json();
+          let html = `<div>${formatMarkdown(data.reply)}</div>`;
+
+          if (data.action_taken === 'test_case_added') {
+            await loadTestCases();
+          }
+
+          if (data.suggested_test_cases && data.suggested_test_cases.length > 0) {
+            html += `<div style="margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--card-border);">`;
+            data.suggested_test_cases.forEach((tc) => {
+              const tcJson = JSON.stringify(tc).replace(/"/g, '&quot;');
+              html += `
+                <div style="background: rgba(0,0,0,0.3); padding: 8px; border-radius: 6px; margin-top: 6px;">
+                  <div style="font-weight: 600; color: #93c5fd;">${escapeHtml(tc.title)}</div>
+                  <div style="font-size: 11px; color: var(--text-dim); margin-top: 2px;">Expected: ${escapeHtml(tc.expected_result)}</div>
+                  <button class="btn btn-success" style="padding: 3px 8px; font-size: 11px; margin-top: 6px;"
+                    onclick="insertTestCaseFromCopilot(${tcJson})">
+                    + Add to Test Suite
+                  </button>
+                </div>
+              `;
+            });
+            html += `</div>`;
+          }
+          if (loadingEl) loadingEl.innerHTML = html;
+        } else {
+          if (loadingEl) loadingEl.innerHTML = `<span style="color: var(--danger);">Copilot request failed: ${await res.text()}</span>`;
+        }
+      } catch (err) {
+        const loadingEl = document.getElementById(loadingId);
+        if (loadingEl) loadingEl.innerHTML = `<span style="color: var(--danger);">Error: ${err}</span>`;
+      }
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    async function insertTestCaseFromCopilot(tcObj) {
+      try {
+        const res = await fetch(`/projects/${currentProjectId}/test-cases`, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(tcObj)
+        });
+        if (res.ok) {
+          await loadTestCases();
+          alert("Test Case added directly to your Test Studio suite!");
+          switchTab('studio');
+        }
+      } catch (e) {
+        alert("Error adding test case: " + e);
+      }
+    }
+
+    // ── 7B. Record & Playback Studio Functions ────────────────
+    let activeCodegenSessionId = null;
+
+    function addRecordedStepRow() {
+      const tbody = document.getElementById('recStepsTableBody');
+      const stepNum = tbody.children.length + 1;
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td style="font-family: 'JetBrains Mono'; font-weight: 700; color: var(--text-muted);">${stepNum}</td>
+        <td>
+          <select class="project-picker rec-action-type" style="width: 100%; font-size: 11px; padding: 4px;">
+            <option value="CLICK">CLICK</option>
+            <option value="FILL">FILL INPUT</option>
+            <option value="NAVIGATE">NAVIGATE</option>
+            <option value="ASSERT_VISIBLE">ASSERT VISIBLE</option>
+            <option value="ASSERT_TEXT">ASSERT TEXT</option>
+            <option value="SCREENSHOT">SCREENSHOT</option>
+          </select>
+        </td>
+        <td><input type="text" class="rec-selector" placeholder="Target URL or Selector" style="width: 100%; background: rgba(0,0,0,0.3); border: 1px solid var(--card-border); color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 11px;"></td>
+        <td><input type="text" class="rec-value" placeholder="Payload value" style="width: 100%; background: rgba(0,0,0,0.3); border: 1px solid var(--card-border); color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 11px;"></td>
+        <td style="text-align: center;"><button class="btn btn-danger" style="padding: 2px 6px; font-size: 10px;" onclick="removeStepRow(this)">✕</button></td>
+      `;
+      tbody.appendChild(tr);
+    }
+
+    function removeStepRow(btn) {
+      const tbody = document.getElementById('recStepsTableBody');
+      if (tbody.children.length <= 1) {
+        alert("Must have at least one step in the sequence.");
+        return;
+      }
+      btn.closest('tr').remove();
+      Array.from(tbody.children).forEach((tr, idx) => {
+        tr.children[0].textContent = idx + 1;
+      });
+    }
+
+    function getRecordedActionsFromUI() {
+      const rows = document.querySelectorAll('#recStepsTableBody tr');
+      const actions = [];
+      rows.forEach(tr => {
+        const type = tr.querySelector('.rec-action-type').value;
+        const selector = tr.querySelector('.rec-selector').value.trim();
+        const val = tr.querySelector('.rec-value').value.trim();
+        actions.push({ type: type, selector: selector, value: val });
+      });
+      return actions;
+    }
+
+    async function runPlaybackExecution() {
+      const targetUrl = document.getElementById('recTargetUrl').value.trim() || 'http://127.0.0.1:8000/review';
+      const actions = getRecordedActionsFromUI();
+
+      const pill = document.getElementById('playbackStatusPill');
+      pill.className = 'badge-status draft';
+      pill.textContent = 'RUNNING';
+
+      const timelineBox = document.getElementById('playbackTimelineContainer');
+      timelineBox.innerHTML = `<div style="text-align: center; color: #38bdf8; font-size: 11px; padding: 20px;">⚡ Launching Playwright Chromium Headless Engine...</div>`;
+
+      try {
+        const res = await fetch('/recorder/playback', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            target_url: targetUrl,
+            actions: actions,
+            project_id: currentProjectId
+          })
+        });
+
+        if (!res.ok) throw new Error(await res.text());
+        const data = await res.json();
+
+        // Update KPIs
+        document.getElementById('pbStepsCount').textContent = data.total_steps;
+        document.getElementById('pbDuration').textContent = `${data.duration_ms} ms`;
+        document.getElementById('pbHealedCount').textContent = data.healed_count;
+
+        pill.className = `badge-status ${data.status.toLowerCase()}`;
+        pill.textContent = data.status;
+
+        // Render waterfall
+        timelineBox.innerHTML = data.timeline.map(s => {
+          const isHealed = s.status === 'HEALED';
+          const isPassed = s.status === 'PASSED';
+          const color = isHealed ? '#34d399' : (isPassed ? '#38bdf8' : '#f87171');
+          return `
+            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); border-left: 3px solid ${color}; padding: 6px 10px; border-radius: 4px; font-size: 11px;">
+              <div style="display: flex; justify-content: space-between; font-weight: 600;">
+                <span style="color: ${color};">${s.step_num}. ${s.action} &rarr; ${escapeHtml(s.target)}</span>
+                <span style="color: var(--text-dim);">${s.duration_ms}ms (${s.confidence})</span>
+              </div>
+              <div style="color: var(--text-muted); font-size: 10px; margin-top: 2px;">${escapeHtml(s.detail)}</div>
+            </div>
+          `;
+        }).join('');
+
+        // Screenshot
+        if (data.screenshot_url) {
+          document.getElementById('pbScreenshotPreview').style.display = 'block';
+          document.getElementById('pbScreenshotImg').src = data.screenshot_url + '?t=' + Date.now();
+        }
+
+      } catch (err) {
+        pill.className = 'badge-status rejected';
+        pill.textContent = 'FAILED';
+        timelineBox.innerHTML = `<div style="color: var(--danger); font-size: 11px; padding: 12px;">Playback error: ${err}</div>`;
+      }
+    }
+
+    async function saveRecordedTestCase() {
+      const title = document.getElementById('recTestTitle').value.trim() || 'Recorded Flow';
+      const targetUrl = document.getElementById('recTargetUrl').value.trim() || 'http://127.0.0.1:8000/review';
+      const actions = getRecordedActionsFromUI();
+
+      try {
+        const res = await fetch(`/recorder/projects/${currentProjectId}/save`, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            title: title,
+            target_url: targetUrl,
+            actions: actions
+          })
+        });
+
+        if (res.ok) {
+          const out = await res.json();
+          alert(`Test Case saved to Project Suite: ${out.test_case.id}`);
+          await loadTestCases();
+          updateDashboardMetrics();
+          switchTab('studio');
+        } else {
+          alert("Failed to save: " + await res.text());
+        }
+      } catch (e) {
+        alert("Save error: " + e);
+      }
+    }
+
+    async function launchLiveCodegen() {
+      const targetUrl = document.getElementById('recTargetUrl').value.trim() || 'http://127.0.0.1:8000/review';
+      try {
+        const res = await fetch('/recorder/launch-codegen', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ target_url: targetUrl })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          activeCodegenSessionId = data.session_id;
+          document.getElementById('codegenStatusBanner').style.display = 'flex';
+          document.getElementById('btnLaunchCodegen').style.display = 'none';
+          document.getElementById('btnStopCodegen').style.display = 'inline-block';
+        } else {
+          alert("Error launching recorder: " + await res.text());
+        }
+      } catch (e) {
+        alert("Launch error: " + e);
+      }
+    }
+
+    async function stopLiveCodegen() {
+      if (!activeCodegenSessionId) return;
+      try {
+        const res = await fetch('/recorder/stop-codegen', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            session_id: activeCodegenSessionId,
+            project_id: currentProjectId
+          })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          alert(data.message || "Recorded session imported!");
+          document.getElementById('codegenStatusBanner').style.display = 'none';
+          document.getElementById('btnLaunchCodegen').style.display = 'inline-block';
+          document.getElementById('btnStopCodegen').style.display = 'none';
+          activeCodegenSessionId = null;
+
+          if (data.code) {
+            document.getElementById('rawScriptInput').value = data.code;
+          }
+          await loadTestCases();
+          updateDashboardMetrics();
+          switchTab('studio');
+        } else {
+          alert("Error stopping recorder: " + await res.text());
+        }
+      } catch (e) {
+        alert("Stop error: " + e);
+      }
+    }
+
+    async function importRawScript() {
+      const code = document.getElementById('rawScriptInput').value.trim();
+      const title = document.getElementById('recTestTitle').value.trim() || 'Imported Playwright Script';
+      const targetUrl = document.getElementById('recTargetUrl').value.trim() || 'http://127.0.0.1:8000/review';
+
+      if (!code) {
+        alert("Please paste Playwright Python script code first.");
+        return;
+      }
+
+      try {
+        const res = await fetch(`/recorder/projects/${currentProjectId}/import-script`, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            title: title,
+            target_url: targetUrl,
+            script_code: code
+          })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          alert(`Imported Test Case ${data.test_case.id} into suite!`);
+          await loadTestCases();
+          updateDashboardMetrics();
+          switchTab('studio');
+        } else {
+          alert("Import error: " + await res.text());
+        }
+      } catch (e) {
+        alert("Import error: " + e);
+      }
+    }
+
+    // ── Helper Utilities ─────────────────────────────────────
+    function updateDashboardMetrics() {
+      document.getElementById('mReqCount').textContent = requirements.length;
+      document.getElementById('mTcCount').textContent = testCases.length;
+      const approved = testCases.filter(t => t.status === 'approved').length;
+      document.getElementById('mApprovedCount').textContent = approved;
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function formatMarkdown(text) {
+      if (!text) return '';
+      return text
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+        .replace(/`(.*?)`/g, '<code style="background: rgba(0,0,0,0.3); padding: 2px 4px; border-radius: 4px; font-family: monospace;">$1</code>')
+        .replace(/\n/g, '<br>');
+    }
+  </script>
+</body>
+</html>

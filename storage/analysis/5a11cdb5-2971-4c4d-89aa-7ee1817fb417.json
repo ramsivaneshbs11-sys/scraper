@@ -1,0 +1,29 @@
+{
+  "document_id": "5a11cdb5-2971-4c4d-89aa-7ee1817fb417",
+  "project_id": "p1",
+  "filename": "syllabus_spec.txt",
+  "total_chunks_analyzed": 1,
+  "requirements_count": 2,
+  "ambiguities_count": 0,
+  "requirements": [
+    {
+      "id": "574e75e9-a032-41d5-a6e9-170ee38a7ee7",
+      "text": "User must be able to ask syllabus questions.",
+      "confidence": 0.95,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "2f5378ee-9e12-4e27-904c-49ca2b0e3c93"
+      ]
+    },
+    {
+      "id": "a5072b10-4bb0-4249-bd59-1ab71ff7fbfb",
+      "text": "Answers must cite official UPSC sources.",
+      "confidence": 0.95,
+      "status": "proposed",
+      "linked_chunk_ids": [
+        "2f5378ee-9e12-4e27-904c-49ca2b0e3c93"
+      ]
+    }
+  ],
+  "ambiguities": []
+}

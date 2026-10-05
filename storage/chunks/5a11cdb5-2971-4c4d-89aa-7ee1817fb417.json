@@ -1,0 +1,21 @@
+{
+  "document_id": "5a11cdb5-2971-4c4d-89aa-7ee1817fb417",
+  "filename": "syllabus_spec.txt",
+  "file_type": "txt",
+  "total_chunks": 1,
+  "chunks": [
+    {
+      "chunk_id": "2f5378ee-9e12-4e27-904c-49ca2b0e3c93",
+      "project_id": "p1",
+      "document_id": "5a11cdb5-2971-4c4d-89aa-7ee1817fb417",
+      "chunk_type": "requirement_doc",
+      "source_section": "Paragraph 1",
+      "source_page": null,
+      "source_line_start": null,
+      "source_line_end": null,
+      "text_length": 119,
+      "text": "# UPSC Chatbot Requirements\n1. User must be able to ask syllabus questions.\n2. Answers must cite official UPSC sources.",
+      "embedding_status": false
+    }
+  ]
+}
